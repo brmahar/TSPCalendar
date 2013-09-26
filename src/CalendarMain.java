@@ -7,7 +7,7 @@
  * @author Austin Browne
  * 
  */
-public class Main {
+public class CalendarMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
