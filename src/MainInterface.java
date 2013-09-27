@@ -36,6 +36,16 @@ public class MainInterface extends JFrame{
 		viewEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+<<<<<<< HEAD
+=======
+
+
+				StoreData pullViewData = new StoreData();
+				pullViewData.setName(viewName.getText());
+				SendToDB storeDB = new SendToDB();
+				storeDB.runStore(pullViewData, 1);
+
+>>>>>>> 603a6d70b7db963af4cf17fd105d6aaa2e4c3c11
 				ViewEvent view = new ViewEvent();
 				view.setVisible(true);
 			}

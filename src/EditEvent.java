@@ -37,7 +37,7 @@ public class EditEvent extends JFrame {
 				storeData.setETime(getEndDate());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
-				storeDB.runStore(storeData);
+				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
 			}
 		});
