@@ -1,3 +1,10 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.*;
+
+
 /**
  * Calendar
  * 
@@ -7,11 +14,35 @@
  * @author Austin Browne
  * 
  */
-public class CalendarMain {
+public class CalendarMain extends JFrame {
+	
+	private JTextField addName = new JTextField(10);
+	private JButton addEvent = new JButton("Add Event");
+	private JTextField editName = new JTextField(10);
+	private JButton editEvent = new JButton("Edit Event");
+	private JTextField deleteName = new JTextField(10);
+	private JButton deleteEvent = new JButton("Delete Event");
+	
+	CalendarMain(){
+		JPanel eventPanel = new JPanel();
+		this.add(eventPanel);
+		this.setSize(600,600);
+		
+		eventPanel.add(addName);
+		eventPanel.add(addEvent);
+		eventPanel.add(editName);
+		eventPanel.add(editEvent);
+		eventPanel.add(deleteName);
+		eventPanel.add(deleteEvent);
+		
+		this.setVisible(true);
+		
+	}
+	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		CalendarMain theCal = new CalendarMain();
+		theCal.setVisible(true);
 	}
 
 }
