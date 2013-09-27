@@ -23,6 +23,7 @@ public class AddData extends JFrame {
 	private JLabel locationL = new JLabel("Location");
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
+	private JFrame thisThing = this;
 	
 	AddData(StoreData data){
 		final StoreData storeData = data;
@@ -37,6 +38,7 @@ public class AddData extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(storeData);
+				thisThing.dispose();
 			}
 		});
 		

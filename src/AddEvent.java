@@ -18,6 +18,8 @@ public class AddEvent extends JFrame{
 	private JButton editEvent = new JButton("Edit Event");
 	private JTextField deleteName = new JTextField(10);
 	private JButton deleteEvent = new JButton("Delete Event");
+	private JTextField viewName = new JTextField(10);
+	private JButton viewEvent = new JButton("View Event");
 
 	AddEvent(){
 
@@ -28,6 +30,14 @@ public class AddEvent extends JFrame{
 				storeName.setName(addName.getText());
 				AddData add = new AddData(storeName);
 				add.setVisible(true);
+			}
+		});
+		
+		viewEvent.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				ViewEvent view = new ViewEvent();
+				view.setVisible(true);
 			}
 		});
 
@@ -53,6 +63,12 @@ public class AddEvent extends JFrame{
 		s.gridx = 0;
 		s.gridy = 5;
 		eventPanel.add(deleteEvent, s);
+		s.gridx = 0;
+		s.gridy = 7;
+		eventPanel.add(viewName, s);
+		s.gridx = 0;
+		s.gridy = 8;
+		eventPanel.add(viewEvent, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
