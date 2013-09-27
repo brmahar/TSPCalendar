@@ -14,6 +14,7 @@ import javax.swing.*;
  * @author Austin Browne
  * 
  */
+@SuppressWarnings("serial")
 public class CalendarMain extends JFrame {
 	
 	private JTextField addName = new JTextField(10);
@@ -26,7 +27,7 @@ public class CalendarMain extends JFrame {
 	CalendarMain(){
 		JPanel eventPanel = new JPanel();
 		this.add(eventPanel);
-		this.setSize(600,600);
+		this.setSize(175,250);
 		
 		eventPanel.add(addName);
 		eventPanel.add(addEvent);
@@ -36,6 +37,7 @@ public class CalendarMain extends JFrame {
 		eventPanel.add(deleteEvent);
 		
 		this.setVisible(true);
+		this.setResizable(false);
 		
 	}
 	
