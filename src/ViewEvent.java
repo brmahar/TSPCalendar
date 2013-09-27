@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
@@ -23,7 +24,9 @@ public class ViewEvent extends JFrame {
 	private JFrame thisThing = this;
 	
 	ViewEvent(StoreData viewData){
-		nameL = new JLabel("Title: " + viewData.getName());
+		JLabel combine = new JLabel("Title: " + viewData.getName());
+		combine.setFont(new Font("Serif", Font.PLAIN, 22));
+		nameL = combine;
 		dateL = new JLabel("Date: " + viewData.getDate());
 		fromL = new JLabel("Starting Time: "+ viewData.getSTime());
 		toL = new JLabel("Ending Time: "+ viewData.getETime());
