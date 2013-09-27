@@ -53,7 +53,8 @@ public class AddEvent extends JFrame{
 		s.gridx = 0;
 		s.gridy = 5;
 		eventPanel.add(deleteEvent, s);
-
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
 		this.setSize(300,400);		
 		this.setVisible(true);

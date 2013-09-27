@@ -78,6 +78,7 @@ public class AddData extends JFrame {
 		s.gridy = 10;
 		eventPanel.add(submit, s);
 		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
 		this.setSize(300,400);
 		this.setVisible(true);
