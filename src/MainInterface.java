@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -5,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -12,6 +14,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class MainInterface extends JFrame{
 
+	private JLabel title = new JLabel("Event Panel");
 	private JTextField addName = new JTextField(10);
 	private JButton addEvent = new JButton("Add Event");
 	private JTextField editName = new JTextField(10);
@@ -47,28 +50,31 @@ public class MainInterface extends JFrame{
 				view.setVisible(true);
 			}
 		});
-
+		title.setFont(new Font("Serif", Font.PLAIN, 22));
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
 		s.anchor = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;
-		eventPanel.add(addName, s);
+		eventPanel.add(title, s);
 		s.gridx = 0;
 		s.gridy = 1;
-		eventPanel.add(addEvent, s);
+		eventPanel.add(addName, s);
 		s.gridx = 0;
 		s.gridy = 2;
-		eventPanel.add(editName, s);
+		eventPanel.add(addEvent, s);
 		s.gridx = 0;
 		s.gridy = 3;
-		eventPanel.add(editEvent, s);
+		eventPanel.add(editName, s);
 		s.gridx = 0;
 		s.gridy = 4;
-		eventPanel.add(deleteName, s);
+		eventPanel.add(editEvent, s);
 		s.gridx = 0;
 		s.gridy = 5;
+		eventPanel.add(deleteName, s);
+		s.gridx = 0;
+		s.gridy = 6;
 		eventPanel.add(deleteEvent, s);
 		s.gridx = 0;
 		s.gridy = 7;
