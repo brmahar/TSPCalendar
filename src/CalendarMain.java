@@ -1,8 +1,5 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 
 /**
@@ -41,7 +38,30 @@ public class CalendarMain extends JFrame {
 		
 	}
 	
-
+	public String getAddEvent(){
+		return addName.getText();
+	}
+	
+	public String getEditEvent(){
+		return editName.getText();
+	}
+	
+	public String getDeleteName(){
+		return deleteName.getText();
+	}
+	
+	void addAddListener(ActionListener listenForAdd){
+		addEvent.addActionListener(listenForAdd);
+	}
+	
+	void addEditListener(ActionListener listenForEdit){
+		editEvent.addActionListener(listenForEdit);
+	}
+	
+	void addDeleteListener(ActionListener listenForDelete){
+		deleteEvent.addActionListener(listenForDelete);
+	}
+	
 	public static void main(String[] args) {
 		CalendarMain theCal = new CalendarMain();
 		theCal.setVisible(true);
