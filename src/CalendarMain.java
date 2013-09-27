@@ -1,11 +1,8 @@
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.*;
-import java.awt.event.ActionListener;
+
 
 
 /**
