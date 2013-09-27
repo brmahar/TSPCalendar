@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class AddData extends JFrame {
 
-	private JLabel dateL = new JLabel("Date (dd-mm-yyyy)");
+	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
 	private JTextField date = new JTextField(15);
 	private JLabel fromL = new JLabel("Starting Time");
 	private JTextField from = new JTextField(15);
