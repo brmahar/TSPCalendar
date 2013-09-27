@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class AddData extends JFrame {
 
-	private JLabel dateL = new JLabel("Date (dd-mm-yyyy)");
+	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
 	private JTextField date = new JTextField(15);
 	private JLabel fromL = new JLabel("Starting Time");
 	private JTextField from = new JTextField(15);
@@ -23,6 +23,7 @@ public class AddData extends JFrame {
 	private JLabel locationL = new JLabel("Location");
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
+	private JFrame thisThing = this;
 	
 	AddData(StoreData data){
 		final StoreData storeData = data;
@@ -37,6 +38,7 @@ public class AddData extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(storeData);
+				thisThing.dispose();
 			}
 		});
 		
@@ -78,6 +80,7 @@ public class AddData extends JFrame {
 		s.gridy = 10;
 		eventPanel.add(submit, s);
 		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
 		this.setSize(300,400);
 		this.setVisible(true);
