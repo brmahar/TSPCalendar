@@ -100,10 +100,13 @@ public class SendToDB {
 				String description = rs.getString("Description");
 				String location = rs.getString("Location");
 				String date = rs.getString("Date");
+				String sTime = rs.getString("Start_Time");
+				String eTime = rs.getString("End_Time");
 				data.setDescription(description);
 				data.setLocation(location);
 				data.setDate(date);
-				System.out.println(date);
+				data.setSTime(sTime);
+				data.setETime(eTime);
 			}
 		} catch (SQLException e) {
 			System.out.println("Man you got problems now");

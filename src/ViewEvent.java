@@ -22,7 +22,13 @@ public class ViewEvent extends JFrame {
 	private JButton close = new JButton("Exit View");
 	private JFrame thisThing = this;
 	
-	ViewEvent(){
+	ViewEvent(StoreData viewData){
+		nameL = new JLabel("Title: " + viewData.getName());
+		dateL = new JLabel("Date: " + viewData.getDate());
+		fromL = new JLabel("Starting Time: "+ viewData.getSTime());
+		toL = new JLabel("Ending Time: "+ viewData.getETime());
+		descripL = new JLabel("Description: "+viewData.getDescription());
+		locationL = new JLabel("Location: "+viewData.getLocation());
 		close.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){

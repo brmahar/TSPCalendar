@@ -41,40 +41,12 @@ public class AddEvent extends JFrame {
 				storeData.setETime(getEndDate());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
 			}
 		});
 
 
-=======
-=======
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
-=======
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
-				storeDB.runStore(storeData);
-				thisThing.dispose();
-			}
-		});
-		
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
-=======
-				storeDB.runStore(storeData);
-				thisThing.dispose();
-			}
-		});
-		
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
-=======
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
-=======
->>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();

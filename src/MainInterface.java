@@ -43,7 +43,7 @@ public class MainInterface extends JFrame{
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(pullViewData, 1);
 
-				ViewEvent view = new ViewEvent();
+				ViewEvent view = new ViewEvent(pullViewData);
 				view.setVisible(true);
 			}
 		});
