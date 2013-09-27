@@ -1,3 +1,5 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,9 +20,6 @@ public class AddEvent extends JFrame{
 	private JButton deleteEvent = new JButton("Delete Event");
 
 	AddEvent(){
-		JPanel eventPanel = new JPanel();
-		this.add(eventPanel);
-		this.setSize(150,250);
 
 		addEvent.addActionListener(new ActionListener(){
 			@Override
@@ -29,13 +28,32 @@ public class AddEvent extends JFrame{
 				add.setVisible(true);
 			}
 		});
-		eventPanel.add(addName);
-		eventPanel.add(addEvent);
-		eventPanel.add(editName);
-		eventPanel.add(editEvent);
-		eventPanel.add(deleteName);
-		eventPanel.add(deleteEvent);
 
+		JPanel eventPanel = new JPanel();
+		eventPanel.setLayout(new GridBagLayout());
+		GridBagConstraints s = new GridBagConstraints();
+		s.anchor = GridBagConstraints.NORTH;
+		s.gridx = 0;
+		s.gridy = 0;
+		eventPanel.add(addName, s);
+		s.gridx = 0;
+		s.gridy = 1;
+		eventPanel.add(addEvent, s);
+		s.gridx = 0;
+		s.gridy = 2;
+		eventPanel.add(editName, s);
+		s.gridx = 0;
+		s.gridy = 3;
+		eventPanel.add(editEvent, s);
+		s.gridx = 0;
+		s.gridy = 4;
+		eventPanel.add(deleteName, s);
+		s.gridx = 0;
+		s.gridy = 5;
+		eventPanel.add(deleteEvent, s);
+
+		this.add(eventPanel);
+		this.setSize(300,400);		
 		this.setVisible(true);
 		this.setResizable(false);
 
@@ -65,7 +83,4 @@ public class AddEvent extends JFrame{
 		deleteEvent.addActionListener(listenForDelete);
 	}
 
-	public static void Main(String[] args){
-
-	}
 }
