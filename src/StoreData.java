@@ -7,6 +7,8 @@ public class StoreData {
 	private String date = null;
 	private String sTime = null;
 	private String eTime = null;
+	
+
 
 
 	public void setName(String theName){

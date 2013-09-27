@@ -13,7 +13,7 @@ import com.mysql.jdbc.PreparedStatement;
 public class SendToDB {
 	
 	
-	public void runStore(){
+	public void runStore(StoreData data){
 		
 
 		System.out.println("-------- MySQL JDBC Connection Testing ------------");
@@ -41,15 +41,15 @@ public class SendToDB {
 
 		if (connection != null) {
 			System.out.println("You made it, take control your database now!");
-			send(connection);
+			send(connection, data);
 		} else {
 			System.out.println("Failed to make connection!");
 		}
 	}
 	
-	public void send(Connection connection){
+	public void send(Connection connection, StoreData data){
 		PreparedStatement preStmt=null;
-		StoreData theData = new StoreData();
+		StoreData theData = data;
 		String name = theData.getName();
 		String local = theData.getLocation();
 		String date = theData.getDate();

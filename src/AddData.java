@@ -24,18 +24,19 @@ public class AddData extends JFrame {
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
 	
-	AddData(){
-		
+	AddData(StoreData data){
+		final StoreData storeData = data;
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				StoreData storeData;
+				
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
 				storeData.setSTime(getStartDate());
 				storeData.setETime(getEndDate());
+				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
-				storeDB.runStore();
+				storeDB.runStore(storeData);
 			}
 		});
 		

@@ -26,7 +26,7 @@ public class AddEvent extends JFrame{
 			public void actionPerformed(ActionEvent e){
 				StoreData storeName = new StoreData();
 				storeName.setName(addName.getText());
-				AddData add = new AddData();
+				AddData add = new AddData(storeName);
 				add.setVisible(true);
 			}
 		});

@@ -14,8 +14,8 @@ public class MasterController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			AddData deats = new AddData();
-			deats.setVisible(true);
+			//AddData deats = new AddData();
+			//deats.setVisible(true);
 			
 			
 		}
