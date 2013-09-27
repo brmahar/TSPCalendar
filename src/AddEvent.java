@@ -24,6 +24,8 @@ public class AddEvent extends JFrame{
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				StoreData storeName = new StoreData();
+				storeName.setName(addName.getText());
 				AddData add = new AddData();
 				add.setVisible(true);
 			}

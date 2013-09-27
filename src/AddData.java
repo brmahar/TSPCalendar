@@ -1,6 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -24,6 +25,20 @@ public class AddData extends JFrame {
 	private JButton submit = new JButton("Confirm Event");
 	
 	AddData(){
+		
+		submit.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				StoreData storeData;
+				storeData.setLocation(getLoca());
+				storeData.setDate(getDate());
+				storeData.setSTime(getStartDate());
+				storeData.setETime(getEndDate());
+				SendToDB storeDB = new SendToDB();
+				storeDB.runStore();
+			}
+		});
+		
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
