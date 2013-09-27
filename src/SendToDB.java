@@ -54,21 +54,19 @@ public class SendToDB {
 		String local = theData.getLocation();
 		String date = theData.getDate();
 		String description = theData.getDescription();
-		System.out.println(name);
-		System.out.println(local);
-		System.out.println(description);
+
 		
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
-					+ "Event(Name,Location,Description) VALUES(?,?,?)"); 
-		    //java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
-		    //java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+					+ "Event(Name,Location,Description,Date) VALUES(?,?,?,?)"); 
+		    java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(date);  
+		    java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 			preStmt.setString(1,name);
-			//preStmt.setDate(2,sqlDate);
+			preStmt.setDate(4,sqlDate);
 			preStmt.setString(2,local);
 			preStmt.setString(3,description);
 			preStmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (SQLException | ParseException e) {
 			System.out.println("Nothing was added lawllawllawl");
 			e.printStackTrace();
 		}
