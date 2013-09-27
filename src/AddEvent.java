@@ -41,12 +41,11 @@ public class AddEvent extends JFrame {
 				storeData.setETime(getEndDate());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
+
 				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
 			}
 		});
-
-
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
