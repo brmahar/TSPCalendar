@@ -26,7 +26,7 @@ public class CalendarMain extends JFrame {
 	
 	
 	public static void main(String[] args) {
-		AddEvent theCal = new AddEvent();
+		MainInterface theCal = new MainInterface();
 		theCal.setVisible(true);
 		
 	}
