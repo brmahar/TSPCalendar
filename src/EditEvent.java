@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AddData extends JFrame {
+public class EditEvent extends JFrame {
 
 	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
 	private JTextField date = new JTextField(15);
@@ -25,7 +25,7 @@ public class AddData extends JFrame {
 	private JButton submit = new JButton("Confirm Event");
 	private JFrame thisThing = this;
 	
-	AddData(StoreData data){
+	EditEvent(StoreData data){
 		final StoreData storeData = data;
 		submit.addActionListener(new ActionListener(){
 			@Override
@@ -37,7 +37,7 @@ public class AddData extends JFrame {
 				storeData.setETime(getEndDate());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
-				storeDB.runStore(storeData);
+				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
 			}
 		});

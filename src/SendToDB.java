@@ -1,6 +1,7 @@
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -12,10 +13,10 @@ import com.mysql.jdbc.PreparedStatement;
 
 
 public class SendToDB {
-	
-	
-	public void runStore(StoreData data){
-		
+
+
+	public void runStore(StoreData data, int bool){
+
 
 		System.out.println("------------ MySQL JDBC Connection Testing ------------");
 
@@ -42,7 +43,11 @@ public class SendToDB {
 
 		if (connection != null) {
 			System.out.println("Now Connected!");
-			send(connection, data);
+			if(bool == 1){
+				getData(connection,data);
+			}else{
+				send(connection, data);
+			}
 		} else {
 			System.out.println("Failed to make connection!");
 		}
@@ -53,7 +58,7 @@ public class SendToDB {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void send(Connection connection, StoreData data){
 		PreparedStatement preStmt=null;
 		StoreData theData = data;
@@ -64,14 +69,11 @@ public class SendToDB {
 		String theSTime = theData.getSTime();
 		String theETime = theData.getETime();
 
-		
-
-		
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
 					+ "Event(Name,Location,Description,Date, Start_Time, End_Time) VALUES(?,?,?,?,?,?)"); 
-		    java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(date);
-		    java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(date);
+			java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 			preStmt.setString(1,name);
 			preStmt.setDate(4,sqlDate);
 			preStmt.setString(2,local);
@@ -83,9 +85,32 @@ public class SendToDB {
 			System.out.println("Nothing was added lawllawllawl");
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
+
+	public void getData(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		StoreData theData = data;
+		String stmt = "SELECT * FROM Event WHERE Name= ?";
+		try {
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			preStmt.setString(1, data.getName());
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()){
+				String description = rs.getString("Description");
+				String location = rs.getString("Location");
+				String date = rs.getString("Date");
+				data.setDescription(description);
+				data.setLocation(location);
+				data.setDate(date);
+				System.out.println(date);
+			}
+		} catch (SQLException e) {
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

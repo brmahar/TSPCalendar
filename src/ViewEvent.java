@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 public class ViewEvent extends JFrame {
 
+	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
 	private JLabel dateL = new JLabel("Date: ");
 	private JLabel fromL = new JLabel("Starting Time: ");

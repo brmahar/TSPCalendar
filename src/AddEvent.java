@@ -1,105 +1,151 @@
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
-@SuppressWarnings("serial")
-public class AddEvent extends JFrame{
-
-	private JTextField addName = new JTextField(10);
-	private JButton addEvent = new JButton("Add Event");
-	private JTextField editName = new JTextField(10);
-	private JButton editEvent = new JButton("Edit Event");
-	private JTextField deleteName = new JTextField(10);
-	private JButton deleteEvent = new JButton("Delete Event");
-	private JTextField viewName = new JTextField(10);
-	private JButton viewEvent = new JButton("View Event");
-
-	AddEvent(){
-
-		addEvent.addActionListener(new ActionListener(){
+public class AddEvent extends JFrame {
+	
+	private JLabel title;
+	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
+	private JTextField date = new JTextField(15);
+	private JLabel fromL = new JLabel("Starting Time");
+	private JTextField from = new JTextField(15);
+	private JLabel toL = new JLabel("Ending Time");
+	private JTextField to = new JTextField(15);
+	private JLabel descripL = new JLabel("Description");
+	private JTextField descrip = new JTextField(15);
+	private JLabel locationL = new JLabel("Location");
+	private JTextField location = new JTextField(15);
+	private JButton submit = new JButton("Confirm Event");
+	private JFrame thisThing = this;
+	
+	AddEvent(StoreData data){
+		title = new JLabel("Adding Event: " + data.getName());
+		title.setFont(new Font("Serif", Font.PLAIN, 22));
+		final StoreData storeData = data;
+		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				StoreData storeName = new StoreData();
-				storeName.setName(addName.getText());
-				AddData add = new AddData(storeName);
-				add.setVisible(true);
+				
+				storeData.setLocation(getLoca());
+				storeData.setDate(getDate());
+				storeData.setSTime(getStartDate());
+				storeData.setETime(getEndDate());
+				storeData.setDescription(getDescription());
+				SendToDB storeDB = new SendToDB();
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+				storeDB.runStore(storeData, 0);
+				thisThing.dispose();
+			}
+		});
+
+
+=======
+=======
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
+=======
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
+				storeDB.runStore(storeData);
+				thisThing.dispose();
 			}
 		});
 		
-		viewEvent.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				ViewEvent view = new ViewEvent();
-				view.setVisible(true);
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
+=======
+				storeDB.runStore(storeData);
+				thisThing.dispose();
 			}
 		});
-
+		
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
+=======
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
+=======
+>>>>>>> 93cdbf411394094fb75675b88a141addfb95352d
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
 		s.anchor = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;
-		eventPanel.add(addName, s);
+		eventPanel.add(title, s);
 		s.gridx = 0;
 		s.gridy = 1;
-		eventPanel.add(addEvent, s);
+		eventPanel.add(dateL, s);
 		s.gridx = 0;
 		s.gridy = 2;
-		eventPanel.add(editName, s);
+		eventPanel.add(date, s);
 		s.gridx = 0;
 		s.gridy = 3;
-		eventPanel.add(editEvent, s);
+		eventPanel.add(fromL, s);
 		s.gridx = 0;
 		s.gridy = 4;
-		eventPanel.add(deleteName, s);
+		eventPanel.add(from, s);
 		s.gridx = 0;
 		s.gridy = 5;
-		eventPanel.add(deleteEvent, s);
+		eventPanel.add(toL, s);
+		s.gridx = 0;
+		s.gridy = 6;
+		eventPanel.add(to, s);
 		s.gridx = 0;
 		s.gridy = 7;
-		eventPanel.add(viewName, s);
+		eventPanel.add(descripL, s);
 		s.gridx = 0;
 		s.gridy = 8;
-		eventPanel.add(viewEvent, s);
+		eventPanel.add(descrip, s);
+		s.gridx = 0;
+		s.gridy = 9;
+		eventPanel.add(locationL, s);
+		s.gridx = 0;
+		s.gridy = 10;
+		eventPanel.add(location, s);
+		s.gridx = 0;
+		s.gridy = 11;
+		eventPanel.add(submit, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
-		this.setSize(300,400);		
+		this.setSize(300,400);
 		this.setVisible(true);
 		this.setResizable(false);
-
+		
 	}
-
-	public String getAddEvent(){
-		return addName.getText();
+	
+	public String getDate(){
+		return date.getText();
 	}
-
-	public String getEditEvent(){
-		return editName.getText();
+	
+	public String getStartDate(){
+		return from.getText();
 	}
-
-	public String getDeleteName(){
-		return deleteName.getText();
+	
+	public String getEndDate(){
+		return to.getText();
 	}
-
-	void addAddListener(ActionListener listenForAdd){
-		addEvent.addActionListener(listenForAdd);
+	
+	public String getDescription(){
+		return descrip.getText();
 	}
-
-	void addEditListener(ActionListener listenForEdit){
-		editEvent.addActionListener(listenForEdit);
+	
+	public String getLoca(){
+		return location.getText();
 	}
-
-	void addDeleteListener(ActionListener listenForDelete){
-		deleteEvent.addActionListener(listenForDelete);
+	
+	void addConfirmListener(ActionListener listenForConfirm){
+		submit.addActionListener(listenForConfirm);
 	}
-
+	
 }
