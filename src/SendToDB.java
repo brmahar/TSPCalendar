@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.util.UUID;
 
 import javax.swing.*;
 
@@ -69,14 +70,17 @@ public class SendToDB {
 		String description = theData.getDescription();
 		String theSTime = theData.getSTime();
 		String theETime = theData.getETime();
+		String theID = UUID.randomUUID().toString();
+		
 
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
-					+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time) VALUES(?,?,?,?,?,?,?)"); 
+					+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time, id) VALUES(?,?,?,?,?,?,?,?)"); 
 			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(startDate);
 			java.util.Date date2 = new SimpleDateFormat("MM-dd-yyyy").parse(endDate);
 			java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
 			java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
+			preStmt.setString(8, theID);
 			preStmt.setString(1,name);
 			preStmt.setDate(4,sqlEndDate);
 			preStmt.setDate(5, sqlDate);
