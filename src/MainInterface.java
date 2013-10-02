@@ -28,21 +28,6 @@ public class MainInterface extends JFrame{
 	private JFrame thisFrame = this;
 
 	MainInterface(){
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (ClassNotFoundException e) {
-
-		}
-		catch (InstantiationException e) {
-
-		}
-		catch (IllegalAccessException e) {
-
-		}
-		catch (UnsupportedLookAndFeelException e) {
-
-		}
 		
 		addEvent.addActionListener(new ActionListener(){
 			@Override

@@ -128,8 +128,12 @@ public class TheCalendar {
 		prev.setEnabled(true); 
 		next.setEnabled(true);
 
-		if (aMonth == 0 && aYear <= theYear-10){prev.setEnabled(false);} 
-		if (aMonth == 11 && aYear >= theYear+100){next.setEnabled(false);} 
+		if (aMonth == 0 && aYear <= theYear-10){
+			prev.setEnabled(false);
+		} 
+		if (aMonth == 11 && aYear >= theYear+100){
+			next.setEnabled(false);
+		} 
 		month.setText(months[aMonth]); 
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 360, 50); 
 		yearBox.setSelectedItem(String.valueOf(aYear)); 
