@@ -74,6 +74,9 @@ public class MainInterface extends JFrame{
 			public void actionPerformed(ActionEvent e){
 				StoreData storeName = new StoreData();
 				storeName.setName(deleteName.getText());
+				SendToDB deleteEvent = new SendToDB();
+				deleteEvent.runStore(storeName, 2);
+				
 				
 			}
 		});

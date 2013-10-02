@@ -43,14 +43,16 @@ public class SendToDB {
 		}
 
 		if (connection != null) {
-			System.out.println("Now Connected!");
+			System.out.println("Now Connected, so please stay and look around!");
 			if(bool == 1){
 				getData(connection,data);
+			}else if(bool == 2){
+				deleteEvent(connection, data);
 			}else{
 				send(connection, data);
 			}
 		} else {
-			System.out.println("Failed to make connection!");
+			System.out.println("Failed to make a connection!");
 		}
 		try {
 			connection.close();
@@ -99,6 +101,10 @@ public class SendToDB {
 	public void getData(Connection connection, StoreData data){
 		PreparedStatement preStmt=null;
 		StoreData theData = data;
+		SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
+		String formatSDate = null;
+		String formatEDate = null;
 		String stmt = "SELECT * FROM Event WHERE Name= ?";
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
@@ -109,12 +115,19 @@ public class SendToDB {
 				String location = rs.getString("Location");
 				String date = rs.getString("Start_Date");
 				String endDate = rs.getString("End_Date");
+				try {
+
+				    formatSDate = displayDate.format(dbDate.parse(date));
+				    formatEDate = displayDate.format(dbDate.parse(endDate));
+				} catch (ParseException e) {
+				    e.printStackTrace();
+				}
 				String sTime = rs.getString("Start_Time");
 				String eTime = rs.getString("End_Time");
 				data.setDescription(description);
 				data.setLocation(location);
-				data.setDate(date);
-				data.setEndDate(endDate);
+				data.setDate(formatSDate);
+				data.setEndDate(formatEDate);
 				data.setSTime(sTime);
 				data.setETime(eTime);
 			}
@@ -123,6 +136,19 @@ public class SendToDB {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void deleteEvent(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		String stmt = "DELETE FROM Event WHERE Name=?";
+		try{
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			preStmt.setString(1, data.getName());
+			preStmt.executeUpdate();
+		}catch(SQLException e){
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
 	}
 
 
