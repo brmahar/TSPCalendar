@@ -40,7 +40,6 @@ public class MainInterface extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e){
 
-
 				StoreData pullViewData = new StoreData();
 				pullViewData.setName(viewName.getText());
 				SendToDB storeDB = new SendToDB();
@@ -50,6 +49,29 @@ public class MainInterface extends JFrame{
 				view.setVisible(true);
 			}
 		});
+		
+		editEvent.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				StoreData storeName = new StoreData();
+				storeName.setName(editName.getText());
+				SendToDB editDB = new SendToDB();
+				editDB.runStore(storeName, 1);
+				
+				EditEvent edit = new EditEvent(storeName);
+				edit.setVisible(true);
+			}
+		});
+		
+		deleteEvent.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				StoreData storeName = new StoreData();
+				storeName.setName(deleteName.getText());
+				
+			}
+		});
+		
 		title.setFont(new Font("Serif", Font.PLAIN, 22));
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());

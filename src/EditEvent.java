@@ -27,6 +27,11 @@ public class EditEvent extends JFrame {
 	
 	EditEvent(StoreData data){
 		final StoreData storeData = data;
+		date.setText(storeData.getDate());
+		from.setText(storeData.getSTime());
+		to.setText(storeData.getETime());
+		descrip.setText(storeData.getDescription());
+		location.setText(storeData.getLocation());
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -41,7 +46,6 @@ public class EditEvent extends JFrame {
 				thisThing.dispose();
 			}
 		});
-		
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
