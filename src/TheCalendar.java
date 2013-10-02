@@ -135,6 +135,11 @@ public class TheCalendar {
 			int column = (i+som-2)%7;
 			calendarTable.setValueAt(i, row, column);
 		}
+		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setVerticalAlignment(JLabel.TOP);
+		for (int i = 0; i < 7; i++){
+			Calendar.getColumnModel().getColumn(i).setCellRenderer(render);
+		}
 	}
 
 	static class btnPrev_Action implements ActionListener{
