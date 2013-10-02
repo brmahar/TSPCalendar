@@ -25,15 +25,25 @@ public class TheCalendar {
 	static int theYear;
 	static int otherMonth;
 	static int otherYear;
-	
+
 	@SuppressWarnings("unchecked")
 	TheCalendar(){
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-		catch (ClassNotFoundException e) {}
-		catch (InstantiationException e) {}
-		catch (IllegalAccessException e) {}
-		catch (UnsupportedLookAndFeelException e) {}
-	
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (ClassNotFoundException e) {
+
+		}
+		catch (InstantiationException e) {
+
+		}
+		catch (IllegalAccessException e) {
+
+		}
+		catch (UnsupportedLookAndFeelException e) {
+
+		}
+
 		mainFrame = new JFrame("Calendar App");
 		month = new JLabel("January");
 		year = new JLabel("Change Year:");
@@ -83,7 +93,7 @@ public class TheCalendar {
 		theYear = gregCal.get(GregorianCalendar.YEAR);
 		otherMonth = theMonth;
 		otherYear = theYear;
-		
+
 		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		for (int i = 0; i < 7; i++){
 			calendarTable.addColumn(days[i]);
@@ -107,16 +117,17 @@ public class TheCalendar {
 		next.addActionListener(new nextMonth());
 		yearBox.addActionListener(new changeYear());
 
+		updateCalendar(theMonth, theYear);
 	}
 
 	public static void updateCalendar(int aMonth, int aYear){
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		int days;
 		int startOfMonth; 
-		
+
 		prev.setEnabled(true); 
 		next.setEnabled(true);
-		
+
 		if (aMonth == 0 && aYear <= theYear-10){prev.setEnabled(false);} 
 		if (aMonth == 11 && aYear >= theYear+100){next.setEnabled(false);} 
 		month.setText(months[aMonth]); 
@@ -138,10 +149,10 @@ public class TheCalendar {
 			int column = (i+startOfMonth-2)%7;
 			calendarTable.setValueAt(i, row, column);
 		}
-		
+
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 		render.setVerticalAlignment(JLabel.TOP);
-		
+
 		for (int i = 0; i < 7; i++){
 			Calendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
