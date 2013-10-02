@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 @SuppressWarnings("serial")
@@ -26,7 +28,22 @@ public class MainInterface extends JFrame{
 	private JFrame thisFrame = this;
 
 	MainInterface(){
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (ClassNotFoundException e) {
 
+		}
+		catch (InstantiationException e) {
+
+		}
+		catch (IllegalAccessException e) {
+
+		}
+		catch (UnsupportedLookAndFeelException e) {
+
+		}
+		
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){

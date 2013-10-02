@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 
 public class AddEvent extends JFrame {
 	
+	
+	
 	private JLabel title;
 	private JLabel startDateL = new JLabel("Start Date (mm-dd-yyyy)");
 	private JTextField startDate = new JTextField(15);
