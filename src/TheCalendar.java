@@ -103,17 +103,20 @@ public class TheCalendar {
 			yearBox.addItem(String.valueOf(i));
 		}
 
-		prev.addActionListener(new btnPrev_Action());
-		next.addActionListener(new btnNext_Action());
-		yearBox.addActionListener(new cmbYear_Action());
+		prev.addActionListener(new prevMonth());
+		next.addActionListener(new nextMonth());
+		yearBox.addActionListener(new changeYear());
 
 	}
 
-	public static void RefreshCalendar(int aMonth, int aYear){
+	public static void updateCalendar(int aMonth, int aYear){
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		int nod, som; 
+		int days;
+		int startOfMonth; 
+		
 		prev.setEnabled(true); 
 		next.setEnabled(true);
+		
 		if (aMonth == 0 && aYear <= theYear-10){prev.setEnabled(false);} 
 		if (aMonth == 11 && aYear >= theYear+100){next.setEnabled(false);} 
 		month.setText(months[aMonth]); 
@@ -121,8 +124,8 @@ public class TheCalendar {
 		yearBox.setSelectedItem(String.valueOf(aYear)); 
 
 		GregorianCalendar gregCal = new GregorianCalendar(aYear, aMonth, 1);
-		nod = gregCal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		som = gregCal.get(GregorianCalendar.DAY_OF_WEEK);
+		days = gregCal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+		startOfMonth = gregCal.get(GregorianCalendar.DAY_OF_WEEK);
 
 		for (int i = 0; i < 6; i++){
 			for (int j = 0; j < 7; j++){
@@ -130,50 +133,50 @@ public class TheCalendar {
 			}
 		}
 
-		for (int i = 1; i <= nod; i++){
-			int row = new Integer((i+som-2)/7);
-			int column = (i+som-2)%7;
+		for (int i = 1; i <= days; i++){
+			int row = new Integer((i+startOfMonth-2)/7);
+			int column = (i+startOfMonth-2)%7;
 			calendarTable.setValueAt(i, row, column);
 		}
 		
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 		render.setVerticalAlignment(JLabel.TOP);
+		
 		for (int i = 0; i < 7; i++){
 			Calendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
 	}
 
-	static class btnPrev_Action implements ActionListener{
+	static class prevMonth implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			//System.out.println("going back");
-			if (otherMonth == 0){ //Back one year
+			if (otherMonth == 0){ 
 				otherMonth = 11;
 				otherYear -= 1;
 			}
-			else{ //Back one month
+			else{ 
 				otherMonth -= 1;
 			}
-			RefreshCalendar(otherMonth, otherYear);
+			updateCalendar(otherMonth, otherYear);
 		}
 	}
-	static class btnNext_Action implements ActionListener{
+	static class nextMonth implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			if (otherMonth == 11){ //Foward one year
+			if (otherMonth == 11){ 
 				otherMonth = 0;
 				otherYear += 1;
 			}
-			else{ //Foward one month
+			else{ 
 				otherMonth += 1;
 			}
-			RefreshCalendar(otherMonth, otherYear);
+			updateCalendar(otherMonth, otherYear);
 		}
 	}
-	static class cmbYear_Action implements ActionListener{
+	static class changeYear implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			if (yearBox.getSelectedItem() != null){
 				String b = yearBox.getSelectedItem().toString();
 				otherYear = Integer.parseInt(b);
-				RefreshCalendar(otherMonth, otherYear);
+				updateCalendar(otherMonth, otherYear);
 			}
 		}
 	}
