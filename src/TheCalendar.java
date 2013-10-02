@@ -38,8 +38,8 @@ public class TheCalendar {
 		month = new JLabel("January");
 		year = new JLabel("Change Year:");
 		yearBox = new JComboBox();
-		prev = new JButton("<<");
-		next = new JButton(">>");
+		prev = new JButton("<-");
+		next = new JButton("->");
 		calendarTable = new DefaultTableModel();
 		Calendar = new JTable(calendarTable);
 		calendarScroll = new JScrollPane(Calendar);
@@ -97,7 +97,10 @@ public class TheCalendar {
 			yearBox.addItem(String.valueOf(i));
 		}
 
-		RefreshCalendar(theMonth, theYear);
+		prev.addActionListener(new btnPrev_Action());
+		next.addActionListener(new btnNext_Action());
+		yearBox.addActionListener(new cmbYear_Action());
+
 	}
 
 	public static void RefreshCalendar(int aMonth, int aYear){
@@ -130,6 +133,7 @@ public class TheCalendar {
 
 	static class btnPrev_Action implements ActionListener{
 		public void actionPerformed (ActionEvent e){
+			System.out.println("going back");
 			if (otherMonth == 0){ //Back one year
 				otherMonth = 11;
 				otherYear -= 1;
