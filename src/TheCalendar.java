@@ -151,7 +151,10 @@ public class TheCalendar {
 		for (int i = 1; i <= days; i++){
 			int row = new Integer((i+startOfMonth-2)/7);
 			int column = (i+startOfMonth-2)%7;
-			calendarTable.setValueAt(i, row, column);
+			String template = "<html>%s<br>Event<br>Event<html>";
+			String stringA = String.valueOf(i);
+			String put = String.format(template, stringA);
+			calendarTable.setValueAt(put, row, column);
 		}
 
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
