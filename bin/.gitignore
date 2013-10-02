@@ -20,3 +20,7 @@
 /.DS_Store
 /MainInterface$3.class
 /MainInterface$4.class
+/TheCalendar.class
+/TheCalendar$btnNext_Action.class
+/TheCalendar$btnPrev_Action.class
+/TheCalendar$cmbYear_Action.class
