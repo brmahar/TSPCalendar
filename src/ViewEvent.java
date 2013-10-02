@@ -24,7 +24,7 @@ public class ViewEvent extends JFrame {
 	private JButton close = new JButton("Exit View");
 	private JFrame thisThing = this;
 	
-	ViewEvent(StoreData viewData){
+	ViewEvent(StoreData viewData, final JFrame parent){
 		JLabel combine = new JLabel("Title: " + viewData.getName());
 		combine.setFont(new Font("Serif", Font.PLAIN, 22));
 		nameL = combine;
@@ -38,6 +38,7 @@ public class ViewEvent extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 		

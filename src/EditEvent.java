@@ -27,7 +27,7 @@ public class EditEvent extends JFrame {
 	private JButton submit = new JButton("Confirm Event");
 	private JFrame thisThing = this;
 	
-	EditEvent(StoreData data){
+	EditEvent(StoreData data, final JFrame parent){
 		final StoreData storeData = data;
 		startDate.setText(storeData.getDate());
 		endDate.setText(storeData.getEndDate());
@@ -47,6 +47,7 @@ public class EditEvent extends JFrame {
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 		JPanel eventPanel = new JPanel();

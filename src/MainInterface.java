@@ -23,15 +23,18 @@ public class MainInterface extends JFrame{
 	private JButton deleteEvent = new JButton("Delete Event");
 	private JTextField viewName = new JTextField(10);
 	private JButton viewEvent = new JButton("View Event");
+	private JFrame thisFrame = this;
 
 	MainInterface(){
 
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
 				StoreData storeName = new StoreData();
 				storeName.setName(addName.getText());
-				AddEvent add = new AddEvent(storeName);
+				addName.setText("");
+				AddEvent add = new AddEvent(storeName, thisFrame);
 				add.setVisible(true);
 			}
 		});
@@ -39,13 +42,13 @@ public class MainInterface extends JFrame{
 		viewEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-
+				thisFrame.setVisible(false);
 				StoreData pullViewData = new StoreData();
 				pullViewData.setName(viewName.getText());
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(pullViewData, 1);
-
-				ViewEvent view = new ViewEvent(pullViewData);
+				viewName.setText("");
+				ViewEvent view = new ViewEvent(pullViewData, thisFrame);
 				view.setVisible(true);
 			}
 		});
@@ -53,12 +56,13 @@ public class MainInterface extends JFrame{
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
 				StoreData storeName = new StoreData();
 				storeName.setName(editName.getText());
 				SendToDB editDB = new SendToDB();
 				editDB.runStore(storeName, 1);
-				
-				EditEvent edit = new EditEvent(storeName);
+				editName.setText("");
+				EditEvent edit = new EditEvent(storeName, thisFrame);
 				edit.setVisible(true);
 			}
 		});

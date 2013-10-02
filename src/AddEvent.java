@@ -29,7 +29,7 @@ public class AddEvent extends JFrame {
 	private JButton submit = new JButton("Confirm Event");
 	private JFrame thisThing = this;
 	
-	AddEvent(StoreData data){
+	AddEvent(StoreData data, final JFrame parent){
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 22));
 		final StoreData storeData = data;
@@ -47,6 +47,7 @@ public class AddEvent extends JFrame {
 
 				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 		JPanel eventPanel = new JPanel();
