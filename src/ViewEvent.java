@@ -15,7 +15,8 @@ public class ViewEvent extends JFrame {
 
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
-	private JLabel dateL = new JLabel("Date: ");
+	private JLabel dateL = new JLabel("Starting Date: ");
+	private JLabel endDateL = new JLabel("Ending Date: ");
 	private JLabel fromL = new JLabel("Starting Time: ");
 	private JLabel toL = new JLabel("Ending Time: ");
 	private JLabel descripL = new JLabel("Description: ");
@@ -27,7 +28,8 @@ public class ViewEvent extends JFrame {
 		JLabel combine = new JLabel("Title: " + viewData.getName());
 		combine.setFont(new Font("Serif", Font.PLAIN, 22));
 		nameL = combine;
-		dateL = new JLabel("Date: " + viewData.getDate());
+		dateL = new JLabel("Start Date: " + viewData.getDate());
+		endDateL = new JLabel("End Date: " + viewData.getEndDate());
 		fromL = new JLabel("Starting Time: "+ viewData.getSTime());
 		toL = new JLabel("Ending Time: "+ viewData.getETime());
 		descripL = new JLabel("Description: "+viewData.getDescription());
@@ -51,18 +53,21 @@ public class ViewEvent extends JFrame {
 		eventPanel.add(dateL, s);
 		s.gridx = 0;
 		s.gridy = 2;
-		eventPanel.add(fromL, s);
+		eventPanel.add(endDateL, s);
 		s.gridx = 0;
 		s.gridy = 3;
-		eventPanel.add(toL, s);
+		eventPanel.add(fromL, s);
 		s.gridx = 0;
 		s.gridy = 4;
-		eventPanel.add(descripL, s);
+		eventPanel.add(toL, s);
 		s.gridx = 0;
 		s.gridy = 5;
-		eventPanel.add(locationL, s);
+		eventPanel.add(descripL, s);
 		s.gridx = 0;
 		s.gridy = 6;
+		eventPanel.add(locationL, s);
+		s.gridx = 0;
+		s.gridy = 7;
 		eventPanel.add(close, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -64,22 +64,26 @@ public class SendToDB {
 		StoreData theData = data;
 		String name = theData.getName();
 		String local = theData.getLocation();
-		String date = theData.getDate();
+		String startDate = theData.getDate();
+		String endDate = theData.getEndDate();
 		String description = theData.getDescription();
 		String theSTime = theData.getSTime();
 		String theETime = theData.getETime();
 
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
-					+ "Event(Name,Location,Description,Date, Start_Time, End_Time) VALUES(?,?,?,?,?,?)"); 
-			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(date);
+					+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time) VALUES(?,?,?,?,?,?,?)"); 
+			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(startDate);
+			java.util.Date date2 = new SimpleDateFormat("MM-dd-yyyy").parse(endDate);
 			java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+			java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
 			preStmt.setString(1,name);
-			preStmt.setDate(4,sqlDate);
+			preStmt.setDate(4,sqlEndDate);
+			preStmt.setDate(5, sqlDate);
 			preStmt.setString(2,local);
 			preStmt.setString(3,description);
-			preStmt.setString(5, theSTime);
-			preStmt.setString(6, theETime);
+			preStmt.setString(6, theSTime);
+			preStmt.setString(7, theETime);
 			preStmt.executeUpdate();
 		} catch (SQLException | ParseException e) {
 			System.out.println("Nothing was added lawllawllawl");
@@ -99,12 +103,14 @@ public class SendToDB {
 			while(rs.next()){
 				String description = rs.getString("Description");
 				String location = rs.getString("Location");
-				String date = rs.getString("Date");
+				String date = rs.getString("Start_Date");
+				String endDate = rs.getString("End_Date");
 				String sTime = rs.getString("Start_Time");
 				String eTime = rs.getString("End_Time");
 				data.setDescription(description);
 				data.setLocation(location);
 				data.setDate(date);
+				data.setEndDate(endDate);
 				data.setSTime(sTime);
 				data.setETime(eTime);
 			}

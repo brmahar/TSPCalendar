@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class EditEvent extends JFrame {
 
-	private JLabel startDateL = new JLabel("Date (mm-dd-yyyy)");
+	private JLabel startDateL = new JLabel("Start Date (mm-dd-yyyy)");
 	private JTextField startDate = new JTextField(15);
 	private JLabel endDateL = new JLabel("End Date (mm-dd-yyyy)");
 	private JTextField endDate = new JTextField(15);
