@@ -25,7 +25,7 @@ public class TheCalendar {
 	static int theYear;
 	static int otherMonth;
 	static int otherYear;
-
+	
 	@SuppressWarnings("unchecked")
 	TheCalendar(){
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
@@ -33,7 +33,7 @@ public class TheCalendar {
 		catch (InstantiationException e) {}
 		catch (IllegalAccessException e) {}
 		catch (UnsupportedLookAndFeelException e) {}
-
+	
 		mainFrame = new JFrame("Calendar App");
 		month = new JLabel("January");
 		year = new JLabel("Change Year:");
