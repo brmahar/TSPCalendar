@@ -29,7 +29,6 @@ public class CalendarMain extends JFrame {
 		MainInterface theCal = new MainInterface();
 		theCal.setVisible(true);
 		TheCalendar cal = new TheCalendar();
-		cal.RefreshCalendar(0, 2013);
 		
 	}
 
