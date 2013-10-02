@@ -12,8 +12,10 @@ import javax.swing.JTextField;
 
 public class EditEvent extends JFrame {
 
-	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
-	private JTextField date = new JTextField(15);
+	private JLabel startDateL = new JLabel("Date (mm-dd-yyyy)");
+	private JTextField startDate = new JTextField(15);
+	private JLabel endDateL = new JLabel("End Date (mm-dd-yyyy)");
+	private JTextField endDate = new JTextField(15);
 	private JLabel fromL = new JLabel("Starting Time");
 	private JTextField from = new JTextField(15);
 	private JLabel toL = new JLabel("Ending Time");
@@ -27,7 +29,8 @@ public class EditEvent extends JFrame {
 	
 	EditEvent(StoreData data){
 		final StoreData storeData = data;
-		date.setText(storeData.getDate());
+		startDate.setText(storeData.getDate());
+		endDate.setText(storeData.getEndDate());
 		from.setText(storeData.getSTime());
 		to.setText(storeData.getETime());
 		descrip.setText(storeData.getDescription());
@@ -38,8 +41,8 @@ public class EditEvent extends JFrame {
 				
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
-				storeData.setSTime(getStartDate());
-				storeData.setETime(getEndDate());
+				storeData.setSTime(getStartTime());
+				storeData.setETime(getEndTime());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(storeData, 0);
@@ -52,36 +55,42 @@ public class EditEvent extends JFrame {
 		s.anchor = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;
-		eventPanel.add(dateL, s);
+		eventPanel.add(startDateL, s);
 		s.gridx = 0;
 		s.gridy = 1;
-		eventPanel.add(date, s);
+		eventPanel.add(startDate, s);
 		s.gridx = 0;
 		s.gridy = 2;
-		eventPanel.add(fromL, s);
+		eventPanel.add(endDateL, s);
 		s.gridx = 0;
 		s.gridy = 3;
-		eventPanel.add(from, s);
+		eventPanel.add(endDate, s);
 		s.gridx = 0;
 		s.gridy = 4;
-		eventPanel.add(toL, s);
+		eventPanel.add(fromL, s);
 		s.gridx = 0;
 		s.gridy = 5;
-		eventPanel.add(to, s);
+		eventPanel.add(from, s);
 		s.gridx = 0;
 		s.gridy = 6;
-		eventPanel.add(descripL, s);
+		eventPanel.add(toL, s);
 		s.gridx = 0;
 		s.gridy = 7;
-		eventPanel.add(descrip, s);
+		eventPanel.add(to, s);
 		s.gridx = 0;
 		s.gridy = 8;
-		eventPanel.add(locationL, s);
+		eventPanel.add(descripL, s);
 		s.gridx = 0;
 		s.gridy = 9;
-		eventPanel.add(location, s);
+		eventPanel.add(descrip, s);
 		s.gridx = 0;
 		s.gridy = 10;
+		eventPanel.add(locationL, s);
+		s.gridx = 0;
+		s.gridy = 11;
+		eventPanel.add(location, s);
+		s.gridx = 0;
+		s.gridy = 12;
 		eventPanel.add(submit, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,14 +102,18 @@ public class EditEvent extends JFrame {
 	}
 	
 	public String getDate(){
-		return date.getText();
-	}
-	
-	public String getStartDate(){
-		return from.getText();
+		return startDate.getText();
 	}
 	
 	public String getEndDate(){
+		return endDate.getText();
+	}
+	
+	public String getStartTime(){
+		return from.getText();
+	}
+	
+	public String getEndTime(){
 		return to.getText();
 	}
 	

@@ -5,6 +5,7 @@ public class StoreData {
 	private String location = null;
 	private String description = null;
 	private String date = null;
+	private String endDate = null;
 	private String sTime = null;
 	private String eTime = null;
 	
@@ -23,6 +24,9 @@ public class StoreData {
 	public void setDate(String theDate){
 		date = theDate;
 	}
+	public void setEndDate(String theDate){
+		endDate = theDate;
+	}
 	public void setSTime(String theTime){
 		sTime = theTime;
 	}
@@ -40,6 +44,9 @@ public class StoreData {
 	}
 	public String getDate(){
 		return date;
+	}
+	public String getEndDate(){
+		return endDate;
 	}
 	public String getSTime(){
 		return sTime;

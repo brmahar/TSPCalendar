@@ -14,8 +14,10 @@ import javax.swing.JTextField;
 public class AddEvent extends JFrame {
 	
 	private JLabel title;
-	private JLabel dateL = new JLabel("Date (mm-dd-yyyy)");
-	private JTextField date = new JTextField(15);
+	private JLabel startDateL = new JLabel("Start Date (mm-dd-yyyy)");
+	private JTextField startDate = new JTextField(15);
+	private JLabel endDateL = new JLabel("End Date (mm-dd-yyyy)");
+	private JTextField endDate = new JTextField(15);
 	private JLabel fromL = new JLabel("Starting Time");
 	private JTextField from = new JTextField(15);
 	private JLabel toL = new JLabel("Ending Time");
@@ -37,8 +39,9 @@ public class AddEvent extends JFrame {
 				
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
-				storeData.setSTime(getStartDate());
-				storeData.setETime(getEndDate());
+				storeData.setEndDate(getEndDate());
+				storeData.setSTime(getStartTime());
+				storeData.setETime(getEndTime());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 
@@ -55,36 +58,42 @@ public class AddEvent extends JFrame {
 		eventPanel.add(title, s);
 		s.gridx = 0;
 		s.gridy = 1;
-		eventPanel.add(dateL, s);
+		eventPanel.add(startDateL, s);
 		s.gridx = 0;
 		s.gridy = 2;
-		eventPanel.add(date, s);
+		eventPanel.add(startDate, s);
 		s.gridx = 0;
 		s.gridy = 3;
-		eventPanel.add(fromL, s);
+		eventPanel.add(endDateL, s);
 		s.gridx = 0;
 		s.gridy = 4;
-		eventPanel.add(from, s);
+		eventPanel.add(endDate, s);
 		s.gridx = 0;
 		s.gridy = 5;
-		eventPanel.add(toL, s);
+		eventPanel.add(fromL, s);
 		s.gridx = 0;
 		s.gridy = 6;
-		eventPanel.add(to, s);
+		eventPanel.add(from, s);
 		s.gridx = 0;
 		s.gridy = 7;
-		eventPanel.add(descripL, s);
+		eventPanel.add(toL, s);
 		s.gridx = 0;
 		s.gridy = 8;
-		eventPanel.add(descrip, s);
+		eventPanel.add(to, s);
 		s.gridx = 0;
 		s.gridy = 9;
-		eventPanel.add(locationL, s);
+		eventPanel.add(descripL, s);
 		s.gridx = 0;
 		s.gridy = 10;
-		eventPanel.add(location, s);
+		eventPanel.add(descrip, s);
 		s.gridx = 0;
 		s.gridy = 11;
+		eventPanel.add(locationL, s);
+		s.gridx = 0;
+		s.gridy = 12;
+		eventPanel.add(location, s);
+		s.gridx = 0;
+		s.gridy = 13;
 		eventPanel.add(submit, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,14 +105,18 @@ public class AddEvent extends JFrame {
 	}
 	
 	public String getDate(){
-		return date.getText();
-	}
-	
-	public String getStartDate(){
-		return from.getText();
+		return startDate.getText();
 	}
 	
 	public String getEndDate(){
+		return endDate.getText();
+	}
+	
+	public String getStartTime(){
+		return from.getText();
+	}
+	
+	public String getEndTime(){
 		return to.getText();
 	}
 	
