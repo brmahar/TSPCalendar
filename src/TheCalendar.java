@@ -40,7 +40,13 @@ public class TheCalendar {
 		yearBox = new JComboBox();
 		prev = new JButton("<-");
 		next = new JButton("->");
-		calendarTable = new DefaultTableModel();
+		calendarTable = new DefaultTableModel()
+		{
+			public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				return false;
+			}
+		};
 		Calendar = new JTable(calendarTable);
 		calendarScroll = new JScrollPane(Calendar);
 		calendarPanel = new JPanel(null);
@@ -77,7 +83,7 @@ public class TheCalendar {
 		theYear = gregCal.get(GregorianCalendar.YEAR);
 		otherMonth = theMonth;
 		otherYear = theYear;
-
+		
 		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		for (int i = 0; i < 7; i++){
 			calendarTable.addColumn(days[i]);
@@ -133,7 +139,7 @@ public class TheCalendar {
 
 	static class btnPrev_Action implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			System.out.println("going back");
+			//System.out.println("going back");
 			if (otherMonth == 0){ //Back one year
 				otherMonth = 11;
 				otherYear -= 1;
