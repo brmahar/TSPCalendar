@@ -282,7 +282,7 @@ public class SendToDB {
 				newDay.setSTime(sTime);
 				newDay.setETime(eTime);
 
-				if(curD >= startD && curD <= endD){
+				if(curD >= startD && curD <= endD && curM == startM){
 					data.addDayEvent(newDay);
 				}else if(startM < curM && curM == endM && curD <= endD){
 					data.addDayEvent(newDay);
