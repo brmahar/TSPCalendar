@@ -256,7 +256,7 @@ public class TheCalendar {
 					newRun.runStore(data, 3);
 					//System.out.println("Selected: " + selectedData);
 					
-					ViewEvent test = new ViewEvent(data,thisFrame);
+					//ViewEvent test = new ViewEvent(data,thisFrame);
 
 				}
 			}
