@@ -150,20 +150,8 @@ public class TheCalendar {
 				calendarTable.setValueAt(null, i, j);
 			}
 		}
-<<<<<<< HEAD
 
-		for (int i = 1; i <= days; i++){
-			int row = new Integer((i+startOfMonth-2)/7);
-			int column = (i+startOfMonth-2)%7;
-			String template = "<html>%s<br>Event<br>Event<br>Event<html>";
-			String stringA = String.valueOf(i);
-			String put = String.format(template, stringA);
-			calendarTable.setValueAt(put, row, column);
-		}
-=======
-		
 		generateDays(days, startOfMonth);
->>>>>>> 74b58aa6a12093eec0e0c68d22b499c0a5eb1fbf
 
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 		render.setVerticalAlignment(JLabel.TOP);
