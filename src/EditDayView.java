@@ -21,7 +21,10 @@ public class EditDayView extends JFrame {
 
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
-	private JLabel duration = new JLabel("Duration: ");
+	private JLabel startTime = new JLabel("Start Time: ");
+	private JLabel endTime = new JLabel("End Time: ");
+	private JLabel startDate = new JLabel("Start Date: ");
+	private JLabel endDate = new JLabel("End Date: ");
 	private JLabel descripL = new JLabel("Description: ");
 	private JLabel locationL = new JLabel("Location: ");
 	private JLabel space = new JLabel("<html><br></html>");
@@ -53,20 +56,22 @@ public class EditDayView extends JFrame {
 		for (int i = 0; i < numOfEvents; i++){
 			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
 			nameL = combine;
-<<<<<<< HEAD
-			duration = new JLabel("Duration: TEST");
-			descripL = new JLabel("Description: TEST");
-			locationL = new JLabel("Location: TEST");
+
 			editThis = new JButton("Edit Event");
-=======
-			duration = new JLabel("Duration: ");
+
+			startTime = new JLabel("Duration: ");
+			endTime = new JLabel("End Time: ");
+			startDate = new JLabel("Start Date: ");
+			endDate = new JLabel("End Date: ");
 			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
 			
->>>>>>> da42cd167d5a9dd61ba87173ab60efcd5bcefa0d
 			combine.setFont(new Font("Serif", Font.PLAIN, 52));
 			nameL.setFont(new Font("Serif", Font.PLAIN, 46));
-			duration.setFont(new Font("Serif", Font.PLAIN, 46));
+			startTime.setFont(new Font("Serif", Font.PLAIN, 46));
+			endTime.setFont(new Font("Serif", Font.PLAIN, 46));
+			startDate.setFont(new Font("Serif", Font.PLAIN, 46));
+			endDate.setFont(new Font("Serif", Font.PLAIN, 46));
 			descripL.setFont(new Font("Serif", Font.PLAIN, 46));
 			locationL.setFont(new Font("Serif", Font.PLAIN, 46));
 			space.setFont(new Font("Serif", Font.PLAIN, 46));
@@ -83,18 +88,27 @@ public class EditDayView extends JFrame {
 			eventPanel.add(nameL, s);
 			s.gridx = 0;
 			s.gridy = 1;
-			eventPanel.add(duration, s);
+			eventPanel.add(startTime, s);
 			s.gridx = 0;
 			s.gridy = 2;
-			eventPanel.add(descripL, s);
+			eventPanel.add(endTime, s);
 			s.gridx = 0;
 			s.gridy = 3;
-			eventPanel.add(locationL, s);
+			eventPanel.add(startDate, s);
 			s.gridx = 0;
 			s.gridy = 4;
-			eventPanel.add(editThis, s);
+			eventPanel.add(endDate, s);
 			s.gridx = 0;
 			s.gridy = 5;
+			eventPanel.add(descripL, s);
+			s.gridx = 0;
+			s.gridy = 6;
+			eventPanel.add(locationL, s);
+			s.gridx = 0;
+			s.gridy = 7;
+			eventPanel.add(editThis, s);
+			s.gridx = 0;
+			s.gridy = 8;
 			eventPanel.add(sep, s);
 			s.fill = GridBagConstraints.VERTICAL;
 			con.gridx = 0;
