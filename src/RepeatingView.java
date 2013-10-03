@@ -3,6 +3,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -32,35 +33,6 @@ public class RepeatingView extends JFrame {
 	private int[] dayArray = {0,0,0,0,0,0,0};
 	
 	RepeatingView(final StoreData data, JFrame parent){
-		
-		send.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				thisThing.setVisible(false);
-				if (sunday.isSelected()){
-					dayArray[0] = 1;
-				}
-				if (monday.isSelected()){
-					dayArray[1] = 1;
-				}
-				if (tuesday.isSelected()){
-					dayArray[2] = 1;
-				}
-				if (wednesday.isSelected()){
-					dayArray[3] = 1;
-				}
-				if (thursday.isSelected()){
-					dayArray[4] = 1;
-				}
-				if (friday.isSelected()){
-					dayArray[5] = 1;
-				}
-				if (saturday.isSelected()){
-					dayArray[6] = 1;
-				}
-				AddEvent theView = new AddEvent(data, thisThing, dayArray);
-			}
-		});
 		
 		grid = new GridBagLayout();
 		checkPanel = new JPanel();
@@ -134,6 +106,36 @@ public class RepeatingView extends JFrame {
 		this.setSize(450,400);		
 		this.setVisible(true);
 		this.setResizable(false);
+		
+		send.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisThing.setVisible(false);
+				if (sunday.isSelected()){
+					dayArray[0] = 1;
+				}
+				if (monday.isSelected()){
+					dayArray[1] = 1;
+				}
+				if (tuesday.isSelected()){
+					dayArray[2] = 1;
+				}
+				if (wednesday.isSelected()){
+					dayArray[3] = 1;
+				}
+				if (thursday.isSelected()){
+					dayArray[4] = 1;
+				}
+				if (friday.isSelected()){
+					dayArray[5] = 1;
+				}
+				if (saturday.isSelected()){
+					dayArray[6] = 1;
+				}
+				AddEvent theView = new AddEvent(data, thisThing, dayArray);
+				theView.setVisible(true);
+			}
+		});
 	}
 	
 }
