@@ -16,6 +16,7 @@ public class WeekView {
 	static JLabel month;
 	static JButton prev;
 	static JButton next;
+	static JButton backToMain;
 	static JTable theCalendar;
 	@SuppressWarnings("rawtypes")
 	static JFrame mainFrame;
@@ -30,9 +31,10 @@ public class WeekView {
 	static int otherYear;
 	static int otherDay;
 	static boolean first = false;
+	static JFrame theParent;
 
 	@SuppressWarnings("unchecked")
-	WeekView(){
+	WeekView(JFrame parent){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
@@ -48,12 +50,13 @@ public class WeekView {
 		catch (UnsupportedLookAndFeelException e) {
 
 		}
-
+		theParent = parent;
 		mainFrame = new JFrame("Week View");
 		month = new JLabel("Week of September 29th");
 		month.setFont(new Font("Serif", Font.PLAIN, 18));
 		prev = new JButton("<-");
 		next = new JButton("->");
+		backToMain = new JButton("Return to Menu");
 		calendarTable = new DefaultTableModel()
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
@@ -77,12 +80,14 @@ public class WeekView {
 		calendarPanel.add(prev);
 		calendarPanel.add(next);
 		calendarPanel.add(calendarScroll);
+		calendarPanel.add(backToMain);
 
 		calendarPanel.setBounds(0, 0, 873, 670);
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 200, 50);
 		prev.setBounds(20, 50, 100, 50);
 		next.setBounds(721, 50, 100, 50);
 		calendarScroll.setBounds(20, 100, 800, 500);
+		backToMain.setBounds(345, 610, 160, 40);
 
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
@@ -113,6 +118,7 @@ public class WeekView {
 
 		prev.addActionListener(new prevWeek());
 		next.addActionListener(new nextWeek());
+		backToMain.addActionListener(new backToMenu());
 
 		updateCalendar(theDay, theMonth, theYear);
 	}
@@ -257,6 +263,13 @@ public class WeekView {
 			otherMonth = Integer.parseInt(month.format(cal.getTime()));
 			otherYear = Integer.parseInt(year.format(cal.getTime()));
 			updateCalendar(otherDay, otherMonth, otherYear);
+		}
+	}
+	
+	static class backToMenu implements ActionListener{
+		public void actionPerformed (ActionEvent e){
+			mainFrame.dispose();
+			theParent.setVisible(true);
 		}
 	}
 

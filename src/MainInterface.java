@@ -16,19 +16,21 @@ import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings("serial")
 public class MainInterface extends JFrame{
 
-	private JLabel title = new JLabel("Event Panel");
-	private JTextField addName = new JTextField(10);
+	private JLabel title = new JLabel("Main Menu");
+	private JTextField addName = new JTextField(15);
 	private JButton addEvent = new JButton("Add Event");
-	private JTextField editName = new JTextField(10);
+	private JTextField editName = new JTextField(15);
 	private JButton editEvent = new JButton("Edit Event");
-	private JTextField deleteName = new JTextField(10);
+	private JTextField deleteName = new JTextField(15);
 	private JButton deleteEvent = new JButton("Delete Event");
-	private JTextField viewName = new JTextField(10);
+	private JTextField viewName = new JTextField(15);
 	private JButton viewEvent = new JButton("View Event");
 	private JFrame thisFrame = this;
+	private JButton monthCal = new JButton("Month View");
+	private JButton weeklyCal = new JButton("Weekly View");
 
 	MainInterface(){
-		
+
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -40,7 +42,7 @@ public class MainInterface extends JFrame{
 				add.setVisible(true);
 			}
 		});
-		
+
 		viewEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -54,7 +56,7 @@ public class MainInterface extends JFrame{
 				view.setVisible(true);
 			}
 		});
-		
+
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -68,7 +70,7 @@ public class MainInterface extends JFrame{
 				edit.setVisible(true);
 			}
 		});
-		
+
 		deleteEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -76,47 +78,71 @@ public class MainInterface extends JFrame{
 				storeName.setName(deleteName.getText());
 				SendToDB deleteEvent = new SendToDB();
 				deleteEvent.runStore(storeName, 2);
-				
-				
+				deleteName.setText("");
+
+			}
+		});
+
+		monthCal.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
+				TheCalendar cal = new TheCalendar(thisFrame);
 			}
 		});
 		
-		title.setFont(new Font("Serif", Font.PLAIN, 22));
+		weeklyCal.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
+				WeekView theView = new WeekView(thisFrame);
+			}
+		});
+
+		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		JPanel eventPanel = new JPanel();
-		eventPanel.setLayout(new GridBagLayout());
+		GridBagLayout layout = new GridBagLayout();
+		eventPanel.setLayout(layout);
 		GridBagConstraints s = new GridBagConstraints();
 		s.anchor = GridBagConstraints.NORTH;
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 0;
 		eventPanel.add(title, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 1;
 		eventPanel.add(addName, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 2;
 		eventPanel.add(addEvent, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 3;
 		eventPanel.add(editName, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 4;
 		eventPanel.add(editEvent, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 5;
 		eventPanel.add(deleteName, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 6;
 		eventPanel.add(deleteEvent, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 7;
 		eventPanel.add(viewName, s);
-		s.gridx = 0;
+		s.gridx = 2;
 		s.gridy = 8;
 		eventPanel.add(viewEvent, s);
+		s.gridx = 3;
+		s.gridy = 10;
+		eventPanel.add(monthCal, s);
+		s.gridx = 1;
+		s.gridy = 10;
+		eventPanel.add(weeklyCal, s);
 		
+		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
-		this.setSize(300,400);		
+		this.setSize(450,400);		
 		this.setVisible(true);
 		this.setResizable(false);
 
