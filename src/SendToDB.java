@@ -166,7 +166,6 @@ public class SendToDB {
 			try {
 
 				formatSDate = dbDate.format(displayDate.parse(data.getDate()));
-				System.out.println(formatSDate);
 
 			} catch (ParseException e) {
 				e.printStackTrace();
