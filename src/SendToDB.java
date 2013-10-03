@@ -152,10 +152,10 @@ public class SendToDB {
 
 	public void deleteEvent(Connection connection, StoreData data){
 		PreparedStatement preStmt=null;
-		String stmt = "DELETE FROM Event WHERE Name=?";
+		String stmt = "DELETE FROM Event WHERE id=?";
 		try{
 			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
-			preStmt.setString(1, data.getName());
+			preStmt.setString(1, data.getID());
 			preStmt.executeUpdate();
 		}catch(SQLException e){
 			System.out.println("Man you got problems now");

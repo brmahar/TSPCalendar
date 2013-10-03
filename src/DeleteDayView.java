@@ -123,9 +123,9 @@ public class DeleteDayView extends JFrame {
 				public void actionPerformed(ActionEvent e){
 					thisThing.dispose();
 					sendToDelete.setID(viewData.getSingleDay().get(storeI).getID());
-					newRun.runStore(sendToDelete, 4);
-					EditEvent edit = new EditEvent(sendToDelete, parent);
-					edit.setVisible(true);
+					newRun.runStore(sendToDelete, 2);
+					thisThing.dispose();
+					parent.setVisible(true);
 				}
 				
 			});
