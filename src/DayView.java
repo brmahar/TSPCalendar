@@ -60,8 +60,8 @@ public class DayView extends JFrame {
 			descripL = new JLabel("Description: "+viewData.getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getLocation());
 			
-			JSeparator sep = new JSeparator(JSeparator.VERTICAL);
-			sep.setPreferredSize(new Dimension(1,10));
+			JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
+			sep.setPreferredSize(new Dimension(200,10));
 			JPanel eventPanel = new JPanel();
 			eventPanel.setLayout(new GridBagLayout());
 			GridBagConstraints s = new GridBagConstraints();
@@ -85,15 +85,20 @@ public class DayView extends JFrame {
 			s.gridx = 0;
 			s.gridy = 5;
 			eventPanel.add(space, s);
-			
+			s.fill = GridBagConstraints.VERTICAL;
+			s.weightx = 1;
+			//s.gridx = 0;
+			//s.gridy = 6;
+			eventPanel.add(sep, s);
 			con.gridx = 0;
 			con.gridy = i;
-			con.fill = GridBagConstraints.VERTICAL;
-			con.weightx = 1;
+			
+			
 			masterPane.add(eventPanel, con);
+			
 			masterPane.revalidate();
 			masterPane.repaint();
-			masterPane.add(sep, con);			
+						
 		}
 		
 		
