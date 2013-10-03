@@ -288,28 +288,6 @@ public class TheCalendar {
 			System.out.println("The connection was not closed.....Run away now!!!!");
 			e.printStackTrace();
 		}
-		Calendar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent clicked) {
-				SendToDB newRun = new SendToDB();
-
-				int row = Calendar.rowAtPoint(clicked.getPoint());
-				int col = Calendar.columnAtPoint(clicked.getPoint());
-				if (row >= 0 && col >= 0) {
-					String selectedData = null;
-					selectedData = (String) Calendar.getValueAt(row, col);
-					selectedData = selectedData.substring(6, 8);
-					theMonth++;
-					data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
-					theMonth--;
-
-					newRun.runStore(data, 5);
-
-					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
-
-				}
-			}
-		});
 	}
 
 	static class prevMonth implements ActionListener{
