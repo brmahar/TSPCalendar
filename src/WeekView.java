@@ -61,7 +61,7 @@ public class WeekView {
 		calendarScroll = new JScrollPane(theCalendar);
 		calendarPanel = new JPanel(null);
 
-		mainFrame.setSize(660,750);
+		mainFrame.setSize(900,750);
 		thePane = mainFrame.getContentPane();
 		thePane.setLayout(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,11 +74,11 @@ public class WeekView {
 		calendarPanel.add(next);
 		calendarPanel.add(calendarScroll);
 
-		calendarPanel.setBounds(0, 0, 640, 670);
+		calendarPanel.setBounds(0, 0, 873, 670);
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 200, 50);
 		prev.setBounds(20, 50, 100, 50);
-		next.setBounds(520, 50, 100, 50);
-		calendarScroll.setBounds(20, 100, 600, 500);
+		next.setBounds(721, 50, 100, 50);
+		calendarScroll.setBounds(20, 100, 800, 500);
 
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
@@ -91,6 +91,7 @@ public class WeekView {
 		otherMonth = theMonth;
 		otherYear = theYear;
 
+		theCalendar.setFont(new Font("Serif", Font.PLAIN, 18));
 		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		for (int i = 0; i < 7; i++){
 			calendarTable.addColumn(days[i]);
@@ -130,7 +131,7 @@ public class WeekView {
 		prev.setEnabled(true); 
 		next.setEnabled(true);
 
-		month.setBounds(320-month.getPreferredSize().width/2, 50, 360, 50); 
+		month.setBounds(417-month.getPreferredSize().width/2, 50, 360, 50); 
 
 		
 
@@ -157,8 +158,6 @@ public class WeekView {
 			else{
 				cal.set(otherYear, otherMonth-1, otherDay);
 				cal.add(Calendar.DATE, -7);
-				DateFormat theFuck = new SimpleDateFormat("MM/dd/yyyy");
-				System.out.println(theFuck.format(cal.getTime()));
 			}
 			first = true;
 			DateFormat day = new SimpleDateFormat("dd");
@@ -167,8 +166,6 @@ public class WeekView {
 			otherDay = Integer.parseInt(day.format(cal.getTime()));
 			otherMonth = Integer.parseInt(month.format(cal.getTime()));
 			otherYear = Integer.parseInt(year.format(cal.getTime()));
-			System.out.print(otherMonth + "-" + otherDay + "-" + otherYear);
-			System.out.println();
 			updateCalendar(otherDay, otherMonth, otherYear);
 		}
 	}
