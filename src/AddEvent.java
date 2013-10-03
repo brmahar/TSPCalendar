@@ -108,6 +108,7 @@ public class AddEvent extends JFrame {
 	}
 	
 	AddEvent(StoreData data, final JFrame parent, int[] repeatDays){
+		System.out.println(repeatDays.toString());
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
