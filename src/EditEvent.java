@@ -96,7 +96,7 @@ public class EditEvent extends JFrame {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
-		this.setSize(300,400);
+		this.setSize(450,400);
 		this.setVisible(true);
 		this.setResizable(false);
 		

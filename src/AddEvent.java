@@ -33,7 +33,7 @@ public class AddEvent extends JFrame {
 	
 	AddEvent(StoreData data, final JFrame parent){
 		title = new JLabel("Adding Event: " + data.getName());
-		title.setFont(new Font("Serif", Font.PLAIN, 22));
+		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
 		submit.addActionListener(new ActionListener(){
 			@Override
@@ -101,7 +101,7 @@ public class AddEvent extends JFrame {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
-		this.setSize(300,400);
+		this.setSize(450,400);
 		this.setVisible(true);
 		this.setResizable(false);
 		
