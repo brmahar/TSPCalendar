@@ -286,6 +286,8 @@ public class SendToDB {
 					data.addDayEvent(newDay);
 				}else if(startM < curM && curM == endM && curD <= endD){
 					data.addDayEvent(newDay);
+				}else if(curD < startD || curD > endD){
+					continue;
 				}
 			}
 		} catch (SQLException e) {

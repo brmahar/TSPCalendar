@@ -239,7 +239,7 @@ public class WeekView {
 					newRun.runStore(data, 5);
 					
 					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
-
+					
 				}
 			}
 		});
