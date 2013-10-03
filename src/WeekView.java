@@ -218,7 +218,6 @@ public class WeekView {
 			
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
-			System.out.println(otherDay);
 			String stringA;
 			if (otherDay < 10){
 				stringA = "0" + otherDay;
