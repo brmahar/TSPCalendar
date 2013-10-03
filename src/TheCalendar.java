@@ -97,9 +97,6 @@ public class TheCalendar {
 		calendarScroll.setBounds(20, 100, 800, 500);
 		backToMain.setBounds(340, 610, 160, 40);
 
-		mainFrame.setResizable(false);
-		mainFrame.setVisible(true);
-
 		GregorianCalendar gregCal = new GregorianCalendar();
 		theDay = gregCal.get(GregorianCalendar.DAY_OF_MONTH);
 		theMonth = gregCal.get(GregorianCalendar.MONTH);
@@ -135,6 +132,8 @@ public class TheCalendar {
 		thisFrame = new MainInterface();
 		thisFrame.setVisible(false);
 		updateCalendar(theMonth, theYear);
+		mainFrame.setResizable(false);
+		mainFrame.setVisible(true);
 	}
 
 	public static void updateCalendar(int aMonth, int aYear){
