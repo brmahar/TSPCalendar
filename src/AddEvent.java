@@ -4,6 +4,8 @@ import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -108,14 +110,27 @@ public class AddEvent extends JFrame {
 	}
 	
 	AddEvent(StoreData data, final JFrame parent, int[] repeatDays){
-		System.out.println(repeatDays.toString());
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				
+				SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+				SimpleDateFormat theDay = new SimpleDateFormat("dd");
+				SimpleDateFormat month = new SimpleDateFormat("MM");
+				SimpleDateFormat year = new SimpleDateFormat("yyyy");
+				try {
+					int mon = Integer.parseInt(month.format(displayDate.parse(getDate())));
+					int day = Integer.parseInt(theDay.format(displayDate.parse(getDate())));
+					int newYear = Integer.parseInt(year.format(displayDate.parse(getDate())));
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
 				storeData.setEndDate(getEndDate());
