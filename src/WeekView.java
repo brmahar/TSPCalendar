@@ -119,7 +119,26 @@ public class WeekView {
 		prev.addActionListener(new prevWeek());
 		next.addActionListener(new nextWeek());
 		backToMain.addActionListener(new backToMenu());
+		final StoreData data = new StoreData();
+		theCalendar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent clicked) {
+				SendToDB newRun = new SendToDB();
 
+				int row = theCalendar.rowAtPoint(clicked.getPoint());
+				int col = theCalendar.columnAtPoint(clicked.getPoint());
+				if (row >= 0 && col >= 0) {
+					String selectedData = null;
+					selectedData = (String) theCalendar.getValueAt(row, col);
+					selectedData = selectedData.substring(6, 8);
+					data.setDate(""+otherMonth+"-"+selectedData+"-"+otherYear);
+					
+					newRun.runStore(data, 5);
+					
+					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
+				}
+			}
+		});
 		updateCalendar(theDay, theMonth, theYear);
 	}
 
@@ -159,6 +178,7 @@ public class WeekView {
 		for (int i = 0; i < 7; i++){
 			theCalendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
+		
 	}
 
 	private static void generateWeekDays() {
@@ -237,26 +257,7 @@ public class WeekView {
 			otherYear = Integer.parseInt(someYear.format(cal.getTime()));
 			//calendarTable.setValueAt(template, 0, j);
 		}
-		theCalendar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent clicked) {
-				SendToDB newRun = new SendToDB();
-
-				int row = theCalendar.rowAtPoint(clicked.getPoint());
-				int col = theCalendar.columnAtPoint(clicked.getPoint());
-				if (row >= 0 && col >= 0) {
-					String selectedData = null;
-					selectedData = (String) theCalendar.getValueAt(row, col);
-					selectedData = selectedData.substring(6, 8);
-					data.setDate(""+otherMonth+"-"+selectedData+"-"+otherYear);
-					
-					newRun.runStore(data, 5);
-					
-					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
-					
-				}
-			}
-		});
+		
 		otherDay -= 7;
 
 	}
