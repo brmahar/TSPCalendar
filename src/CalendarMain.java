@@ -29,6 +29,7 @@ public class CalendarMain extends JFrame {
 		MainInterface theCal = new MainInterface();
 		theCal.setVisible(true);
 		TheCalendar cal = new TheCalendar();
+		//WeekView week = new WeekView();
 		
 	}
 

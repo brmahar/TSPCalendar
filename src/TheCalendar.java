@@ -47,7 +47,7 @@ public class TheCalendar {
 
 		}
 
-		mainFrame = new JFrame("Calendar App");
+		mainFrame = new JFrame("Month View");
 		month = new JLabel("January");
 		year = new JLabel("Change Year:");
 		yearBox = new JComboBox();
@@ -150,7 +150,7 @@ public class TheCalendar {
 				calendarTable.setValueAt(null, i, j);
 			}
 		}
-		
+
 		generateDays(days, startOfMonth);
 
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
