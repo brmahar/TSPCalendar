@@ -188,7 +188,7 @@ public class WeekView {
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
 			
 			String stringA;
-			getData.getSpecificData(connection, data);
+			getData.getSpecificData(connection, data,0);
 			ArrayList<String> theNames = data.getNames();
 			String template = "<html>%s<br>%s<br>%s<html>";
 			

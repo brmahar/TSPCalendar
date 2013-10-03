@@ -49,7 +49,9 @@ public class SendToDB {
 			}else if(bool == 2){
 				deleteEvent(connection, data);
 			}else if(bool == 3){
-				getSpecificData(connection, data);
+				getSpecificData(connection, data,0);
+			}else if(bool == 5){
+				getSpecificData(connection, data,1);
 			}else{
 				send(connection, data);
 			}
@@ -155,7 +157,7 @@ public class SendToDB {
 		}
 	}
 
-	public void getSpecificData(Connection connection, StoreData data){
+	public void getSpecificData(Connection connection, StoreData data, int bool){
 		PreparedStatement preStmt=null;
 		String stmt = "SELECT * FROM Event WHERE Start_Date = (?)";
 		String formatSDate = null;
@@ -183,7 +185,7 @@ public class SendToDB {
 				String endDate = rs.getString("End_Date");
 				String sTime = rs.getString("Start_Time");
 				String eTime = rs.getString("End_Time");
-				
+
 				try {
 					formatEDate = displayDate.format(dbDate.parse(endDate));
 				} catch (ParseException e) {
@@ -196,7 +198,7 @@ public class SendToDB {
 				data.setLocation(location);
 				data.setSTime(sTime);
 				data.setETime(eTime);
-
+				
 				extra.setEndDate(formatEDate);
 				extra.setName(name);
 				extra.setDescription(description);
@@ -207,7 +209,6 @@ public class SendToDB {
 					data.addEvent(extra);
 				}
 				
-
 			}
 		}catch(SQLException e){
 			System.out.println("Man you got problems now");

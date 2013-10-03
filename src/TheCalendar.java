@@ -30,6 +30,7 @@ public class TheCalendar {
 	static int otherMonth;
 	static int otherYear;
 	private static JFrame thisFrame;
+	private static int numArgs;
 
 	@SuppressWarnings("unchecked")
 	TheCalendar(){
@@ -202,6 +203,7 @@ public class TheCalendar {
 
 		final SendToDB getData = new SendToDB();
 		final StoreData data = new StoreData();
+		
 		for (int i = 1; i <= days; i++){
 
 			int row = new Integer((i+startOfMonth-2)/7);
@@ -212,23 +214,27 @@ public class TheCalendar {
 			}else{
 				data.setDate(""+theMonth+"-"+i+"-"+theYear);
 			}
+			String curDate = data.getDate();
 			theMonth--;
 			String stringA;
-			getData.getSpecificData(connection, data);
+			getData.getSpecificData(connection, data,0);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-			String curDate = data.getDate();
+			
 			for(int k = 0; k < data.getMultiDay().size(); k++){
 				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
+					data.addDayEvent(data.getMultiDay().get(k));
 					data.removeData(data.getMultiDay().get(k));
 					k--;
 				}
 			}
+
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
 				stringA = String.valueOf(i);
 			}
 			ArrayList<String> theNames = data.getNames();
+			numArgs = theNames.size();
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");
 				calendarTable.setValueAt(put, row, column);
@@ -248,7 +254,7 @@ public class TheCalendar {
 		}
 		Calendar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent clicked) {
+			public void mouseReleased(MouseEvent clicked) {
 				SendToDB newRun = new SendToDB();
 
 				int row = Calendar.rowAtPoint(clicked.getPoint());
@@ -260,10 +266,26 @@ public class TheCalendar {
 					theMonth++;
 					data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
 					theMonth--;
-					newRun.runStore(data, 3);
+
+					newRun.runStore(data, 5);
+					System.out.println(44+": "+data.getNames().get(0));
+					System.out.println(44+": "+data.getNames().get(1));
 					//System.out.println("Selected: " + selectedData);
 					
-					ViewEvent test = new ViewEvent(data,thisFrame);
+					for(int i = 0; i < 2; i++){
+						StoreData placemark = new StoreData();
+						placemark.setName(data.getNames().get(i));
+						newRun.runStore(placemark, 1);
+						System.out.println(data.getName());
+						data.addDayEvent(placemark);
+						
+						
+					}
+					System.out.println(44+": "+data.getSingleDay().get(0).getName());
+					System.out.println(44+": "+data.getSingleDay().get(1).getName());
+					System.out.println(44+": "+data.getSingleDay().get(2).getName());
+					System.out.println(44+": "+data.getSingleDay().get(3).getName());
+					DayView newDay = new DayView(data,thisFrame,4);
 
 				}
 			}

@@ -13,6 +13,7 @@ public class StoreData {
 	private ArrayList<String> names = new ArrayList<String>();
 	private ArrayList<String> sDates = new ArrayList<String>();
 	private ArrayList<StoreData> multiDay = new ArrayList<StoreData>();
+	private ArrayList<StoreData> singleDay = new ArrayList<StoreData>();
 	
 
 
@@ -41,12 +42,16 @@ public class StoreData {
 	public void addDates(String newDate){
 		sDates.add(newDate);
 	}
+	
 	public void addName(String newName){
 		names.add(newName);
 	}
 	
 	public void addEvent(StoreData newEvent){
 		multiDay.add(newEvent);
+	}
+	public void addDayEvent(StoreData newEvent){
+		singleDay.add(newEvent);
 	}
 	public void resetNames(){
 		names.clear();
@@ -85,5 +90,15 @@ public class StoreData {
 	}
 	public void removeData(StoreData remove){
 		multiDay.remove(remove);
+	}
+	
+	public ArrayList<StoreData>getSingleDay(){
+		return singleDay;
+	}
+	public void removeDayEvent(StoreData remove){
+		singleDay.remove(remove);
+	}
+	public void resetSingle(){
+		singleDay.clear();
 	}
 }

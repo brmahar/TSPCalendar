@@ -48,7 +48,7 @@ public class DayView extends JFrame {
 		});
 		
 		for (int i = 0; i < numOfEvents; i++){
-			JLabel combine = new JLabel("Title: " + viewData.getName());
+			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
 			combine.setFont(new Font("Serif", Font.PLAIN, 24));
 			nameL.setFont(new Font("Serif", Font.PLAIN, 22));
 			duration.setFont(new Font("Serif", Font.PLAIN, 22));
@@ -57,8 +57,8 @@ public class DayView extends JFrame {
 			space.setFont(new Font("Serif", Font.PLAIN, 22));
 			nameL = combine;
 			duration = new JLabel("Duration: ");
-			descripL = new JLabel("Description: "+viewData.getDescription() + "");
-			locationL = new JLabel("Location: "+viewData.getLocation());
+			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
+			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
 			
 			JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
 			sep.setPreferredSize(new Dimension(200,10));
