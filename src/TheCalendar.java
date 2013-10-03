@@ -176,7 +176,7 @@ public class TheCalendar {
 
 	private static void generateDays(int days, int startOfMonth) {
 
-		System.out.println("------------ MySQL JDBC Connection Testing ------------");
+		System.out.println("------------ MySQL JDBC Connection Testing1 ------------");
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -233,7 +233,7 @@ public class TheCalendar {
 					k--;
 				}
 			}
-
+			
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
@@ -241,6 +241,7 @@ public class TheCalendar {
 			}
 			ArrayList<String> theNames = data.getNames();
 			numArgs = theNames.size();
+			
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");
 				calendarTable.setValueAt(put, row, column);
@@ -257,6 +258,12 @@ public class TheCalendar {
 			
 			data.setDate(null);
 			data.resetNames();
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println("The connection was not closed.....Run away now!!!!");
+			e.printStackTrace();
 		}
 		Calendar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -275,7 +282,7 @@ public class TheCalendar {
 					
 					newRun.runStore(data, 5);
 					
-					DayView newDay = new DayView(data,thisFrame,data.getSingleDay().size());
+					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
 
 				}
 			}
@@ -283,12 +290,7 @@ public class TheCalendar {
 			
 		
 
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			System.out.println("The connection was not closed.....Run away now!!!!");
-			e.printStackTrace();
-		}
+		
 	}
 
 	static class prevMonth implements ActionListener{
