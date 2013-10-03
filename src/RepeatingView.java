@@ -1,6 +1,8 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -26,8 +28,40 @@ public class RepeatingView extends JFrame {
 	private JScrollPane mainPane;
 	private GridBagLayout grid;
 	private GridBagConstraints s = new GridBagConstraints();
+	private JFrame thisThing = this;
+	private int[] dayArray = {0,0,0,0,0,0,0};
 	
-	RepeatingView(){
+	RepeatingView(final StoreData data, JFrame parent){
+		
+		send.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisThing.setVisible(false);
+				if (sunday.isSelected()){
+					dayArray[0] = 1;
+				}
+				if (monday.isSelected()){
+					dayArray[1] = 1;
+				}
+				if (tuesday.isSelected()){
+					dayArray[2] = 1;
+				}
+				if (wednesday.isSelected()){
+					dayArray[3] = 1;
+				}
+				if (thursday.isSelected()){
+					dayArray[4] = 1;
+				}
+				if (friday.isSelected()){
+					dayArray[5] = 1;
+				}
+				if (saturday.isSelected()){
+					dayArray[6] = 1;
+				}
+				AddEvent theView = new AddEvent(data, thisThing);
+			}
+		});
+		
 		grid = new GridBagLayout();
 		checkPanel = new JPanel();
 		checkPanel.setLayout(grid);
@@ -47,7 +81,7 @@ public class RepeatingView extends JFrame {
 		friday = new JCheckBox("Friday");
 		saturday = new JCheckBox("Saturday");
 		send = new JButton("Confirm Event");
-		
+		s.anchor = GridBagConstraints.WEST;
 		s.gridx = 1;
 		s.gridy = 0;
 		checkPanel.add(weekly, s);
@@ -91,7 +125,7 @@ public class RepeatingView extends JFrame {
 		s.gridy = 7;
 		checkPanel.add(saturday, s);
 		s.gridx = 2;
-		s.gridy = 9;
+		s.gridy = 8;
 		checkPanel.add(send, s);
 		
 		this.pack();

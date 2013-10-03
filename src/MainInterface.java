@@ -39,7 +39,7 @@ public class MainInterface extends JFrame{
 				storeName.setName(addName.getText());
 				addName.setText("");
 				if (check.isSelected()){
-					RepeatingView check = new RepeatingView();
+					RepeatingView check = new RepeatingView(storeName, thisFrame);
 					check.setVisible(true);
 				}
 				//AddEvent add = new AddEvent(storeName, thisFrame);
