@@ -30,13 +30,10 @@ public class TheCalendar {
 	static int theYear;
 	static int otherMonth;
 	static int otherYear;
-<<<<<<< HEAD
 	private static JFrame thisFrame;
 	private static int numArgs;
-=======
-	static JFrame thisFrame;
 	static JFrame theParent;
->>>>>>> 95705f0534968216e41ddc1f820f866804d0bff2
+
 
 	@SuppressWarnings("unchecked")
 	TheCalendar(JFrame parent){
