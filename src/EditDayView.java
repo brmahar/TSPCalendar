@@ -59,13 +59,13 @@ public class EditDayView extends JFrame {
 			
 		});
 
-		for (int i = 0; i < numOfEvents; i++){
-			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
+		for (int i = 0; i < 3; i++){
+			JLabel combine = new JLabel("Title: TEST" );
 			
 			nameL = combine;
-			duration = new JLabel("Duration: ");
-			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
-			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
+			duration = new JLabel("Duration: TEST");
+			descripL = new JLabel("Description: TEST");
+			locationL = new JLabel("Location: TEST");
 			
 			combine.setFont(new Font("Serif", Font.PLAIN, 52));
 			nameL.setFont(new Font("Serif", Font.PLAIN, 46));
