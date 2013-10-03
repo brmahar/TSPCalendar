@@ -51,6 +51,7 @@ public class TheCalendar {
 
 		mainFrame = new JFrame("Month View");
 		month = new JLabel("January");
+		month.setFont(new Font("Serif", Font.PLAIN, 18));
 		year = new JLabel("Change Year:");
 		yearBox = new JComboBox();
 		prev = new JButton("<-");

@@ -51,6 +51,7 @@ public class WeekView {
 
 		mainFrame = new JFrame("Week View");
 		month = new JLabel("Week of September 29th");
+		month.setFont(new Font("Serif", Font.PLAIN, 18));
 		prev = new JButton("<-");
 		next = new JButton("->");
 		calendarTable = new DefaultTableModel()
@@ -255,8 +256,6 @@ public class WeekView {
 			otherDay = Integer.parseInt(day.format(cal.getTime()));
 			otherMonth = Integer.parseInt(month.format(cal.getTime()));
 			otherYear = Integer.parseInt(year.format(cal.getTime()));
-			System.out.print(otherMonth + "-" + otherDay + "-" + otherYear);
-			System.out.println();
 			updateCalendar(otherDay, otherMonth, otherYear);
 		}
 	}
