@@ -16,6 +16,7 @@ public class TheCalendar {
 	static JLabel year;
 	static JButton prev;
 	static JButton next;
+	static JButton backToMain;
 	static JTable Calendar;
 	@SuppressWarnings("rawtypes")
 	static JComboBox yearBox;
@@ -29,10 +30,11 @@ public class TheCalendar {
 	static int theYear;
 	static int otherMonth;
 	static int otherYear;
-	private static JFrame thisFrame;
+	static JFrame thisFrame;
+	static JFrame theParent;
 
 	@SuppressWarnings("unchecked")
-	TheCalendar(){
+	TheCalendar(JFrame parent){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
@@ -48,12 +50,13 @@ public class TheCalendar {
 		catch (UnsupportedLookAndFeelException e) {
 
 		}
-
+		theParent = parent;
 		mainFrame = new JFrame("Month View");
 		month = new JLabel("January");
 		month.setFont(new Font("Serif", Font.PLAIN, 18));
 		year = new JLabel("Change Year:");
 		yearBox = new JComboBox();
+		backToMain = new JButton("Return to Menu");
 		prev = new JButton("<-");
 		next = new JButton("->");
 		calendarTable = new DefaultTableModel()
@@ -81,6 +84,7 @@ public class TheCalendar {
 		calendarPanel.add(prev);
 		calendarPanel.add(next);
 		calendarPanel.add(calendarScroll);
+		calendarPanel.add(backToMain);
 
 		calendarPanel.setBounds(0, 0, 873, 700);
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 200, 50);
@@ -89,6 +93,7 @@ public class TheCalendar {
 		prev.setBounds(20, 50, 100, 50);
 		next.setBounds(721, 50, 100, 50);
 		calendarScroll.setBounds(20, 100, 800, 500);
+		backToMain.setBounds(340, 610, 160, 40);
 
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
@@ -124,6 +129,7 @@ public class TheCalendar {
 		prev.addActionListener(new prevMonth());
 		next.addActionListener(new nextMonth());
 		yearBox.addActionListener(new changeYear());
+		backToMain.addActionListener(new backToMenu());
 		thisFrame = new MainInterface();
 		thisFrame.setVisible(false);
 		updateCalendar(theMonth, theYear);
@@ -336,6 +342,13 @@ public class TheCalendar {
 				theYear = otherYear;
 				updateCalendar(otherMonth, otherYear);
 			}
+		}
+	}
+	
+	static class backToMenu implements ActionListener{
+		public void actionPerformed (ActionEvent e){
+			mainFrame.dispose();
+			theParent.setVisible(true);
 		}
 	}
 

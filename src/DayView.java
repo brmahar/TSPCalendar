@@ -30,7 +30,7 @@ public class DayView extends JFrame {
 	private JScrollPane scroll;
 	private JPanel masterPane = new JPanel();
 	private GridBagLayout layout;
-	
+
 	DayView(StoreData viewData, final JFrame parent, int numOfEvents){
 		layout = new GridBagLayout();
 		GridBagConstraints con = new GridBagConstraints();
@@ -38,7 +38,7 @@ public class DayView extends JFrame {
 		masterPane.setLayout(layout);
 		this.add(scroll, BorderLayout.CENTER);
 
-		
+
 		close.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -46,22 +46,24 @@ public class DayView extends JFrame {
 				parent.setVisible(true);
 			}
 		});
-		
+
 		for (int i = 0; i < numOfEvents; i++){
-			JLabel combine = new JLabel("Title: " + viewData.getName());
-			combine.setFont(new Font("Serif", Font.PLAIN, 24));
-			nameL.setFont(new Font("Serif", Font.PLAIN, 22));
-			duration.setFont(new Font("Serif", Font.PLAIN, 22));
-			descripL.setFont(new Font("Serif", Font.PLAIN, 22));
-			locationL.setFont(new Font("Serif", Font.PLAIN, 22));
-			space.setFont(new Font("Serif", Font.PLAIN, 22));
+			JLabel combine = new JLabel(viewData.getName());
 			nameL = combine;
 			duration = new JLabel("Duration: ");
 			descripL = new JLabel("Description: "+viewData.getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getLocation());
 			
+			combine.setFont(new Font("Serif", Font.PLAIN, 52));
+			nameL.setFont(new Font("Serif", Font.PLAIN, 46));
+			duration.setFont(new Font("Serif", Font.PLAIN, 46));
+			descripL.setFont(new Font("Serif", Font.PLAIN, 46));
+			locationL.setFont(new Font("Serif", Font.PLAIN, 46));
+			space.setFont(new Font("Serif", Font.PLAIN, 46));
+			close.setFont(new Font("Serif", Font.PLAIN, 30));
+
 			JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
-			sep.setPreferredSize(new Dimension(200,10));
+			sep.setPreferredSize(new Dimension(300,10));
 			JPanel eventPanel = new JPanel();
 			eventPanel.setLayout(new GridBagLayout());
 			GridBagConstraints s = new GridBagConstraints();
@@ -92,25 +94,21 @@ public class DayView extends JFrame {
 			eventPanel.add(sep, s);
 			con.gridx = 0;
 			con.gridy = i;
-			
-			
+
 			masterPane.add(eventPanel, con);
-			
 			masterPane.revalidate();
 			masterPane.repaint();
-						
+
 		}
-		
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(300,400);
+		this.setSize(600,550);
 		this.setVisible(true);
 		this.setResizable(false);
-		
 	}
-	
+
 	void addConfirmListener(ActionListener listenForConfirm){
 		close.addActionListener(listenForConfirm);
 	}
-	
+
 }

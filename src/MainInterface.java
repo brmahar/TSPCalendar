@@ -26,9 +26,11 @@ public class MainInterface extends JFrame{
 	private JTextField viewName = new JTextField(10);
 	private JButton viewEvent = new JButton("View Event");
 	private JFrame thisFrame = this;
+	private JButton monthCal = new JButton("Month View");
+	private JButton weeklyCal = new JButton("Weekly View");
 
 	MainInterface(){
-		
+
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -40,7 +42,7 @@ public class MainInterface extends JFrame{
 				add.setVisible(true);
 			}
 		});
-		
+
 		viewEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -54,7 +56,7 @@ public class MainInterface extends JFrame{
 				view.setVisible(true);
 			}
 		});
-		
+
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -68,7 +70,7 @@ public class MainInterface extends JFrame{
 				edit.setVisible(true);
 			}
 		});
-		
+
 		deleteEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -76,11 +78,27 @@ public class MainInterface extends JFrame{
 				storeName.setName(deleteName.getText());
 				SendToDB deleteEvent = new SendToDB();
 				deleteEvent.runStore(storeName, 2);
-				
-				
+				deleteName.setText("");
+
+			}
+		});
+
+		monthCal.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
+				TheCalendar cal = new TheCalendar(thisFrame);
 			}
 		});
 		
+		weeklyCal.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
+				WeekView theView = new WeekView(thisFrame);
+			}
+		});
+
 		title.setFont(new Font("Serif", Font.PLAIN, 22));
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
@@ -113,6 +131,14 @@ public class MainInterface extends JFrame{
 		s.gridx = 0;
 		s.gridy = 8;
 		eventPanel.add(viewEvent, s);
+		s.gridx = 0;
+		s.gridy = 10;
+		s.fill = GridBagConstraints.HORIZONTAL;
+		eventPanel.add(monthCal, s);
+		s.gridx = 0;
+		s.gridy = 11;
+		s.fill = GridBagConstraints.HORIZONTAL;
+		eventPanel.add(weeklyCal, s);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
