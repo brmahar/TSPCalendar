@@ -41,7 +41,7 @@ public class MainInterface extends JFrame{
 				storeName.setName(addName.getText());
 				addName.setText("");
 				if (check.isSelected()){
-					System.out.println("hi");
+					
 				}
 				AddEvent add = new AddEvent(storeName, thisFrame);
 				add.setVisible(true);

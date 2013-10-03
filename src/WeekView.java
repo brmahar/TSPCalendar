@@ -131,6 +131,12 @@ public class WeekView {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		if (first == false){
 			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			DateFormat someDay = new SimpleDateFormat("dd");
+			DateFormat someMonth = new SimpleDateFormat("MM");
+			DateFormat someYear = new SimpleDateFormat("yyyy");
+			otherDay = Integer.parseInt(someDay.format(cal.getTime()));
+			otherMonth = Integer.parseInt(someMonth.format(cal.getTime()));
+			otherYear = Integer.parseInt(someYear.format(cal.getTime()));
 			month.setText("Week of: " + df.format(cal.getTime())); 
 		}
 		else{
@@ -192,7 +198,7 @@ public class WeekView {
 			
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
-
+			System.out.println(otherDay);
 			String stringA = "" + otherDay;
 			getData.getSpecificData(connection, data,0);
 			ArrayList<String> theNames = data.getNames();
