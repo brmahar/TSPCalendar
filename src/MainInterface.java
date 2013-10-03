@@ -63,11 +63,14 @@ public class MainInterface extends JFrame{
 		deleteEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				thisFrame.setVisible(false);
 				StoreData storeName = new StoreData();
 				storeName.setName(deleteName.getText());
-				SendToDB deleteEvent = new SendToDB();
-				deleteEvent.runStore(storeName, 2);
+				SendToDB deleteDB = new SendToDB();
+				deleteDB.runStore(storeName, 6);
 				deleteName.setText("");
+				DeleteDayView delete = new DeleteDayView(storeName, thisFrame, storeName.getSingleDay().size());
+				delete.setVisible(true);
 
 			}
 		});
