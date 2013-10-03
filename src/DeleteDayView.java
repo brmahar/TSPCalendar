@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
-public class EditDayView extends JFrame {
+public class DeleteDayView extends JFrame {
 
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
@@ -29,16 +29,16 @@ public class EditDayView extends JFrame {
 	private JLabel locationL = new JLabel("Location: ");
 	private JLabel space = new JLabel("<html><br></html>");
 	private JButton close = new JButton("Exit View");
-	private JButton editThis = new JButton("Edit event");
+	private JButton deleteThis = new JButton("Delete event");
 	private JFrame thisThing = this;
 	private JScrollPane scroll;
 	private JTextField field = new JTextField("Yaya!");
 	private JPanel masterPane = new JPanel();
 	private GridBagLayout layout;
-	private StoreData sendToEdit;
+	private StoreData sendToDelete;
 
-	EditDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
-		sendToEdit = viewData;
+	DeleteDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
+		sendToDelete = viewData;
 		layout = new GridBagLayout();
 		GridBagConstraints con = new GridBagConstraints();
 		scroll = new JScrollPane(masterPane);
@@ -57,7 +57,7 @@ public class EditDayView extends JFrame {
 			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
 			nameL = combine;
 
-			editThis = new JButton("Edit Event");
+			deleteThis = new JButton("Delete Event");
 
 			startTime = new JLabel("Start Time: " + viewData.getSingleDay().get(i).getSTime());
 			endTime = new JLabel("End Time: "+ viewData.getSingleDay().get(i).getETime());
@@ -106,7 +106,7 @@ public class EditDayView extends JFrame {
 			eventPanel.add(locationL, s);
 			s.gridx = 0;
 			s.gridy = 7;
-			eventPanel.add(editThis, s);
+			eventPanel.add(deleteThis, s);
 			s.gridx = 0;
 			s.gridy = 8;
 			eventPanel.add(sep, s);
@@ -117,14 +117,14 @@ public class EditDayView extends JFrame {
 			masterPane.revalidate();
 			masterPane.repaint();
 			final int storeI = i;
-			editThis.addActionListener(new ActionListener(){
+			deleteThis.addActionListener(new ActionListener(){
 				SendToDB newRun = new SendToDB();
 				@Override
 				public void actionPerformed(ActionEvent e){
 					thisThing.dispose();
-					sendToEdit.setID(viewData.getSingleDay().get(storeI).getID());
-					newRun.runStore(sendToEdit, 4);
-					EditEvent edit = new EditEvent(sendToEdit, parent);
+					sendToDelete.setID(viewData.getSingleDay().get(storeI).getID());
+					newRun.runStore(sendToDelete, 4);
+					EditEvent edit = new EditEvent(sendToDelete, parent);
 					edit.setVisible(true);
 				}
 				
