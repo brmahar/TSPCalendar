@@ -56,8 +56,9 @@ public class SendToDB {
 				getNameEvents(connection, data);
 			}else if(bool == 4){
 				getByID(connection,data);
+			}else if(bool == 7){
+				editEvent(connection, data);
 			}else{
-			
 				send(connection, data);
 			}
 
@@ -385,6 +386,41 @@ public class SendToDB {
 			}
 		} catch (SQLException e) {
 			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+	}
+	
+	public void editEvent(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		StoreData theData = data;
+		String name = theData.getName();
+		String local = theData.getLocation();
+		String startDate = theData.getDate();
+		String endDate = theData.getEndDate();
+		String description = theData.getDescription();
+		String theSTime = theData.getSTime();
+		String theETime = theData.getETime();
+		String id = theData.getID();
+		
+		try {
+			preStmt = (PreparedStatement) connection.prepareStatement("UPDATE "
+					+ "Event SET Name=?, Location=?, Description=?, End_Date=?, Start_Date=?, Start_Time=?, End_Time=? WHERE id=?"); 
+			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(startDate);
+			java.util.Date date2 = new SimpleDateFormat("MM-dd-yyyy").parse(endDate);
+			java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+			java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
+
+			preStmt.setString(1,name);
+			preStmt.setDate(4,sqlEndDate);
+			preStmt.setDate(5, sqlDate);
+			preStmt.setString(2,local);
+			preStmt.setString(3,description);
+			preStmt.setString(6, theSTime);
+			preStmt.setString(7, theETime);
+			preStmt.setString(8, id);
+			preStmt.executeUpdate();
+		} catch (SQLException | ParseException e) {
+			System.out.println("Nothing was added lawllawllawl");
 			e.printStackTrace();
 		}
 	}
