@@ -4,6 +4,9 @@ import javax.swing.table.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -126,19 +129,16 @@ public class WeekView {
 		else{
 			month.setText("Week of: 0" + aMonth + "/" + aDay + "/" + aYear);
 		}
-		
-		
+
+
 		prev.setEnabled(true); 
 		next.setEnabled(true);
 
 		month.setBounds(417-month.getPreferredSize().width/2, 50, 360, 50); 
 
-		
 
-		for (int j = 0; j < 7; j++){
-			String template = "<html>Event<br>Event<br>Event<html>";
-			calendarTable.setValueAt(template, 0, j);
-		}
+
+		generateDays();
 
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 		render.setVerticalAlignment(JLabel.TOP);
@@ -146,6 +146,72 @@ public class WeekView {
 		for (int i = 0; i < 7; i++){
 			theCalendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
+	}
+
+	private static void generateDays() {
+		System.out.println("------------ MySQL JDBC Connection Testing ------------");
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("No MySQL JDBC Driver?");
+			e.printStackTrace();
+			return;
+		}
+
+		System.out.println("MySQL JDBC Driver Registered");
+		Connection connection = null;
+
+		try {
+			connection = DriverManager
+					.getConnection("jdbc:mysql://orion.csl.mtu.edu/ajbrowne","ajbrowne", "ajZ4VikY/tnI.");
+
+		} catch (SQLException e) {
+			System.out.println("Connection Failed!");
+			((Throwable) e).printStackTrace();
+			return;
+		}
+
+		if (connection != null) {
+			System.out.println("Now Connected, so please stay and look around!");
+
+
+		} else {
+			System.out.println("Failed to make a connection!");
+		}
+		StoreData data = new StoreData();
+		final SendToDB getData = new SendToDB();
+		for (int j = 0; j < 7; j++){
+			
+			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
+			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
+			
+			String stringA;
+			getData.getSpecificData(connection, data);
+			ArrayList<String> theNames = data.getNames();
+			String template = "<html>%s<br>%s<br>%s<html>";
+			
+			if(theNames.size() == 1){
+				String put = String.format(template, theNames.get(0), "","");
+				calendarTable.setValueAt(put,0,j);
+			}else if(theNames.size() == 2){
+				String put = String.format(template, theNames.get(0), theNames.get(1),"");
+				calendarTable.setValueAt(put,0,j);
+			}else if(theNames.size() >= 3){
+				String put = String.format(template, theNames.get(0), theNames.get(1),theNames.get(2));
+				calendarTable.setValueAt(put,0,j);
+			}else{
+				String put = String.format(template, "", "","");
+				calendarTable.setValueAt(put,0,j);
+			}
+			
+			data.setDate(null);
+			data.resetNames();
+			otherDay++;
+			//calendarTable.setValueAt(template, 0, j);
+		}
+		otherDay -= 7;
+
 	}
 
 	static class prevWeek implements ActionListener{

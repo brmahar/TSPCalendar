@@ -159,28 +159,55 @@ public class SendToDB {
 		PreparedStatement preStmt=null;
 		String stmt = "SELECT * FROM Event WHERE Start_Date = (?)";
 		String formatSDate = null;
+		String formatEDate = null;
+		StoreData extra = new StoreData();
 		try{
 			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
 			SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
 			SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				
-				formatSDate = dbDate.format(displayDate.parse(data.getDate()));
 
+				formatSDate = dbDate.format(displayDate.parse(data.getDate()));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			preStmt.setString(1, formatSDate);
 			ResultSet rs = preStmt.executeQuery();
-			
+			for(int i = 0; i < data.getMultiDay().size();i++){
+				data.addName(data.getMultiDay().get(i).getName());
+			}
 			while(rs.next()){
 				String description = rs.getString("Description");
 				String location = rs.getString("Location");
 				String name = rs.getString("Name");
+				String endDate = rs.getString("End_Date");
+				String sTime = rs.getString("Start_Time");
+				String eTime = rs.getString("End_Time");
+				
+				try {
+					formatEDate = displayDate.format(dbDate.parse(endDate));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				data.setEndDate(formatEDate);
 				data.setName(name);
 				data.addName(name);
 				data.setDescription(description);
 				data.setLocation(location);
+				data.setSTime(sTime);
+				data.setETime(eTime);
+
+				extra.setEndDate(formatEDate);
+				extra.setName(name);
+				extra.setDescription(description);
+				extra.setLocation(location);
+				extra.setSTime(sTime);
+				extra.setETime(eTime);
+				if(!data.getDate().equals(data.getEndDate())){
+					data.addEvent(extra);
+				}
+				
+
 			}
 		}catch(SQLException e){
 			System.out.println("Man you got problems now");

@@ -215,27 +215,33 @@ public class TheCalendar {
 			String stringA;
 			getData.getSpecificData(connection, data);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
+			String curDate = data.getDate();
+			for(int k = 0; k < data.getMultiDay().size(); k++){
+				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
+					data.removeData(data.getMultiDay().get(k));
+					k--;
+				}
+			}
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
 				stringA = String.valueOf(i);
 			}
 			ArrayList<String> theNames = data.getNames();
-			if(theNames == null){
-				continue;
-			}else if(theNames.size() == 1){
+			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");
 				calendarTable.setValueAt(put, row, column);
 			}else if(theNames.size() == 2){
 				String put = String.format(template, stringA, theNames.get(0), theNames.get(1),"");
 				calendarTable.setValueAt(put, row, column);
-			}else if(theNames.size() == 3){
+			}else if(theNames.size() >= 3){
 				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2));
 				calendarTable.setValueAt(put, row, column);
 			}else{
 				String put = String.format(template, stringA,"","","");
 				calendarTable.setValueAt(put, row, column);
 			}
+			
 			data.setDate(null);
 			data.resetNames();
 		}
@@ -256,7 +262,7 @@ public class TheCalendar {
 					newRun.runStore(data, 3);
 					//System.out.println("Selected: " + selectedData);
 					
-					//ViewEvent test = new ViewEvent(data,thisFrame);
+					ViewEvent test = new ViewEvent(data,thisFrame);
 
 				}
 			}

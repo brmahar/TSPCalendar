@@ -12,6 +12,7 @@ public class StoreData {
 	private String eTime = null;
 	private ArrayList<String> names = new ArrayList<String>();
 	private ArrayList<String> sDates = new ArrayList<String>();
+	private ArrayList<StoreData> multiDay = new ArrayList<StoreData>();
 	
 
 
@@ -43,6 +44,10 @@ public class StoreData {
 	public void addName(String newName){
 		names.add(newName);
 	}
+	
+	public void addEvent(StoreData newEvent){
+		multiDay.add(newEvent);
+	}
 	public void resetNames(){
 		names.clear();
 	}
@@ -73,5 +78,12 @@ public class StoreData {
 	}
 	public ArrayList<String> getDates(){
 		return sDates;
+	}
+	
+	public ArrayList<StoreData>getMultiDay(){
+		return multiDay;
+	}
+	public void removeData(StoreData remove){
+		multiDay.remove(remove);
 	}
 }
