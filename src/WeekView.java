@@ -199,7 +199,13 @@ public class WeekView {
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
 			System.out.println(otherDay);
-			String stringA = "" + otherDay;
+			String stringA;
+			if (otherDay < 10){
+				stringA = "0" + otherDay;
+			}
+			else{
+				stringA = "" + otherDay;
+			}
 			getData.getSpecificData(connection, data,0);
 			ArrayList<String> theNames = data.getNames();
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
@@ -220,7 +226,15 @@ public class WeekView {
 			
 			data.setDate(null);
 			data.resetNames();
-			otherDay++;
+			Calendar cal = Calendar.getInstance();
+			cal.set(otherYear ,otherMonth -1, otherDay);
+			cal.add(Calendar.DATE, 1);
+			DateFormat someDay = new SimpleDateFormat("dd");
+			DateFormat someMonth = new SimpleDateFormat("MM");
+			DateFormat someYear = new SimpleDateFormat("yyyy");
+			otherDay = Integer.parseInt(someDay.format(cal.getTime()));
+			otherMonth = Integer.parseInt(someMonth.format(cal.getTime()));
+			otherYear = Integer.parseInt(someYear.format(cal.getTime()));
 			//calendarTable.setValueAt(template, 0, j);
 		}
 		theCalendar.addMouseListener(new MouseAdapter() {
