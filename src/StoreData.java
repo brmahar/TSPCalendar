@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class StoreData {
 
@@ -8,6 +10,8 @@ public class StoreData {
 	private String endDate = null;
 	private String sTime = null;
 	private String eTime = null;
+	private ArrayList<String> names = new ArrayList<String>();
+	
 	
 
 
@@ -33,6 +37,9 @@ public class StoreData {
 	public void setETime(String theTime){
 		eTime = theTime;
 	}
+	public void addName(String newName){
+		names.add(newName);
+	}
 	public String getName(){
 		return name;
 	}
@@ -53,5 +60,9 @@ public class StoreData {
 	}
 	public String getETime(){
 		return eTime;
+	}
+	
+	public ArrayList<String> getNames(){
+		return names;
 	}
 }
