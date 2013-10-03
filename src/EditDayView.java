@@ -37,7 +37,7 @@ public class EditDayView extends JFrame {
 	private GridBagLayout layout;
 	private StoreData sendToEdit;
 
-	EditDayView(StoreData viewData, final JFrame parent, int numOfEvents){
+	EditDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
 		sendToEdit = viewData;
 		layout = new GridBagLayout();
 		GridBagConstraints con = new GridBagConstraints();
@@ -59,10 +59,10 @@ public class EditDayView extends JFrame {
 
 			editThis = new JButton("Edit Event");
 
-			startTime = new JLabel("Duration: ");
-			endTime = new JLabel("End Time: ");
-			startDate = new JLabel("Start Date: ");
-			endDate = new JLabel("End Date: ");
+			startTime = new JLabel("Start Time: " + viewData.getSingleDay().get(i).getSTime());
+			endTime = new JLabel("End Time: "+ viewData.getSingleDay().get(i).getETime());
+			startDate = new JLabel("Start Date: "+ viewData.getSingleDay().get(i).getDate());
+			endDate = new JLabel("End Date: "+ viewData.getSingleDay().get(i).getEndDate());
 			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
 			
@@ -116,12 +116,15 @@ public class EditDayView extends JFrame {
 			masterPane.add(eventPanel, con);
 			masterPane.revalidate();
 			masterPane.repaint();
-
+			final int storeI = i;
 			editThis.addActionListener(new ActionListener(){
+				SendToDB newRun = new SendToDB();
 				@Override
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Yes!");
 					thisThing.dispose();
+					sendToEdit.setID(viewData.getSingleDay().get(storeI).getID());
+					newRun.runStore(sendToEdit, 4);
 					EditEvent edit = new EditEvent(sendToEdit, parent);
 					edit.setVisible(true);
 				}

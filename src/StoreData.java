@@ -10,6 +10,7 @@ public class StoreData {
 	private String endDate = null;
 	private String sTime = null;
 	private String eTime = null;
+	private String id = null;
 	private ArrayList<String> names = new ArrayList<String>();
 	private ArrayList<String> sDates = new ArrayList<String>();
 	private ArrayList<StoreData> multiDay = new ArrayList<StoreData>();
@@ -17,7 +18,9 @@ public class StoreData {
 	
 
 
-
+	public void setID(String theID){
+		id = theID;
+	}
 	public void setName(String theName){
 		name = theName;
 	}
@@ -100,5 +103,9 @@ public class StoreData {
 	}
 	public void resetSingle(){
 		singleDay.clear();
+	}
+	
+	public String getID(){
+		return id;
 	}
 }

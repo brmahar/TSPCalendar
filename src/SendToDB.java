@@ -54,6 +54,8 @@ public class SendToDB {
 				getDateEvents(connection, data);
 			}else if(bool == 6){
 				getNameEvents(connection, data);
+			}else if(bool == 4){
+				getByID(connection,data);
 			}else{
 			
 				send(connection, data);
@@ -322,6 +324,7 @@ public class SendToDB {
 				String endDate = rs.getString("End_Date");
 				String sTime = rs.getString("Start_Time");
 				String eTime = rs.getString("End_Time");
+				String id = rs.getString("id");
 				try {
 
 					formatSDate = displayDate.format(dbDate.parse(date));
@@ -336,9 +339,49 @@ public class SendToDB {
 				newDay.setEndDate(formatEDate);
 				newDay.setSTime(sTime);
 				newDay.setETime(eTime);
+				newDay.setID(id);
 				if(name.equals(passedName)){
 					data.addDayEvent(newDay);
 				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+	}
+	
+	public void getByID(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		StoreData theData = data;
+		SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
+		String formatSDate = null;
+		String formatEDate = null;
+		String stmt = "SELECT * FROM Event WHERE id= ?";
+		try {
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			preStmt.setString(1, data.getID());
+			ResultSet rs = preStmt.executeQuery();
+			while(rs.next()){
+				String description = rs.getString("Description");
+				String location = rs.getString("Location");
+				String date = rs.getString("Start_Date");
+				String endDate = rs.getString("End_Date");
+				try {
+
+					formatSDate = displayDate.format(dbDate.parse(date));
+					formatEDate = displayDate.format(dbDate.parse(endDate));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				String sTime = rs.getString("Start_Time");
+				String eTime = rs.getString("End_Time");
+				data.setDescription(description);
+				data.setLocation(location);
+				data.setDate(formatSDate);
+				data.setEndDate(formatEDate);
+				data.setSTime(sTime);
+				data.setETime(eTime);
 			}
 		} catch (SQLException e) {
 			System.out.println("Man you got problems now");
