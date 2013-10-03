@@ -58,7 +58,7 @@ public class RepeatingView extends JFrame {
 				if (saturday.isSelected()){
 					dayArray[6] = 1;
 				}
-				AddEvent theView = new AddEvent(data, thisThing);
+				AddEvent theView = new AddEvent(data, thisThing, dayArray);
 			}
 		});
 		
