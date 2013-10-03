@@ -53,9 +53,9 @@ public class MainInterface extends JFrame{
 				StoreData storeName = new StoreData();
 				storeName.setName(editName.getText());
 				SendToDB editDB = new SendToDB();
-				editDB.runStore(storeName, 1);
+				editDB.runStore(storeName, 6);
 				editName.setText("");
-				EditDayView edit = new EditDayView(storeName, thisFrame, 0);
+				EditDayView edit = new EditDayView(storeName, thisFrame, storeName.getSingleDay().size());
 				edit.setVisible(true);
 			}
 		});

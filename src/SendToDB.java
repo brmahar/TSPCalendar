@@ -52,7 +52,10 @@ public class SendToDB {
 				getSpecificData(connection, data,0);
 			}else if(bool == 5){
 				getDateEvents(connection, data);
+			}else if(bool == 6){
+				getNameEvents(connection, data);
 			}else{
+			
 				send(connection, data);
 			}
 
@@ -295,5 +298,51 @@ public class SendToDB {
 			e.printStackTrace();
 		}
 	}
+	
+	public void getNameEvents(Connection connection, StoreData data){
+		data.resetSingle();
+		PreparedStatement preStmt=null;
+		String stmt = "SELECT * FROM Event";
+		SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
+		String formatSDate = null;
+		String formatEDate = null;
+		String passedName = data.getName();
+		
+		try{
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			ResultSet rs = preStmt.executeQuery();
+			StoreData newDay;
+			while(rs.next()){
+				newDay = new StoreData();
+				String name = rs.getString("Name");
+				String description = rs.getString("Description");
+				String location = rs.getString("Location");
+				String date = rs.getString("Start_Date");
+				String endDate = rs.getString("End_Date");
+				String sTime = rs.getString("Start_Time");
+				String eTime = rs.getString("End_Time");
+				try {
 
+					formatSDate = displayDate.format(dbDate.parse(date));
+					formatEDate = displayDate.format(dbDate.parse(endDate));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				newDay.setName(name);
+				newDay.setDescription(description);
+				newDay.setLocation(location);
+				newDay.setDate(formatSDate);
+				newDay.setEndDate(formatEDate);
+				newDay.setSTime(sTime);
+				newDay.setETime(eTime);
+				if(name.equals(passedName)){
+					data.addDayEvent(newDay);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+	}
 }
