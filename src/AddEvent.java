@@ -107,6 +107,82 @@ public class AddEvent extends JFrame {
 		
 	}
 	
+	AddEvent(StoreData data, final JFrame parent, int[] repeatDays){
+		title = new JLabel("Adding Event: " + data.getName());
+		title.setFont(new Font("Serif", Font.PLAIN, 30));
+		final StoreData storeData = data;
+		submit.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				
+				storeData.setLocation(getLoca());
+				storeData.setDate(getDate());
+				storeData.setEndDate(getEndDate());
+				storeData.setSTime(getStartTime());
+				storeData.setETime(getEndTime());
+				storeData.setDescription(getDescription());
+				SendToDB storeDB = new SendToDB();
+
+				storeDB.runStore(storeData, 0);
+				thisThing.dispose();
+				parent.setVisible(true);
+			}
+		});
+		JPanel eventPanel = new JPanel();
+		eventPanel.setLayout(new GridBagLayout());
+		GridBagConstraints s = new GridBagConstraints();
+		s.anchor = GridBagConstraints.NORTH;
+		s.gridx = 0;
+		s.gridy = 0;
+		eventPanel.add(title, s);
+		s.gridx = 0;
+		s.gridy = 1;
+		eventPanel.add(startDateL, s);
+		s.gridx = 0;
+		s.gridy = 2;
+		eventPanel.add(startDate, s);
+		s.gridx = 0;
+		s.gridy = 3;
+		eventPanel.add(endDateL, s);
+		s.gridx = 0;
+		s.gridy = 4;
+		eventPanel.add(endDate, s);
+		s.gridx = 0;
+		s.gridy = 5;
+		eventPanel.add(fromL, s);
+		s.gridx = 0;
+		s.gridy = 6;
+		eventPanel.add(from, s);
+		s.gridx = 0;
+		s.gridy = 7;
+		eventPanel.add(toL, s);
+		s.gridx = 0;
+		s.gridy = 8;
+		eventPanel.add(to, s);
+		s.gridx = 0;
+		s.gridy = 9;
+		eventPanel.add(descripL, s);
+		s.gridx = 0;
+		s.gridy = 10;
+		eventPanel.add(descrip, s);
+		s.gridx = 0;
+		s.gridy = 11;
+		eventPanel.add(locationL, s);
+		s.gridx = 0;
+		s.gridy = 12;
+		eventPanel.add(location, s);
+		s.gridx = 0;
+		s.gridy = 13;
+		eventPanel.add(submit, s);
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.add(eventPanel);
+		this.setSize(450,400);
+		this.setVisible(true);
+		this.setResizable(false);
+		
+	}
+	
 	public String getDate(){
 		return startDate.getText();
 	}
