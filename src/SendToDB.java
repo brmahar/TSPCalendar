@@ -164,7 +164,7 @@ public class SendToDB {
 			SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
 			SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-
+				
 				formatSDate = dbDate.format(displayDate.parse(data.getDate()));
 
 			} catch (ParseException e) {
@@ -174,9 +174,13 @@ public class SendToDB {
 			ResultSet rs = preStmt.executeQuery();
 			
 			while(rs.next()){
-				
+				String description = rs.getString("Description");
+				String location = rs.getString("Location");
 				String name = rs.getString("Name");
+				data.setName(name);
 				data.addName(name);
+				data.setDescription(description);
+				data.setLocation(location);
 			}
 		}catch(SQLException e){
 			System.out.println("Man you got problems now");

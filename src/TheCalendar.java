@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.*;
+import java.awt.event.*;
 
 public class TheCalendar {
 
@@ -28,6 +29,7 @@ public class TheCalendar {
 	static int theYear;
 	static int otherMonth;
 	static int otherYear;
+	private static JFrame thisFrame;
 
 	@SuppressWarnings("unchecked")
 	TheCalendar(){
@@ -112,6 +114,8 @@ public class TheCalendar {
 		calendarTable.setColumnCount(7);
 		calendarTable.setRowCount(6);
 
+
+
 		for (int i = theYear-100; i < theYear+100; i++){
 			yearBox.addItem(String.valueOf(i));
 		}
@@ -119,7 +123,8 @@ public class TheCalendar {
 		prev.addActionListener(new prevMonth());
 		next.addActionListener(new nextMonth());
 		yearBox.addActionListener(new changeYear());
-
+		thisFrame = new MainInterface();
+		thisFrame.setVisible(false);
 		updateCalendar(theMonth, theYear);
 	}
 
@@ -162,6 +167,7 @@ public class TheCalendar {
 	}
 
 	private static void generateDays(int days, int startOfMonth) {
+
 		System.out.println("------------ MySQL JDBC Connection Testing ------------");
 
 		try {
@@ -192,11 +198,11 @@ public class TheCalendar {
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
-		
-		SendToDB getData = new SendToDB();
 
+		final SendToDB getData = new SendToDB();
+		final StoreData data = new StoreData();
 		for (int i = 1; i <= days; i++){
-			StoreData data = new StoreData();
+
 			int row = new Integer((i+startOfMonth-2)/7);
 			int column = (i+startOfMonth-2)%7;
 			theMonth ++;
@@ -206,9 +212,14 @@ public class TheCalendar {
 				data.setDate(""+theMonth+"-"+i+"-"+theYear);
 			}
 			theMonth--;
+			String stringA;
 			getData.getSpecificData(connection, data);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-			String stringA = String.valueOf(i);
+			if(i < 10){
+				stringA ="0" + String.valueOf(i);
+			}else{
+				stringA = String.valueOf(i);
+			}
 			ArrayList<String> theNames = data.getNames();
 			if(theNames == null){
 				continue;
@@ -225,7 +236,55 @@ public class TheCalendar {
 				String put = String.format(template, stringA,"","","");
 				calendarTable.setValueAt(put, row, column);
 			}
+			data.setDate(null);
+			data.resetNames();
 		}
+		Calendar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent clicked) {
+				SendToDB newRun = new SendToDB();
+
+				int row = Calendar.rowAtPoint(clicked.getPoint());
+				int col = Calendar.columnAtPoint(clicked.getPoint());
+				if (row >= 0 && col >= 0) {
+					String selectedData = null;
+					selectedData = (String) Calendar.getValueAt(row, col);
+					selectedData = selectedData.substring(6, 8);
+					theMonth++;
+					data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
+					theMonth--;
+					newRun.runStore(data, 3);
+					//System.out.println("Selected: " + selectedData);
+					
+					ViewEvent test = new ViewEvent(data,thisFrame);
+
+				}
+			}
+		});
+		/*
+		ListSelectionModel cellSelectionModel = Calendar.getSelectionModel();
+	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
+	        public void valueChanged(ListSelectionEvent e) {
+	          String selectedData = null;
+
+	          int[] selectedRow = Calendar.getSelectedRows();
+	          int[] selectedColumns = Calendar.getSelectedColumns();
+
+	          for (int i = 0; i < selectedRow.length; i++) {
+	            for (int j = 0; j < selectedColumns.length; j++) {
+	              selectedData = (String) Calendar.getValueAt(selectedRow[i], selectedColumns[j]);
+	              selectedData = selectedData.substring(6, 8);
+	            }
+	          }
+	          data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
+	          System.out.println("Selected: " + selectedData);
+	          ViewEvent test = new ViewEvent(data,thisFrame);
+
+	        }
+
+	      });*/
+
 		try {
 			connection.close();
 		} catch (SQLException e) {

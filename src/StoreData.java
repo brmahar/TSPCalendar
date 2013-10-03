@@ -11,7 +11,7 @@ public class StoreData {
 	private String sTime = null;
 	private String eTime = null;
 	private ArrayList<String> names = new ArrayList<String>();
-	
+	private ArrayList<String> sDates = new ArrayList<String>();
 	
 
 
@@ -37,8 +37,14 @@ public class StoreData {
 	public void setETime(String theTime){
 		eTime = theTime;
 	}
+	public void addDates(String newDate){
+		sDates.add(newDate);
+	}
 	public void addName(String newName){
 		names.add(newName);
+	}
+	public void resetNames(){
+		names.clear();
 	}
 	public String getName(){
 		return name;
@@ -64,5 +70,8 @@ public class StoreData {
 	
 	public ArrayList<String> getNames(){
 		return names;
+	}
+	public ArrayList<String> getDates(){
+		return sDates;
 	}
 }
