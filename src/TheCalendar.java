@@ -209,7 +209,7 @@ public class TheCalendar {
 
 		final SendToDB getData = new SendToDB();
 		final StoreData data = new StoreData();
-		
+
 		for (int i = 1; i <= days; i++){
 
 			int row = new Integer((i+startOfMonth-2)/7);
@@ -225,7 +225,7 @@ public class TheCalendar {
 			String stringA;
 			getData.getSpecificData(connection, data,0);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-			
+
 			for(int k = 0; k < data.getMultiDay().size(); k++){
 				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
 					data.addDayEvent(data.getMultiDay().get(k));
@@ -233,7 +233,7 @@ public class TheCalendar {
 					k--;
 				}
 			}
-			
+
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
@@ -241,7 +241,7 @@ public class TheCalendar {
 			}
 			ArrayList<String> theNames = data.getNames();
 			numArgs = theNames.size();
-			
+
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");
 				calendarTable.setValueAt(put, row, column);
@@ -255,7 +255,7 @@ public class TheCalendar {
 				String put = String.format(template, stringA,"","","");
 				calendarTable.setValueAt(put, row, column);
 			}
-			
+
 			data.setDate(null);
 			data.resetNames();
 		}
@@ -279,18 +279,14 @@ public class TheCalendar {
 					theMonth++;
 					data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
 					theMonth--;
-					
+
 					newRun.runStore(data, 5);
-					
+
 					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
 
 				}
 			}
 		});
-			
-		
-
-		
 	}
 
 	static class prevMonth implements ActionListener{
@@ -331,7 +327,7 @@ public class TheCalendar {
 			}
 		}
 	}
-	
+
 	static class backToMenu implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			mainFrame.dispose();
