@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
-public class DayView extends JFrame {
+public class EditDayView extends JFrame {
 
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
@@ -26,12 +26,15 @@ public class DayView extends JFrame {
 	private JLabel locationL = new JLabel("Location: ");
 	private JLabel space = new JLabel("<html><br></html>");
 	private JButton close = new JButton("Exit View");
+	private JButton editThis = new JButton("Edit event");
 	private JFrame thisThing = this;
 	private JScrollPane scroll;
 	private JPanel masterPane = new JPanel();
 	private GridBagLayout layout;
+	private StoreData sendToEdit;
 
-	DayView(StoreData viewData, final JFrame parent, int numOfEvents){
+	EditDayView(StoreData viewData, final JFrame parent, int numOfEvents){
+		sendToEdit = viewData;
 		layout = new GridBagLayout();
 		GridBagConstraints con = new GridBagConstraints();
 		scroll = new JScrollPane(masterPane);
@@ -44,6 +47,16 @@ public class DayView extends JFrame {
 			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
 			}
+		});
+		
+		editThis.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisThing.dispose();
+				EditEvent edit = new EditEvent(sendToEdit, parent);
+				edit.setVisible(true);
+			}
+			
 		});
 
 		for (int i = 0; i < numOfEvents; i++){
@@ -87,9 +100,10 @@ public class DayView extends JFrame {
 			s.gridy = 5;
 			eventPanel.add(space, s);
 			//s.fill = GridBagConstraints.VERTICAL;
+			s.gridx = 0;
+			s.gridy = 6;
+			eventPanel.add(editThis, s);
 			s.weightx = 1;
-			//s.gridx = 0;
-			//s.gridy = 6;
 			eventPanel.add(sep, s);
 			con.gridx = 0;
 			con.gridy = i;

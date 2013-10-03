@@ -24,8 +24,6 @@ public class MainInterface extends JFrame{
 	private JButton editEvent = new JButton("Edit Event");
 	private JTextField deleteName = new JTextField(15);
 	private JButton deleteEvent = new JButton("Delete Event");
-	private JTextField viewName = new JTextField(15);
-	private JButton viewEvent = new JButton("View Event");
 	private JFrame thisFrame = this;
 	private JButton monthCal = new JButton("Month View");
 	private JButton weeklyCal = new JButton("Weekly View");
@@ -48,20 +46,6 @@ public class MainInterface extends JFrame{
 			}
 		});
 
-		viewEvent.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				thisFrame.setVisible(false);
-				StoreData pullViewData = new StoreData();
-				pullViewData.setName(viewName.getText());
-				SendToDB storeDB = new SendToDB();
-				storeDB.runStore(pullViewData, 1);
-				viewName.setText("");
-				ViewEvent view = new ViewEvent(pullViewData, thisFrame);
-				view.setVisible(true);
-			}
-		});
-
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -71,7 +55,7 @@ public class MainInterface extends JFrame{
 				SendToDB editDB = new SendToDB();
 				editDB.runStore(storeName, 1);
 				editName.setText("");
-				EditEvent edit = new EditEvent(storeName, thisFrame);
+				EditDayView edit = new EditDayView(storeName, thisFrame, 0);
 				edit.setVisible(true);
 			}
 		});
@@ -134,17 +118,11 @@ public class MainInterface extends JFrame{
 		s.gridx = 2;
 		s.gridy = 6;
 		eventPanel.add(deleteEvent, s);
-		s.gridx = 2;
-		s.gridy = 7;
-		eventPanel.add(viewName, s);
-		s.gridx = 2;
-		s.gridy = 8;
-		eventPanel.add(viewEvent, s);
 		s.gridx = 3;
-		s.gridy = 10;
+		s.gridy = 7;
 		eventPanel.add(monthCal, s);
 		s.gridx = 1;
-		s.gridy = 10;
+		s.gridy = 7;
 		eventPanel.add(weeklyCal, s);
 		
 		this.pack();

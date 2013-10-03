@@ -288,7 +288,6 @@ public class TheCalendar {
 			System.out.println("The connection was not closed.....Run away now!!!!");
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		Calendar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent clicked) {
@@ -311,10 +310,6 @@ public class TheCalendar {
 				}
 			}
 		});
-=======
-
-		
->>>>>>> cbfd500628e163a3e3457bec6ec16882cb8774b6
 	}
 
 	static class prevMonth implements ActionListener{
