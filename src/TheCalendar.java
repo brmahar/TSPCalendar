@@ -143,7 +143,7 @@ public class TheCalendar {
 			next.setEnabled(false);
 		} 
 		month.setText(months[aMonth]); 
-		month.setBounds(320-month.getPreferredSize().width/2, 50, 360, 50); 
+		month.setBounds(418-month.getPreferredSize().width/2, 50, 360, 50); 
 		yearBox.setSelectedItem(String.valueOf(aYear)); 
 
 		GregorianCalendar gregCal = new GregorianCalendar(aYear, aMonth, 1);
