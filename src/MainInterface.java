@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +29,7 @@ public class MainInterface extends JFrame{
 	private JFrame thisFrame = this;
 	private JButton monthCal = new JButton("Month View");
 	private JButton weeklyCal = new JButton("Weekly View");
+	private JCheckBox check = new JCheckBox("Repeated");
 
 	MainInterface(){
 
@@ -38,6 +40,9 @@ public class MainInterface extends JFrame{
 				StoreData storeName = new StoreData();
 				storeName.setName(addName.getText());
 				addName.setText("");
+				if (check.isSelected()){
+					System.out.println("hi");
+				}
 				AddEvent add = new AddEvent(storeName, thisFrame);
 				add.setVisible(true);
 			}
@@ -114,6 +119,9 @@ public class MainInterface extends JFrame{
 		s.gridx = 2;
 		s.gridy = 2;
 		eventPanel.add(addEvent, s);
+		s.gridx = 3;
+		s.gridy = 2;
+		eventPanel.add(check, s);
 		s.gridx = 2;
 		s.gridy = 3;
 		eventPanel.add(editName, s);
