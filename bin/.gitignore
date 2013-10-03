@@ -25,3 +25,7 @@
 /WeekView$changeYear.class
 /WeekView$nextMonth.class
 /WeekView$prevMonth.class
+/WeekView$nextWeek.class
+/WeekView$prevWeek.class
+/WeekView$prevWeek$nextWeek.class
+/nextWeek.class

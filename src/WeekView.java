@@ -4,6 +4,8 @@ import javax.swing.table.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class WeekView {
@@ -11,7 +13,7 @@ public class WeekView {
 	static JLabel month;
 	static JButton prev;
 	static JButton next;
-	static JTable Calendar;
+	static JTable theCalendar;
 	@SuppressWarnings("rawtypes")
 	static JFrame mainFrame;
 	static Container thePane;
@@ -24,6 +26,7 @@ public class WeekView {
 	static int otherMonth;
 	static int otherYear;
 	static int otherDay;
+	static boolean first = false;
 
 	@SuppressWarnings("unchecked")
 	WeekView(){
@@ -54,8 +57,8 @@ public class WeekView {
 				return false;
 			}
 		};
-		Calendar = new JTable(calendarTable);
-		calendarScroll = new JScrollPane(Calendar);
+		theCalendar = new JTable(calendarTable);
+		calendarScroll = new JScrollPane(theCalendar);
 		calendarPanel = new JPanel(null);
 
 		mainFrame.setSize(660,750);
@@ -93,34 +96,43 @@ public class WeekView {
 			calendarTable.addColumn(days[i]);
 		}
 
-		Calendar.getParent().setBackground(Calendar.getBackground());
-		Calendar.getTableHeader().setResizingAllowed(false);
-		Calendar.getTableHeader().setReorderingAllowed(false);
-		Calendar.setColumnSelectionAllowed(true);
-		Calendar.setRowSelectionAllowed(true);
-		Calendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		Calendar.setRowHeight(456);
+		theCalendar.getParent().setBackground(theCalendar.getBackground());
+		theCalendar.getTableHeader().setResizingAllowed(false);
+		theCalendar.getTableHeader().setReorderingAllowed(false);
+		theCalendar.setColumnSelectionAllowed(true);
+		theCalendar.setRowSelectionAllowed(true);
+		theCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		theCalendar.setRowHeight(456);
 		calendarTable.setColumnCount(7);
 		calendarTable.setRowCount(1);
 
-		prev.addActionListener(new prevMonth());
-		next.addActionListener(new nextMonth());
+		prev.addActionListener(new prevWeek());
+		next.addActionListener(new nextWeek());
 
-		updateCalendar(theMonth, theYear);
+		updateCalendar(theDay, theMonth, theYear);
 	}
 
-	public static void updateCalendar(int aDay, int aMonth){
-		String[] months = {"Sudday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-		int startOfWeek; 
-
+	public static void updateCalendar(int aDay, int aMonth, int aYear){
+		String[] days = {"Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		int firstDay;
+		Calendar cal = Calendar.getInstance();
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		if (first == false){
+			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			month.setText("Week of: " + df.format(cal.getTime())); 
+		}
+		else{
+			month.setText("Week of: 0" + aMonth + "/" + aDay + "/" + aYear);
+		}
+		
+		
 		prev.setEnabled(true); 
 		next.setEnabled(true);
 
-		month.setText(months[aMonth]); 
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 360, 50); 
 
-		//GregorianCalendar gregCal = new GregorianCalendar(aYear, aMonth, 1);
-		//startOfWeek = gregCal.get(GregorianCalendar.DAY_OF_WEEK);
+		
 
 		for (int j = 0; j < 7; j++){
 			String template = "<html>Event<br>Event<br>Event<html>";
@@ -131,32 +143,58 @@ public class WeekView {
 		render.setVerticalAlignment(JLabel.TOP);
 
 		for (int i = 0; i < 7; i++){
-			Calendar.getColumnModel().getColumn(i).setCellRenderer(render);
+			theCalendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
 	}
 
-	static class prevMonth implements ActionListener{
+	static class prevWeek implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			if (otherMonth == 0){ 
-				otherMonth = 11;
-				otherYear -= 1;
+			Calendar cal = Calendar.getInstance();
+			if (first == false){
+				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				cal.add(Calendar.DATE, -7);
 			}
-			else{ 
-				otherMonth -= 1;
+			else{
+				cal.set(otherYear, otherMonth-1, otherDay);
+				cal.add(Calendar.DATE, -7);
+				DateFormat theFuck = new SimpleDateFormat("MM/dd/yyyy");
+				System.out.println(theFuck.format(cal.getTime()));
 			}
-			updateCalendar(otherMonth, otherYear);
+			first = true;
+			DateFormat day = new SimpleDateFormat("dd");
+			DateFormat month = new SimpleDateFormat("MM");
+			DateFormat year = new SimpleDateFormat("yyyy");
+			otherDay = Integer.parseInt(day.format(cal.getTime()));
+			otherMonth = Integer.parseInt(month.format(cal.getTime()));
+			otherYear = Integer.parseInt(year.format(cal.getTime()));
+			System.out.print(otherMonth + "-" + otherDay + "-" + otherYear);
+			System.out.println();
+			updateCalendar(otherDay, otherMonth, otherYear);
 		}
 	}
-	static class nextMonth implements ActionListener{
+	static class nextWeek implements ActionListener{
 		public void actionPerformed (ActionEvent e){
-			if (otherMonth == 11){ 
-				otherMonth = 0;
-				otherYear += 1;
+			Calendar cal = Calendar.getInstance();
+			if (first == false){
+				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				cal.add(Calendar.DATE, +7);
 			}
-			else{ 
-				otherMonth += 1;
+			else{
+				cal.set(otherYear, otherMonth-1, otherDay);
+				cal.add(Calendar.DATE, +7);
+				DateFormat theFuck = new SimpleDateFormat("MM/dd/yyyy");
+				System.out.println(theFuck.format(cal.getTime()));
 			}
-			updateCalendar(otherMonth, otherYear);
+			first = true;
+			DateFormat day = new SimpleDateFormat("dd");
+			DateFormat month = new SimpleDateFormat("MM");
+			DateFormat year = new SimpleDateFormat("yyyy");
+			otherDay = Integer.parseInt(day.format(cal.getTime()));
+			otherMonth = Integer.parseInt(month.format(cal.getTime()));
+			otherYear = Integer.parseInt(year.format(cal.getTime()));
+			System.out.print(otherMonth + "-" + otherDay + "-" + otherYear);
+			System.out.println();
+			updateCalendar(otherDay, otherMonth, otherYear);
 		}
 	}
 
