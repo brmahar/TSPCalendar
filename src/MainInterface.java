@@ -52,7 +52,7 @@ public class MainInterface extends JFrame{
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(pullViewData, 1);
 				viewName.setText("");
-				DayView view = new DayView(pullViewData, thisFrame, 5);
+				ViewEvent view = new ViewEvent(pullViewData, thisFrame);
 				view.setVisible(true);
 			}
 		});

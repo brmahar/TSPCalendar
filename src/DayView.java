@@ -61,7 +61,6 @@ public class DayView extends JFrame {
 			descripL.setFont(new Font("Serif", Font.PLAIN, 46));
 			locationL.setFont(new Font("Serif", Font.PLAIN, 46));
 			space.setFont(new Font("Serif", Font.PLAIN, 46));
-			close.setFont(new Font("Serif", Font.PLAIN, 30));
 
 			JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
 			sep.setPreferredSize(new Dimension(300,10));
@@ -88,7 +87,7 @@ public class DayView extends JFrame {
 			s.gridx = 0;
 			s.gridy = 5;
 			eventPanel.add(space, s);
-			s.fill = GridBagConstraints.VERTICAL;
+			//s.fill = GridBagConstraints.VERTICAL;
 			s.weightx = 1;
 			//s.gridx = 0;
 			//s.gridy = 6;

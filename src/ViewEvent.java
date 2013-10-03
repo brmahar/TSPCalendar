@@ -25,8 +25,7 @@ public class ViewEvent extends JFrame {
 	private JFrame thisThing = this;
 	
 	ViewEvent(StoreData viewData, final JFrame parent){
-		JLabel combine = new JLabel("Title: " + viewData.getName());
-		combine.setFont(new Font("Serif", Font.PLAIN, 22));
+		JLabel combine = new JLabel(viewData.getName());
 		nameL = combine;
 		dateL = new JLabel("Start Date: " + viewData.getDate());
 		endDateL = new JLabel("End Date: " + viewData.getEndDate());
@@ -34,6 +33,13 @@ public class ViewEvent extends JFrame {
 		toL = new JLabel("Ending Time: "+ viewData.getETime());
 		descripL = new JLabel("Description: "+viewData.getDescription());
 		locationL = new JLabel("Location: "+viewData.getLocation());
+		combine.setFont(new Font("Serif", Font.PLAIN, 46));
+		dateL.setFont(new Font("Serif", Font.PLAIN, 34));
+		endDateL.setFont(new Font("Serif", Font.PLAIN, 34));
+		fromL.setFont(new Font("Serif", Font.PLAIN, 34));
+		toL.setFont(new Font("Serif", Font.PLAIN, 34));
+		descripL.setFont(new Font("Serif", Font.PLAIN, 34));
+		locationL.setFont(new Font("Serif", Font.PLAIN, 34));
 		close.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -48,7 +54,7 @@ public class ViewEvent extends JFrame {
 		s.anchor = GridBagConstraints.NORTH;
 		s.gridx = 0;
 		s.gridy = 0;
-		eventPanel.add(nameL, s);
+		eventPanel.add(combine, s);
 		s.gridx = 0;
 		s.gridy = 1;
 		eventPanel.add(dateL, s);

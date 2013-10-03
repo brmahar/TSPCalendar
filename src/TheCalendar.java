@@ -261,6 +261,7 @@ public class TheCalendar {
 		Calendar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent clicked) {
+				mainFrame.dispose();
 				SendToDB newRun = new SendToDB();
 
 				int row = Calendar.rowAtPoint(clicked.getPoint());
