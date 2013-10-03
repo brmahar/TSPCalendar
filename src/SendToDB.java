@@ -48,9 +48,13 @@ public class SendToDB {
 				getData(connection,data);
 			}else if(bool == 2){
 				deleteEvent(connection, data);
+			}else if(bool == 3){
+				getSpecificData(connection, data);
 			}else{
 				send(connection, data);
 			}
+
+
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
@@ -73,7 +77,7 @@ public class SendToDB {
 		String theSTime = theData.getSTime();
 		String theETime = theData.getETime();
 		String theID = UUID.randomUUID().toString();
-		
+
 
 		try {
 			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
@@ -117,10 +121,10 @@ public class SendToDB {
 				String endDate = rs.getString("End_Date");
 				try {
 
-				    formatSDate = displayDate.format(dbDate.parse(date));
-				    formatEDate = displayDate.format(dbDate.parse(endDate));
+					formatSDate = displayDate.format(dbDate.parse(date));
+					formatEDate = displayDate.format(dbDate.parse(endDate));
 				} catch (ParseException e) {
-				    e.printStackTrace();
+					e.printStackTrace();
 				}
 				String sTime = rs.getString("Start_Time");
 				String eTime = rs.getString("End_Time");
@@ -137,7 +141,7 @@ public class SendToDB {
 		}
 
 	}
-	
+
 	public void deleteEvent(Connection connection, StoreData data){
 		PreparedStatement preStmt=null;
 		String stmt = "DELETE FROM Event WHERE Name=?";
@@ -149,6 +153,37 @@ public class SendToDB {
 			System.out.println("Man you got problems now");
 			e.printStackTrace();
 		}
+	}
+
+	public void getSpecificData(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		String stmt = "SELECT * FROM Event WHERE Start_Date = (?)";
+		String formatSDate = null;
+		try{
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+			SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+
+				formatSDate = dbDate.format(displayDate.parse(data.getDate()));
+				System.out.println(formatSDate);
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			preStmt.setString(1, formatSDate);
+			ResultSet rs = preStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				String name = rs.getString("Name");
+				data.addName(name);
+			}
+		}catch(SQLException e){
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+
 	}
 
 

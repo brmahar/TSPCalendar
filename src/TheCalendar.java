@@ -4,6 +4,9 @@ import javax.swing.table.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 
 public class TheCalendar {
@@ -147,6 +150,7 @@ public class TheCalendar {
 				calendarTable.setValueAt(null, i, j);
 			}
 		}
+<<<<<<< HEAD
 
 		for (int i = 1; i <= days; i++){
 			int row = new Integer((i+startOfMonth-2)/7);
@@ -156,6 +160,10 @@ public class TheCalendar {
 			String put = String.format(template, stringA);
 			calendarTable.setValueAt(put, row, column);
 		}
+=======
+		
+		generateDays(days, startOfMonth);
+>>>>>>> 74b58aa6a12093eec0e0c68d22b499c0a5eb1fbf
 
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
 		render.setVerticalAlignment(JLabel.TOP);
@@ -165,14 +173,89 @@ public class TheCalendar {
 		}
 	}
 
+	private static void generateDays(int days, int startOfMonth) {
+		System.out.println("------------ MySQL JDBC Connection Testing ------------");
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("No MySQL JDBC Driver?");
+			e.printStackTrace();
+			return;
+		}
+
+		System.out.println("MySQL JDBC Driver Registered");
+		Connection connection = null;
+
+		try {
+			connection = DriverManager
+					.getConnection("jdbc:mysql://orion.csl.mtu.edu/ajbrowne","ajbrowne", "ajZ4VikY/tnI.");
+
+		} catch (SQLException e) {
+			System.out.println("Connection Failed!");
+			((Throwable) e).printStackTrace();
+			return;
+		}
+
+		if (connection != null) {
+			System.out.println("Now Connected, so please stay and look around!");
+
+
+		} else {
+			System.out.println("Failed to make a connection!");
+		}
+		
+		SendToDB getData = new SendToDB();
+
+		for (int i = 1; i <= days; i++){
+			StoreData data = new StoreData();
+			int row = new Integer((i+startOfMonth-2)/7);
+			int column = (i+startOfMonth-2)%7;
+			theMonth ++;
+			if(i < 10){
+				data.setDate(""+theMonth+"-0"+i+"-"+theYear);
+			}else{
+				data.setDate(""+theMonth+"-"+i+"-"+theYear);
+			}
+			theMonth--;
+			getData.getSpecificData(connection, data);
+			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
+			String stringA = String.valueOf(i);
+			ArrayList<String> theNames = data.getNames();
+			if(theNames == null){
+				continue;
+			}else if(theNames.size() == 1){
+				String put = String.format(template, stringA, theNames.get(0), "","");
+				calendarTable.setValueAt(put, row, column);
+			}else if(theNames.size() == 2){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1),"");
+				calendarTable.setValueAt(put, row, column);
+			}else if(theNames.size() == 3){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2));
+				calendarTable.setValueAt(put, row, column);
+			}else{
+				String put = String.format(template, stringA,"","","");
+				calendarTable.setValueAt(put, row, column);
+			}
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println("The connection was not closed.....Run away now!!!!");
+			e.printStackTrace();
+		}
+	}
+
 	static class prevMonth implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			if (otherMonth == 0){ 
 				otherMonth = 11;
 				otherYear -= 1;
+				theMonth=11;
 			}
 			else{ 
 				otherMonth -= 1;
+				theMonth --;
 			}
 			updateCalendar(otherMonth, otherYear);
 		}
@@ -182,9 +265,11 @@ public class TheCalendar {
 			if (otherMonth == 11){ 
 				otherMonth = 0;
 				otherYear += 1;
+				theMonth = 0;
 			}
 			else{ 
 				otherMonth += 1;
+				theMonth ++;
 			}
 			updateCalendar(otherMonth, otherYear);
 		}
@@ -194,6 +279,7 @@ public class TheCalendar {
 			if (yearBox.getSelectedItem() != null){
 				String b = yearBox.getSelectedItem().toString();
 				otherYear = Integer.parseInt(b);
+				theYear = otherYear;
 				updateCalendar(otherMonth, otherYear);
 			}
 		}
