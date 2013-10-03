@@ -66,7 +66,7 @@ public class TheCalendar {
 		calendarScroll = new JScrollPane(Calendar);
 		calendarPanel = new JPanel(null);
 
-		mainFrame.setSize(660,750);
+		mainFrame.setSize(900,750);
 		thePane = mainFrame.getContentPane();
 		thePane.setLayout(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,13 +81,13 @@ public class TheCalendar {
 		calendarPanel.add(next);
 		calendarPanel.add(calendarScroll);
 
-		calendarPanel.setBounds(0, 0, 640, 670);
+		calendarPanel.setBounds(0, 0, 873, 700);
 		month.setBounds(320-month.getPreferredSize().width/2, 50, 200, 50);
 		year.setBounds(20, 610, 160, 40);
-		yearBox.setBounds(460, 610, 160, 40);
+		yearBox.setBounds(660, 610, 160, 40);
 		prev.setBounds(20, 50, 100, 50);
-		next.setBounds(520, 50, 100, 50);
-		calendarScroll.setBounds(20, 100, 600, 500);
+		next.setBounds(721, 50, 100, 50);
+		calendarScroll.setBounds(20, 100, 800, 500);
 
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
