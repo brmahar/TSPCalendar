@@ -260,8 +260,7 @@ public class TheCalendar {
 		}
 		Calendar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent clicked) {
-				mainFrame.dispose();
+			public void mouseClicked(MouseEvent clicked) {
 				SendToDB newRun = new SendToDB();
 
 				int row = Calendar.rowAtPoint(clicked.getPoint());
@@ -273,53 +272,16 @@ public class TheCalendar {
 					theMonth++;
 					data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
 					theMonth--;
-
-					newRun.runStore(data, 5);
-					System.out.println(44+": "+data.getNames().get(0));
-					System.out.println(44+": "+data.getNames().get(1));
-					//System.out.println("Selected: " + selectedData);
 					
-					for(int i = 0; i < 2; i++){
-						StoreData placemark = new StoreData();
-						placemark.setName(data.getNames().get(i));
-						newRun.runStore(placemark, 1);
-						System.out.println(data.getName());
-						data.addDayEvent(placemark);
-						
-						
-					}
-					System.out.println(44+": "+data.getSingleDay().get(0).getName());
-					System.out.println(44+": "+data.getSingleDay().get(1).getName());
-					System.out.println(44+": "+data.getSingleDay().get(2).getName());
-					System.out.println(44+": "+data.getSingleDay().get(3).getName());
-					DayView newDay = new DayView(data,thisFrame,4);
+					newRun.runStore(data, 5);
+					
+					DayView newDay = new DayView(data,thisFrame,data.getSingleDay().size());
 
 				}
 			}
 		});
-		/*
-		ListSelectionModel cellSelectionModel = Calendar.getSelectionModel();
-	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
-	        public void valueChanged(ListSelectionEvent e) {
-	          String selectedData = null;
-
-	          int[] selectedRow = Calendar.getSelectedRows();
-	          int[] selectedColumns = Calendar.getSelectedColumns();
-
-	          for (int i = 0; i < selectedRow.length; i++) {
-	            for (int j = 0; j < selectedColumns.length; j++) {
-	              selectedData = (String) Calendar.getValueAt(selectedRow[i], selectedColumns[j]);
-	              selectedData = selectedData.substring(6, 8);
-	            }
-	          }
-	          data.setDate(""+theMonth+"-"+selectedData+"-"+theYear);
-	          System.out.println("Selected: " + selectedData);
-	          ViewEvent test = new ViewEvent(data,thisFrame);
-
-	        }
-
-	      });*/
+			
+		
 
 		try {
 			connection.close();

@@ -51,7 +51,7 @@ public class SendToDB {
 			}else if(bool == 3){
 				getSpecificData(connection, data,0);
 			}else if(bool == 5){
-				getSpecificData(connection, data,1);
+				getDateEvents(connection, data);
 			}else{
 				send(connection, data);
 			}
@@ -198,7 +198,7 @@ public class SendToDB {
 				data.setLocation(location);
 				data.setSTime(sTime);
 				data.setETime(eTime);
-				
+
 				extra.setEndDate(formatEDate);
 				extra.setName(name);
 				extra.setDescription(description);
@@ -208,7 +208,7 @@ public class SendToDB {
 				if(!data.getDate().equals(data.getEndDate())){
 					data.addEvent(extra);
 				}
-				
+
 			}
 		}catch(SQLException e){
 			System.out.println("Man you got problems now");
@@ -217,5 +217,81 @@ public class SendToDB {
 
 	}
 
+	public void getDateEvents(Connection connection, StoreData data){
+		data.resetSingle();
+		PreparedStatement preStmt=null;
+		String stmt = "SELECT * FROM Event";
+		String passedDate = data.getDate();
+		SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat dbDate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat theDay = new SimpleDateFormat("dd");
+		SimpleDateFormat month = new SimpleDateFormat("MM");
+		SimpleDateFormat year = new SimpleDateFormat("yyyy");
+		String formatSDate = null;
+		String formatEDate = null;
+		String sMonth = null;
+		String eMonth = null;
+		String sDay = null;
+		String eDay = null;
+		String curDay = null;
+		String curMonth = null;
+		int startD = 0;
+		int endD = 0;
+		int curD = 0;
+		int startM = 0;
+		int curM = 0;
+		int endM = 0;
+
+		try{
+			preStmt = (PreparedStatement) connection.prepareStatement(stmt);
+			ResultSet rs = preStmt.executeQuery();
+			StoreData newDay;
+			while(rs.next()){
+				newDay = new StoreData();
+				String name = rs.getString("Name");
+				String description = rs.getString("Description");
+				String location = rs.getString("Location");
+				String date = rs.getString("Start_Date");
+				String endDate = rs.getString("End_Date");
+				try {
+
+					formatSDate = displayDate.format(dbDate.parse(date));
+					formatEDate = displayDate.format(dbDate.parse(endDate));
+					sDay = theDay.format(dbDate.parse(date));
+					eDay = theDay.format(dbDate.parse(endDate));
+					curDay = theDay.format(displayDate.parse(passedDate));
+					sMonth = month.format(dbDate.parse(date));
+					eMonth = month.format(dbDate.parse(endDate));
+					curMonth = month.format(displayDate.parse(passedDate));
+					startD = Integer.parseInt(sDay);
+					endD = Integer.parseInt(eDay);
+					curD = Integer.parseInt(curDay);
+					startM = Integer.parseInt(sMonth);
+					curM = Integer.parseInt(curMonth);
+					endM = Integer.parseInt(eMonth);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				String sTime = rs.getString("Start_Time");
+				String eTime = rs.getString("End_Time");
+				newDay.setName(name);
+				newDay.setDescription(description);
+				newDay.setLocation(location);
+				newDay.setDate(date);
+				newDay.setEndDate(endDate);
+				newDay.setSTime(sTime);
+				newDay.setETime(eTime);
+
+				if(curD >= startD && curD <= endD){
+					data.addDayEvent(newDay);
+				}else if(startM < curM && curM == endM && curD <= endD){
+					data.addDayEvent(newDay);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Man you got problems now");
+			e.printStackTrace();
+		}
+	}
 
 }
