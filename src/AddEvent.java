@@ -156,10 +156,9 @@ public class AddEvent extends JFrame {
 					e1.printStackTrace();
 				}
 				cal.setTime(date);
-				int start = cal.get(Calendar.DAY_OF_WEEK);
-				System.out.println(start);
+				int start = cal.get(Calendar.DAY_OF_WEEK) - 1;
 				data.resetSingle();
-				for (int i = 0; i < 100000; i++){
+				for (int i = start; i < 100000; i++){
 					if (day == badDay){
 						if (mon == badMonth){
 							break;
@@ -183,10 +182,6 @@ public class AddEvent extends JFrame {
 						i = -1;
 					}
 				}
-				//for (int i = 0; i < data.getSingleDay().size(); i++){
-					//System.out.println(data.getSingleDay().get(i).getDate());
-				//}
-				
 				
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
@@ -196,7 +191,7 @@ public class AddEvent extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 
-				//storeDB.runStore(storeData, 8);
+				storeDB.runStore(storeData, 8);
 				thisThing.dispose();
 				parent.setVisible(true);
 			}
