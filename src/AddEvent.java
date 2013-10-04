@@ -4,8 +4,11 @@ import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,21 +112,34 @@ public class AddEvent extends JFrame {
 		
 	}
 	
-	AddEvent(StoreData data, final JFrame parent, int[] repeatDays){
+	AddEvent(final StoreData data, final JFrame parent, final int[] repeatDays){
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				int mon = 0;
+				int day = 0;
+				int newYear = 0;
+				int badDay = 0;
+				int badMonth = 0;
+				int badYear = 0;
+				Calendar cal = Calendar.getInstance();
 				SimpleDateFormat displayDate = new SimpleDateFormat("MM-dd-yyyy");
-				SimpleDateFormat theDay = new SimpleDateFormat("dd");
-				SimpleDateFormat month = new SimpleDateFormat("MM");
-				SimpleDateFormat year = new SimpleDateFormat("yyyy");
+				DateFormat someDay = new SimpleDateFormat("dd");
+				DateFormat someMonth = new SimpleDateFormat("MM");
+				DateFormat someYear = new SimpleDateFormat("yyyy");
+				DateFormat goodDay = new SimpleDateFormat("dd");
+				DateFormat goodMonth = new SimpleDateFormat("MM");
+				DateFormat goodYear = new SimpleDateFormat("yyyy");
 				try {
-					int mon = Integer.parseInt(month.format(displayDate.parse(getDate())));
-					int day = Integer.parseInt(theDay.format(displayDate.parse(getDate())));
-					int newYear = Integer.parseInt(year.format(displayDate.parse(getDate())));
+					mon = Integer.parseInt(someMonth.format(displayDate.parse(getDate())));
+					day = Integer.parseInt(someDay.format(displayDate.parse(getDate())));
+					newYear = Integer.parseInt(someYear.format(displayDate.parse(getDate())));
+					badDay = Integer.parseInt(goodDay.format(displayDate.parse(getEndDate())));
+					badMonth = Integer.parseInt(goodMonth.format(displayDate.parse(getEndDate())));
+					badYear = Integer.parseInt(goodYear.format(displayDate.parse(getEndDate())));
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -131,6 +147,35 @@ public class AddEvent extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				cal.set(newYear, mon, day);
+				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				data.resetSingle();
+				for (int i = 0; i < 100000; i++){
+					if (day == badDay){
+						if (mon == badMonth){
+							break;
+						}
+					}
+					day = Integer.parseInt(someDay.format(cal.getTime()));
+					mon = Integer.parseInt(someMonth.format(cal.getTime()));
+					newYear = Integer.parseInt(someYear.format(cal.getTime()));
+					String theDate = newYear + "-" + mon + "-" + day;
+					//System.out.println(theDate);
+					if (repeatDays[i] == 1){
+						StoreData add = new StoreData();
+						add.setDate(theDate);
+						data.addDayEvent(add);
+						cal.add(Calendar.DATE, 1);
+					}
+					else{
+						cal.add(Calendar.DATE, 1);
+					}
+					if (i == 6){
+						i = -1;
+					}
+				}
+				
+				
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
 				storeData.setEndDate(getEndDate());
