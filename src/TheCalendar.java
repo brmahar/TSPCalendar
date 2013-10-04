@@ -154,7 +154,7 @@ public class TheCalendar {
 
 				}
 				if(theData.getSingleDay().size() == 0){
-					
+					EmptyDay newEmpty = new EmptyDay(theData,theParent,theData.getSingleDay().size());
 				}else{
 					DayView newDay = new DayView(theData,theParent,theData.getSingleDay().size());
 				}
