@@ -153,7 +153,12 @@ public class TheCalendar {
 					newRun.runStore(theData, 5);
 
 				}
-				DayView newDay = new DayView(theData,theParent,theData.getSingleDay().size());
+				if(theData.getSingleDay().size() == 0){
+					
+				}else{
+					DayView newDay = new DayView(theData,theParent,theData.getSingleDay().size());
+				}
+				//DayView newDay = new DayView(theData,theParent,theData.getSingleDay().size());
 			}
 		});
 	}

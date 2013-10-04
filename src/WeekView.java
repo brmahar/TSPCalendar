@@ -134,8 +134,11 @@ public class WeekView {
 					data.setDate(""+otherMonth+"-"+selectedData+"-"+otherYear);
 
 					newRun.runStore(data, 5);
-
-					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
+					if(data.getSingleDay().size() == 0){
+						EmptyDay newEmpty = new EmptyDay(data,theParent,data.getSingleDay().size());
+					}else{
+						DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
+					}
 				}
 			}
 		});
@@ -228,7 +231,7 @@ public class WeekView {
 			}else{
 				dayActual = ""+otherDay;
 			}
-			
+
 			data.setDate(monthActual+"-"+dayActual+"-"+otherYear);
 			System.out.println(data.getDate());
 			String stringA;
