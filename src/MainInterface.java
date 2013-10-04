@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -34,47 +35,63 @@ public class MainInterface extends JFrame{
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				thisFrame.setVisible(false);
-				StoreData storeName = new StoreData();
-				storeName.setName(addName.getText());
-				addName.setText("");
-				if (check.isSelected()){
-					RepeatingView check = new RepeatingView(storeName, thisFrame);
-					check.setVisible(true);
+				if (addName.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Please enter an event name");
 				}
 				else{
-					AddEvent add = new AddEvent(storeName, thisFrame);
-					add.setVisible(true);
+					thisFrame.setVisible(false);
+					StoreData storeName = new StoreData();
+					storeName.setName(addName.getText());
+					addName.setText("");
+					if (check.isSelected()){
+						RepeatingView check = new RepeatingView(storeName, thisFrame);
+						check.setVisible(true);
+					}
+					else{
+						AddEvent add = new AddEvent(storeName, thisFrame);
+						add.setVisible(true);
+					}
 				}
+				
 			}
 		});
 
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				thisFrame.setVisible(false);
-				StoreData storeName = new StoreData();
-				storeName.setName(editName.getText());
-				SendToDB editDB = new SendToDB();
-				editDB.runStore(storeName, 6);
-				editName.setText("");
-				EditDayView edit = new EditDayView(storeName, thisFrame, storeName.getSingleDay().size());
-				edit.setVisible(true);
+				if (editName.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Please enter an event name");
+				}
+				else{
+					thisFrame.setVisible(false);
+					StoreData storeName = new StoreData();
+					storeName.setName(editName.getText());
+					storeName.setLocation("12345");
+					SendToDB editDB = new SendToDB();
+					editDB.runStore(storeName, 6);
+					editName.setText("");
+					EditDayView edit = new EditDayView(storeName, thisFrame, storeName.getSingleDay().size());
+					edit.setVisible(true);
+				}
 			}
 		});
 
 		deleteEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				thisFrame.setVisible(false);
-				StoreData storeName = new StoreData();
-				storeName.setName(deleteName.getText());
-				SendToDB deleteDB = new SendToDB();
-				deleteDB.runStore(storeName, 6);
-				deleteName.setText("");
-				DeleteDayView delete = new DeleteDayView(storeName, thisFrame, storeName.getSingleDay().size());
-				delete.setVisible(true);
-
+				if (deleteName.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Please enter an event name");
+				}
+				else{
+					thisFrame.setVisible(false);
+					StoreData storeName = new StoreData();
+					storeName.setName(deleteName.getText());
+					SendToDB deleteDB = new SendToDB();
+					deleteDB.runStore(storeName, 6);
+					deleteName.setText("");
+					DeleteDayView delete = new DeleteDayView(storeName, thisFrame, storeName.getSingleDay().size());
+					delete.setVisible(true);
+				}
 			}
 		});
 

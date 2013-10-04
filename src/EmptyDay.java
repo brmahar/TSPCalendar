@@ -43,12 +43,13 @@ public class EmptyDay extends JFrame{
 			}
 		});
 
-		JLabel combine = new JLabel("There are" );
-
+		JLabel combine;
+		combine = new JLabel("There are" );
 		nameL = combine;
 		duration = new JLabel("no events on");
 		descripL = new JLabel("the day you have selected.");
 		locationL = new JLabel("Please select a day with events.");
+
 
 		combine.setFont(new Font("Serif", Font.PLAIN, 52));
 		nameL.setFont(new Font("Serif", Font.PLAIN, 46));
