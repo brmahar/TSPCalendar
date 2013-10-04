@@ -58,6 +58,8 @@ public class SendToDB {
 				getByID(connection,data);
 			}else if(bool == 7){
 				editEvent(connection, data);
+			}else if(bool == 8){
+				addRepeats(connection, data);
 			}else{
 				send(connection, data);
 			}
@@ -423,5 +425,42 @@ public class SendToDB {
 			System.out.println("Nothing was added lawllawllawl");
 			e.printStackTrace();
 		}
+	}
+	
+	public void addRepeats(Connection connection, StoreData data){
+		PreparedStatement preStmt=null;
+		StoreData theData = data;
+		String name = theData.getName();
+		String local = theData.getLocation();
+		String startDate = theData.getDate();
+		String endDate = theData.getEndDate();
+		String description = theData.getDescription();
+		String theSTime = theData.getSTime();
+		String theETime = theData.getETime();
+		String theID = UUID.randomUUID().toString();
+
+		for(int i = 0; i < data.getSingleDay().size(); i++){
+			try {
+				preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
+						+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time, id) VALUES(?,?,?,?,?,?,?,?)"); 
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(data.getSingleDay().get(i).getDate());
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(data.getSingleDay().get(i).getEndDate());
+				java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+				java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
+				preStmt.setString(8, theID);
+				preStmt.setString(1,name);
+				preStmt.setDate(4,sqlEndDate);
+				preStmt.setDate(5, sqlDate);
+				preStmt.setString(2,local);
+				preStmt.setString(3,description);
+				preStmt.setString(6, theSTime);
+				preStmt.setString(7, theETime);
+				preStmt.executeUpdate();
+			} catch (SQLException | ParseException e) {
+				System.out.println("Nothing was added lawllawllawl");
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
