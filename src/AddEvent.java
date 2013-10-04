@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -147,8 +148,16 @@ public class AddEvent extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				cal.set(newYear, mon, day);
-				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				Date date = null;
+				try {
+					date = displayDate.parse(mon + "-" + day + "-" + newYear);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				cal.setTime(date);
+				int start = cal.get(Calendar.DAY_OF_WEEK);
+				System.out.println(start);
 				data.resetSingle();
 				for (int i = 0; i < 100000; i++){
 					if (day == badDay){
@@ -160,7 +169,6 @@ public class AddEvent extends JFrame {
 					mon = Integer.parseInt(someMonth.format(cal.getTime()));
 					newYear = Integer.parseInt(someYear.format(cal.getTime()));
 					String theDate = newYear + "-" + mon + "-" + day;
-					//System.out.println(theDate);
 					if (repeatDays[i] == 1){
 						StoreData add = new StoreData();
 						add.setDate(theDate);
@@ -175,9 +183,9 @@ public class AddEvent extends JFrame {
 						i = -1;
 					}
 				}
-				for (int i = 0; i < data.getSingleDay().size(); i++){
-					System.out.println(data.getSingleDay().get(i).getDate());
-				}
+				//for (int i = 0; i < data.getSingleDay().size(); i++){
+					//System.out.println(data.getSingleDay().get(i).getDate());
+				//}
 				
 				
 				storeData.setLocation(getLoca());
@@ -188,7 +196,7 @@ public class AddEvent extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 
-				storeDB.runStore(storeData, 8);
+				//storeDB.runStore(storeData, 8);
 				thisThing.dispose();
 				parent.setVisible(true);
 			}
