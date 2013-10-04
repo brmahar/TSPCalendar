@@ -132,9 +132,9 @@ public class WeekView {
 					selectedData = (String) theCalendar.getValueAt(row, col);
 					selectedData = selectedData.substring(6, 8);
 					data.setDate(""+otherMonth+"-"+selectedData+"-"+otherYear);
-					
+
 					newRun.runStore(data, 5);
-					
+
 					DayView newDay = new DayView(data,theParent,data.getSingleDay().size());
 				}
 			}
@@ -178,7 +178,7 @@ public class WeekView {
 		for (int i = 0; i < 7; i++){
 			theCalendar.getColumnModel().getColumn(i).setCellRenderer(render);
 		}
-		
+
 	}
 
 	private static void generateWeekDays() {
@@ -212,13 +212,25 @@ public class WeekView {
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
-		
+
 		final StoreData data = new StoreData();
 		final SendToDB getData = new SendToDB();
+		String monthActual;
+		String dayActual;
 		for (int j = 0; j < 7; j++){
+			if(otherMonth < 10){
+				monthActual = "0"+otherMonth;
+			}else{
+				monthActual = ""+otherMonth;
+			}
+			if(otherDay < 10){
+				dayActual = "0"+otherDay;
+			}else{
+				dayActual = ""+otherDay;
+			}
 			
-			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
-
+			data.setDate(monthActual+"-"+dayActual+"-"+otherYear);
+			System.out.println(data.getDate());
 			String stringA;
 			if (otherDay < 10){
 				stringA = "0" + otherDay;
@@ -226,26 +238,37 @@ public class WeekView {
 			else{
 				stringA = "" + otherDay;
 			}
+			String curDate = data.getDate();
 			getData.getSpecificData(connection, data,0);
-			ArrayList<String> theNames = data.getNames();
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-			
-			if(theNames.size() == 1){
-				String put = String.format(template,stringA, theNames.get(0), "","");
-				calendarTable.setValueAt(put,0,j);
-			}else if(theNames.size() == 2){
-				String put = String.format(template,stringA, theNames.get(0), theNames.get(1),"");
-				calendarTable.setValueAt(put,0,j);
-			}else if(theNames.size() >= 3){
-				String put = String.format(template,stringA, theNames.get(0), theNames.get(1),theNames.get(2));
-				calendarTable.setValueAt(put,0,j);
-			}else{
-				String put = String.format(template,stringA, "", "","");
-				calendarTable.setValueAt(put,0,j);
+
+			for(int k = 0; k < data.getMultiDay().size(); k++){
+				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
+					data.addDayEvent(data.getMultiDay().get(k));
+					data.removeData(data.getMultiDay().get(k));
+					k--;
+				}
 			}
-			
+
+			ArrayList<String> theNames = data.getNames();
+
+			if(theNames.size() == 1){
+				String put = String.format(template, stringA, theNames.get(0), "","");
+				calendarTable.setValueAt(put, 0, j);
+			}else if(theNames.size() == 2){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1),"");
+				calendarTable.setValueAt(put, 0, j);
+			}else if(theNames.size() >= 3){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2));
+				calendarTable.setValueAt(put, 0, j);
+			}else{
+				String put = String.format(template, stringA,"","","");
+				calendarTable.setValueAt(put, 0, j);
+			}
+
 			data.setDate(null);
 			data.resetNames();
+
 			Calendar cal = Calendar.getInstance();
 			cal.set(otherYear ,otherMonth -1, otherDay);
 			cal.add(Calendar.DATE, 1);
@@ -257,7 +280,7 @@ public class WeekView {
 			otherYear = Integer.parseInt(someYear.format(cal.getTime()));
 			//calendarTable.setValueAt(template, 0, j);
 		}
-		
+
 		otherDay -= 7;
 
 	}
@@ -306,7 +329,7 @@ public class WeekView {
 			updateCalendar(otherDay, otherMonth, otherYear);
 		}
 	}
-	
+
 	static class backToMenu implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			mainFrame.dispose();

@@ -52,7 +52,7 @@ public class AddEvent extends JFrame {
 				storeData.setETime(getEndTime());
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
-
+				
 				storeDB.runStore(storeData, 0);
 				thisThing.dispose();
 				parent.setVisible(true);
