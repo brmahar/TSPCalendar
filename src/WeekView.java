@@ -124,7 +124,6 @@ public class WeekView {
 			@Override
 			public void mouseClicked(MouseEvent clicked) {
 				SendToDB newRun = new SendToDB();
-
 				int row = theCalendar.rowAtPoint(clicked.getPoint());
 				int col = theCalendar.columnAtPoint(clicked.getPoint());
 				if (row >= 0 && col >= 0) {
