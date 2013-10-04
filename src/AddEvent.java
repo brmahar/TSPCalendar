@@ -174,6 +174,9 @@ public class AddEvent extends JFrame {
 						i = -1;
 					}
 				}
+				for (int i = 0; i < data.getSingleDay().size(); i++){
+					System.out.println(data.getSingleDay().get(i).getDate());
+				}
 				
 				
 				storeData.setLocation(getLoca());
