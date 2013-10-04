@@ -35,6 +35,7 @@ public class WeekView {
 
 	@SuppressWarnings("unchecked")
 	WeekView(JFrame parent){
+		first = false;
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
