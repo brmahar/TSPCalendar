@@ -164,6 +164,7 @@ public class AddEvent extends JFrame {
 					if (repeatDays[i] == 1){
 						StoreData add = new StoreData();
 						add.setDate(theDate);
+						add.setEndDate(theDate);
 						data.addDayEvent(add);
 						cal.add(Calendar.DATE, 1);
 					}
@@ -184,7 +185,7 @@ public class AddEvent extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 
-				storeDB.runStore(storeData, 0);
+				storeDB.runStore(storeData, 8);
 				thisThing.dispose();
 				parent.setVisible(true);
 			}

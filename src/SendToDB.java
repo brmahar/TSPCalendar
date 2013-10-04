@@ -58,6 +58,8 @@ public class SendToDB {
 				getByID(connection,data);
 			}else if(bool == 7){
 				editEvent(connection, data);
+			}else if(bool == 8){
+				addRepeats(connection, data);
 			}else{
 				send(connection, data);
 			}
@@ -437,26 +439,28 @@ public class SendToDB {
 		String theETime = theData.getETime();
 		String theID = UUID.randomUUID().toString();
 
-
-		try {
-			preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
-					+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time, id) VALUES(?,?,?,?,?,?,?,?)"); 
-			java.util.Date date1 = new SimpleDateFormat("MM-dd-yyyy").parse(startDate);
-			java.util.Date date2 = new SimpleDateFormat("MM-dd-yyyy").parse(endDate);
-			java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
-			java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
-			preStmt.setString(8, theID);
-			preStmt.setString(1,name);
-			preStmt.setDate(4,sqlEndDate);
-			preStmt.setDate(5, sqlDate);
-			preStmt.setString(2,local);
-			preStmt.setString(3,description);
-			preStmt.setString(6, theSTime);
-			preStmt.setString(7, theETime);
-			preStmt.executeUpdate();
-		} catch (SQLException | ParseException e) {
-			System.out.println("Nothing was added lawllawllawl");
-			e.printStackTrace();
+		for(int i = 0; i < data.getSingleDay().size(); i++){
+			try {
+				preStmt = (PreparedStatement) connection.prepareStatement("INSERT INTO "
+						+ "Event(Name,Location,Description,End_Date, Start_Date, Start_Time, End_Time, id) VALUES(?,?,?,?,?,?,?,?)"); 
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(data.getSingleDay().get(i).getDate());
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(data.getSingleDay().get(i).getEndDate());
+				java.sql.Date sqlDate = new java.sql.Date(date1.getTime());
+				java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
+				preStmt.setString(8, theID);
+				preStmt.setString(1,name);
+				preStmt.setDate(4,sqlEndDate);
+				preStmt.setDate(5, sqlDate);
+				preStmt.setString(2,local);
+				preStmt.setString(3,description);
+				preStmt.setString(6, theSTime);
+				preStmt.setString(7, theETime);
+				preStmt.executeUpdate();
+			} catch (SQLException | ParseException e) {
+				System.out.println("Nothing was added lawllawllawl");
+				e.printStackTrace();
+			}
 		}
+		
 	}
 }
