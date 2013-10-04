@@ -42,8 +42,10 @@ public class MainInterface extends JFrame{
 					RepeatingView check = new RepeatingView(storeName, thisFrame);
 					check.setVisible(true);
 				}
-				//AddEvent add = new AddEvent(storeName, thisFrame);
-				//add.setVisible(true);
+				else{
+					AddEvent add = new AddEvent(storeName, thisFrame);
+					add.setVisible(true);
+				}
 			}
 		});
 
@@ -83,7 +85,7 @@ public class MainInterface extends JFrame{
 				TheCalendar cal = new TheCalendar(thisFrame);
 			}
 		});
-		
+
 		weeklyCal.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -128,7 +130,7 @@ public class MainInterface extends JFrame{
 		s.gridx = 1;
 		s.gridy = 7;
 		eventPanel.add(weeklyCal, s);
-		
+
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
