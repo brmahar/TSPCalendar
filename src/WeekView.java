@@ -211,12 +211,13 @@ public class WeekView {
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
+		
 		final StoreData data = new StoreData();
 		final SendToDB getData = new SendToDB();
 		for (int j = 0; j < 7; j++){
 			
 			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
-			data.setDate(""+otherMonth+"-"+otherDay+"-"+otherYear);
+
 			String stringA;
 			if (otherDay < 10){
 				stringA = "0" + otherDay;
