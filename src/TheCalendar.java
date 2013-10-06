@@ -31,7 +31,6 @@ public class TheCalendar {
 	static int otherMonth;
 	static int otherYear;
 	private static JFrame thisFrame;
-	private static int numArgs;
 	static JFrame theParent;
 
 
@@ -268,7 +267,6 @@ public class TheCalendar {
 				stringA = String.valueOf(i);
 			}
 			ArrayList<String> theNames = data.getNames();
-			numArgs = theNames.size();
 
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");

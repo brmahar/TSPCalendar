@@ -1,15 +1,4 @@
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
 import javax.swing.*;
-
-import com.mysql.jdbc.PreparedStatement;
-
-
 
 /**
  * Calendar
