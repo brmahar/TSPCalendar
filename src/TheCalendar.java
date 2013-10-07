@@ -203,57 +203,55 @@ public class TheCalendar {
 	 * This method populates the month view with the events that are on each day of a given month
 	 */
 	private static void generateDays(int days, int startOfMonth) {
-
-		System.out.println("------------ MySQL JDBC Connection Testing1 ------------");
-
+		//This try catch block is used to setup the driver used for connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			System.out.println("No MySQL JDBC Driver?");
 			e.printStackTrace();
 			return;
 		}
 
-		System.out.println("MySQL JDBC Driver Registered");
 		Connection connection = null;
-
+		
+		//Sets up the connection which uses the driver created above
 		try {
 			connection = DriverManager
 					.getConnection("jdbc:mysql://orion.csl.mtu.edu/ajbrowne","ajbrowne", "ajZ4VikY/tnI.");
 
 		} catch (SQLException e) {
-			System.out.println("Connection Failed!");
 			((Throwable) e).printStackTrace();
 			return;
 		}
-
+		
+		//Checks to see if the connection was creates correctly
 		if (connection != null) {
 			System.out.println("Now Connected, so please stay and look around!");
-
-
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
-
+		//Sets up the sendtodb and storedata objects to be used to get the data
 		final SendToDB getData = new SendToDB();
 		final StoreData data = new StoreData();
-
+		//Loops through the days of the month getting the correct events for each
+		//day and adding those to the actual view
 		for (int i = 1; i <= days; i++){
 
 			int row = new Integer((i+startOfMonth-2)/7);
 			int column = (i+startOfMonth-2)%7;
 			theMonth ++;
+			//Gets the correct date with zeros in front of values less than ten
 			if(i < 10){
 				data.setDate(""+theMonth+"-0"+i+"-"+theYear);
 			}else{
 				data.setDate(""+theMonth+"-"+i+"-"+theYear);
 			}
+			//sets up the dates and events to print them on the view
 			String curDate = data.getDate();
 			theMonth--;
 			String stringA;
 			getData.getSpecificData(connection, data,0);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-
+			//loops through the multiday array list and removes certain events if needed and adds the others back
 			for(int k = 0; k < data.getMultiDay().size(); k++){
 				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
 					data.addDayEvent(data.getMultiDay().get(k));
@@ -261,14 +259,15 @@ public class TheCalendar {
 					k--;
 				}
 			}
-
+			//Formats dates correctly again?
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
 				stringA = String.valueOf(i);
 			}
+			//Stores the names of the events for each day
 			ArrayList<String> theNames = data.getNames();
-
+			//Adds the events to the view
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");
 				calendarTable.setValueAt(put, row, column);
@@ -282,10 +281,11 @@ public class TheCalendar {
 				String put = String.format(template, stringA,"","","");
 				calendarTable.setValueAt(put, row, column);
 			}
-
+			//resets fields to be used again, just in case
 			data.setDate(null);
 			data.resetNames();
 		}
+		//Closes the connection
 		try {
 			connection.close();
 		} catch (SQLException e) {

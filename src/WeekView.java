@@ -188,37 +188,31 @@ public class WeekView {
 	 * This method populates the week view with the events that occur on each day.
 	 */
 	private static void generateWeekDays() {
-		System.out.println("------------ MySQL JDBC Connection Testing ------------");
-
+		//Sets up the driver used to make the connection
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			System.out.println("No MySQL JDBC Driver?");
 			e.printStackTrace();
 			return;
 		}
 
-		System.out.println("MySQL JDBC Driver Registered");
 		Connection connection = null;
-
+		//Makes the connection to the database using the driver we just found
 		try {
 			connection = DriverManager
 					.getConnection("jdbc:mysql://orion.csl.mtu.edu/ajbrowne","ajbrowne", "ajZ4VikY/tnI.");
 
 		} catch (SQLException e) {
-			System.out.println("Connection Failed!");
 			((Throwable) e).printStackTrace();
 			return;
 		}
-
+		//Checks to see if the connection was made
 		if (connection != null) {
 			System.out.println("Now Connected, so please stay and look around!");
-
-
 		} else {
 			System.out.println("Failed to make a connection!");
 		}
-
+		//creates a Store data and sendToDB object to help with the setup of the view
 		final StoreData data = new StoreData();
 		final SendToDB getData = new SendToDB();
 		String monthActual;
