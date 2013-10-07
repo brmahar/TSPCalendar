@@ -3,9 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,8 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * This class is used to display all events with the name of the event that the user wishes to delete.
+ * The user clicks delete below that event's details and then that event is deleted.
+ *
+ */
 public class DeleteDayView extends JFrame {
 
+	// Class variables for setting up GUI
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
 	private JLabel startTime = new JLabel("Start Time: ");
@@ -37,6 +42,7 @@ public class DeleteDayView extends JFrame {
 	private GridBagLayout layout;
 	private StoreData sendToDelete;
 
+	// Constructor that accepts a StoreData, parent frame, and the number of events to be chosen from
 	DeleteDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
 		sendToDelete = viewData;
 		layout = new GridBagLayout();
@@ -45,7 +51,7 @@ public class DeleteDayView extends JFrame {
 		masterPane.setLayout(layout);
 		this.add(scroll, BorderLayout.CENTER);
 
-
+		// Listener for the button that closes the view
 		close.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -53,19 +59,20 @@ public class DeleteDayView extends JFrame {
 			}
 		});
 
+		// For loop that creates a new JPanel for each event that could possibly be deleted
 		for (int i = 0; i < numOfEvents; i++){
+			// Sets all values for each event shown for possible deletion
 			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
 			nameL = combine;
-
 			deleteThis = new JButton("Delete Event");
-
 			startTime = new JLabel("Start Time: " + viewData.getSingleDay().get(i).getSTime());
 			endTime = new JLabel("End Time: "+ viewData.getSingleDay().get(i).getETime());
 			startDate = new JLabel("Start Date: "+ viewData.getSingleDay().get(i).getDate());
 			endDate = new JLabel("End Date: "+ viewData.getSingleDay().get(i).getEndDate());
 			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
-			
+
+			// Sets fonts for all values
 			combine.setFont(new Font("Serif", Font.PLAIN, 52));
 			nameL.setFont(new Font("Serif", Font.PLAIN, 46));
 			startTime.setFont(new Font("Serif", Font.PLAIN, 46));
@@ -75,9 +82,10 @@ public class DeleteDayView extends JFrame {
 			descripL.setFont(new Font("Serif", Font.PLAIN, 46));
 			locationL.setFont(new Font("Serif", Font.PLAIN, 46));
 			space.setFont(new Font("Serif", Font.PLAIN, 46));
-
+			// Creates separator used between each event
 			JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
 			sep.setPreferredSize(new Dimension(300,10));
+			// JPanel that is each event with a GridBagLayout
 			JPanel eventPanel = new JPanel();
 			eventPanel.setLayout(new GridBagLayout());
 			GridBagConstraints s = new GridBagConstraints();
@@ -111,12 +119,14 @@ public class DeleteDayView extends JFrame {
 			s.gridy = 8;
 			eventPanel.add(sep, s);
 			s.fill = GridBagConstraints.VERTICAL;
+			// Adds each eventPanel to the parent Panel that holds all events
 			con.gridx = 0;
 			con.gridy = i;
 			masterPane.add(eventPanel, con);
 			masterPane.revalidate();
 			masterPane.repaint();
 			final int storeI = i;
+			// Listener added to each event for the deletion of that event
 			deleteThis.addActionListener(new ActionListener(){
 				SendToDB newRun = new SendToDB();
 				@Override
@@ -127,7 +137,6 @@ public class DeleteDayView extends JFrame {
 					thisThing.dispose();
 					parent.setVisible(true);
 				}
-				
 			});
 		}
 
@@ -136,7 +145,9 @@ public class DeleteDayView extends JFrame {
 		this.setVisible(true);
 		this.setResizable(false);
 	}
-
+	/*
+	 * Listener for confirming desire to close window
+	 */
 	void addConfirmListener(ActionListener listenForConfirm){
 		close.addActionListener(listenForConfirm);
 	}
