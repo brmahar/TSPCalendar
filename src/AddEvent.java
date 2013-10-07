@@ -38,9 +38,11 @@ public class AddEvent extends JFrame {
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
 	private JFrame thisThing = this;
+	private JButton backButton;
 
 	// Default constructor for use with non recurring events
 	AddEvent(StoreData data, final JFrame parent){
+		backButton = new JButton("Back");
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
@@ -59,6 +61,14 @@ public class AddEvent extends JFrame {
 				SendToDB storeDB = new SendToDB();
 
 				storeDB.runStore(storeData, 0);
+				thisThing.dispose();
+				parent.setVisible(true);
+			}
+		});
+		// Listener for back button
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
 				parent.setVisible(true);
 			}
@@ -111,6 +121,9 @@ public class AddEvent extends JFrame {
 		s.gridx = 0;
 		s.gridy = 13;
 		eventPanel.add(submit, s);
+		s.gridx = 0;
+		s.gridy = 14;
+		eventPanel.add(backButton, s);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
@@ -122,6 +135,7 @@ public class AddEvent extends JFrame {
 
 	// Secondary constructor for recurring events
 	AddEvent(final StoreData data, final JFrame parent, final int[] repeatDays){
+		backButton = new JButton("       Back       ");
 		title = new JLabel("Adding Event: " + data.getName());
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		final StoreData storeData = data;
@@ -213,6 +227,15 @@ public class AddEvent extends JFrame {
 			}
 		});
 
+		// Listener for back button
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisThing.dispose();
+				parent.setVisible(true);
+			}
+		});
+
 		// JPanel with GridBagLayout for creating GUI for adding an event
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
@@ -260,6 +283,9 @@ public class AddEvent extends JFrame {
 		s.gridx = 0;
 		s.gridy = 13;
 		eventPanel.add(submit, s);
+		s.gridx = 0;
+		s.gridy = 14;
+		eventPanel.add(backButton, s);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);

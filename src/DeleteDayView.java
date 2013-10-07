@@ -35,12 +35,14 @@ public class DeleteDayView extends JFrame {
 	private JLabel space = new JLabel("<html><br></html>");
 	private JButton close = new JButton("Exit View");
 	private JButton deleteThis = new JButton("Delete event");
+	private JButton backButton = new JButton("Back");
 	private JFrame thisThing = this;
 	private JScrollPane scroll;
 	private JTextField field = new JTextField("Yaya!");
 	private JPanel masterPane = new JPanel();
 	private GridBagLayout layout;
 	private StoreData sendToDelete;
+	int theSize = 0;
 
 	// Constructor that accepts a StoreData, parent frame, and the number of events to be chosen from
 	DeleteDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
@@ -52,10 +54,11 @@ public class DeleteDayView extends JFrame {
 		this.add(scroll, BorderLayout.CENTER);
 
 		// Listener for the button that closes the view
-		close.addActionListener(new ActionListener(){
+		backButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 
@@ -118,6 +121,11 @@ public class DeleteDayView extends JFrame {
 			s.gridx = 0;
 			s.gridy = 8;
 			eventPanel.add(sep, s);
+			if (i == numOfEvents-1){
+				s.gridx = 0;
+				s.gridy = 9;
+				eventPanel.add(backButton, s);
+			}
 			s.fill = GridBagConstraints.VERTICAL;
 			// Adds each eventPanel to the parent Panel that holds all events
 			con.gridx = 0;

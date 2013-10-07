@@ -22,7 +22,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 @SuppressWarnings("serial")
 public class MainInterface extends JFrame{
-	// Class varaibes used for setting up GUI
+	// Class variables used for setting up GUI
 	private JLabel title = new JLabel("Main Menu");
 	private JTextField addName = new JTextField(15);
 	private JButton addEvent = new JButton("Add Event");
