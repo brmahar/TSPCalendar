@@ -221,6 +221,7 @@ public class SendToDB {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			//System.out.println(formatSDate);
 			preStmt.setString(1, formatSDate);
 			ResultSet rs = preStmt.executeQuery();
 			//re-adds the correct events back to the storedata object to be used later
@@ -241,8 +242,10 @@ public class SendToDB {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+				//System.out.println(formatEDate);
 				data.setEndDate(formatEDate);
 				data.setName(name);
+				
 				data.addName(name);
 				data.setDescription(description);
 				data.setLocation(location);

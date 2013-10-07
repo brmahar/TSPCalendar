@@ -240,18 +240,23 @@ public class TheCalendar {
 			int column = (i+startOfMonth-2)%7;
 			theMonth ++;
 			//Gets the correct date with zeros in front of values less than ten
-			if(i < 10){
+			if(i < 10 && theMonth >= 10){
 				data.setDate(""+theMonth+"-0"+i+"-"+theYear);
+			}else if(i < 10 && theMonth < 10){
+				data.setDate("0"+theMonth+"-0"+i+"-"+theYear);
+			}else if(i >= 10 && theMonth < 10){
+				data.setDate("0"+theMonth+"-"+i+"-"+theYear);
 			}else{
 				data.setDate(""+theMonth+"-"+i+"-"+theYear);
 			}
+
 			//sets up the dates and events to print them on the view
 			String curDate = data.getDate();
 			theMonth--;
 			String stringA;
 			getData.getSpecificData(connection, data,0);
 			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
-			//loops through the multiday array list and removes certain events if needed and adds the others back
+			//loops through the multi-day array list and removes certain events if needed and adds the others back
 			for(int k = 0; k < data.getMultiDay().size(); k++){
 				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
 					data.addDayEvent(data.getMultiDay().get(k));
@@ -259,7 +264,7 @@ public class TheCalendar {
 					k--;
 				}
 			}
-			//Formats dates correctly again?
+			//Formats dates correctly again
 			if(i < 10){
 				stringA ="0" + String.valueOf(i);
 			}else{
@@ -267,6 +272,7 @@ public class TheCalendar {
 			}
 			//Stores the names of the events for each day
 			ArrayList<String> theNames = data.getNames();
+			//System.out.println(data.getNames().toString());
 			//Adds the events to the view
 			if(theNames.size() == 1){
 				String put = String.format(template, stringA, theNames.get(0), "","");

@@ -135,9 +135,17 @@ public class WeekView {
 				int col = theCalendar.columnAtPoint(clicked.getPoint());
 				if (row >= 0 && col >= 0) {
 					String selectedData = null;
+					String selectedMonth = null;
 					selectedData = (String) theCalendar.getValueAt(row, col);
-					selectedData = selectedData.substring(6, 8);
-					data.setDate(""+otherMonth+"-"+selectedData+"-"+otherYear);
+					selectedMonth = selectedData.substring(6,8);
+					selectedData = selectedData.substring(9, 11);
+					System.out.println(selectedMonth);
+					System.out.println("Month: " + otherMonth);
+					if(otherMonth < 10){
+						data.setDate("0"+selectedMonth+"-"+selectedData+"-"+otherYear);
+					}else{
+						data.setDate(""+selectedMonth+"-"+selectedData+"-"+otherYear);
+					}
 					newRun.runStore(data, 5);
 					// Shows the empty day dialog
 					if(data.getSingleDay().size() == 0){
@@ -232,15 +240,13 @@ public class WeekView {
 			data.setDate(monthActual+"-"+dayActual+"-"+otherYear);
 			String stringA;
 			// Appends a zero to a day less than 10
-			if (otherDay < 10){
-				stringA = "0" + otherDay;
-			}
-			else{
-				stringA = "" + otherDay;
-			}
+
+
+			stringA = monthActual +"/" + dayActual;
+
 			String curDate = data.getDate();
 			getData.getSpecificData(connection, data,0);
-			String template = "<html>%s<br>%s<br>%s<br>%s<html>";
+			String template = "<html>%s<br>%s<br>%s<br>%s<br>%s<html>";
 			// Covers multiday events in the weekly view
 			for(int k = 0; k < data.getMultiDay().size(); k++){
 				if(data.getMultiDay().get(k).getEndDate().equals(curDate)){
@@ -252,16 +258,19 @@ public class WeekView {
 			ArrayList<String> theNames = data.getNames();
 			// Here the events are added to each day based on the number of events on that day
 			if(theNames.size() == 1){
-				String put = String.format(template, stringA, theNames.get(0), "","");
+				String put = String.format(template, stringA, theNames.get(0), "","","");
 				calendarTable.setValueAt(put, 0, j);
 			}else if(theNames.size() == 2){
-				String put = String.format(template, stringA, theNames.get(0), theNames.get(1),"");
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1),"","");
 				calendarTable.setValueAt(put, 0, j);
-			}else if(theNames.size() >= 3){
-				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2));
+			}else if(theNames.size() == 3){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2),"");
+				calendarTable.setValueAt(put, 0, j);
+			}else if(theNames.size() >= 4){
+				String put = String.format(template, stringA, theNames.get(0), theNames.get(1), theNames.get(2), theNames.get(3));
 				calendarTable.setValueAt(put, 0, j);
 			}else{
-				String put = String.format(template, stringA,"","","");
+				String put = String.format(template, stringA,"","","","");
 				calendarTable.setValueAt(put, 0, j);
 			}
 
