@@ -38,8 +38,10 @@ public class EditDayView extends JFrame {
 	private JScrollPane scroll;
 	private JTextField field = new JTextField("Yaya!");
 	private JPanel masterPane = new JPanel();
+	private JButton backButton = new JButton("Back");
 	private GridBagLayout layout;
 	private StoreData sendToEdit;
+	int theSize = 0;
 
 	// Constructor that accepts a StoreData, a parent frame, and the number of events that could be edited
 	EditDayView(final StoreData viewData, final JFrame parent, int numOfEvents){
@@ -51,10 +53,11 @@ public class EditDayView extends JFrame {
 		this.add(scroll, BorderLayout.CENTER);
 
 		// Listener for button that exits without editing
-		close.addActionListener(new ActionListener(){
+		backButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 
@@ -117,9 +120,15 @@ public class EditDayView extends JFrame {
 			s.gridy = 8;
 			eventPanel.add(sep, s);
 			s.fill = GridBagConstraints.VERTICAL;
+			if (i == numOfEvents-1){
+				s.gridx = 0;
+				s.gridy = 9;
+				eventPanel.add(backButton, s);
+			}
 			// Adds event event to the parent panel to hold all events
 			con.gridx = 0;
 			con.gridy = i;
+			theSize = i;
 			masterPane.add(eventPanel, con);
 			masterPane.revalidate();
 			masterPane.repaint();
@@ -138,7 +147,6 @@ public class EditDayView extends JFrame {
 				}
 			});
 		}
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(600,550);
 		this.setVisible(true);

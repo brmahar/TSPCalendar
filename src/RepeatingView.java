@@ -22,6 +22,7 @@ public class RepeatingView extends JFrame {
 	private JCheckBox friday;
 	private JCheckBox saturday;
 	private JButton send;
+	private JButton backButton;
 	private JLabel weekly;
 	private JPanel checkPanel;
 	private JScrollPane mainPane;
@@ -46,6 +47,7 @@ public class RepeatingView extends JFrame {
 		friday = new JCheckBox("Friday");
 		saturday = new JCheckBox("Saturday");
 		send = new JButton("Confirm Event");
+		backButton = new JButton("        Back       ");
 		s.anchor = GridBagConstraints.WEST;
 		s.gridx = 0;
 		s.gridy = 0;
@@ -74,6 +76,9 @@ public class RepeatingView extends JFrame {
 		s.gridx = 0;
 		s.gridy = 8;
 		checkPanel.add(send, s);
+		s.gridx = 0;
+		s.gridy = 9;
+		checkPanel.add(backButton, s);
 
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,6 +115,14 @@ public class RepeatingView extends JFrame {
 				}
 				AddEvent theView = new AddEvent(data, parent, dayArray);
 				theView.setVisible(true);
+			}
+		});
+		// Back button listener
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				thisThing.dispose();
+				parent.setVisible(true);
 			}
 		});
 	}

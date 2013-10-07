@@ -30,6 +30,7 @@ public class EditEvent extends JFrame {
 	private JLabel locationL = new JLabel("Location");
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
+	private JButton backButton = new JButton("Back");
 	private JFrame thisThing = this;
 
 	// Constructor that accepts a StoreData and a parent frame
@@ -55,6 +56,14 @@ public class EditEvent extends JFrame {
 				storeData.setDescription(getDescription());
 				SendToDB storeDB = new SendToDB();
 				storeDB.runStore(storeData, 7);
+				thisThing.dispose();
+				parent.setVisible(true);
+			}
+		});
+		// Listener for back button
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
 				thisThing.dispose();
 				parent.setVisible(true);
 			}
@@ -103,6 +112,9 @@ public class EditEvent extends JFrame {
 		s.gridx = 0;
 		s.gridy = 12;
 		eventPanel.add(submit, s);
+		s.gridx = 0;
+		s.gridy = 13;
+		eventPanel.add(backButton, s);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);

@@ -24,7 +24,8 @@ public class DayView extends JFrame {
 	// Class variables for GUI
 	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
-	private JLabel duration = new JLabel("Duration: ");
+	private JLabel startTime = new JLabel("Start Time: ");
+	private JLabel endTime = new JLabel("End Time: ");
 	private JLabel descripL = new JLabel("Description: ");
 	private JLabel locationL = new JLabel("Location: ");
 	private JLabel space = new JLabel("<html><br></html>");
@@ -55,13 +56,15 @@ public class DayView extends JFrame {
 			// Sets values for event details
 			JLabel combine = new JLabel("Title: " + viewData.getSingleDay().get(i).getName());
 			nameL = combine;
-			duration = new JLabel("Duration: ");
+			startTime = new JLabel("Start Time: " + viewData.getSingleDay().get(i).getSTime());
+			endTime = new JLabel("End Time: " +viewData.getSingleDay().get(i).getETime());
 			descripL = new JLabel("Description: "+viewData.getSingleDay().get(i).getDescription() + "");
 			locationL = new JLabel("Location: "+viewData.getSingleDay().get(i).getLocation());
 			// Sets fonts for each detail
 			combine.setFont(new Font("Serif", Font.PLAIN, 52));
 			nameL.setFont(new Font("Serif", Font.PLAIN, 46));
-			duration.setFont(new Font("Serif", Font.PLAIN, 46));
+			startTime.setFont(new Font("Serif", Font.PLAIN, 46));
+			endTime.setFont(new Font("Serif", Font.PLAIN, 46));
 			descripL.setFont(new Font("Serif", Font.PLAIN, 46));
 			locationL.setFont(new Font("Serif", Font.PLAIN, 46));
 			space.setFont(new Font("Serif", Font.PLAIN, 46));
@@ -79,18 +82,21 @@ public class DayView extends JFrame {
 			eventPanel.add(nameL, s);
 			s.gridx = 0;
 			s.gridy = 1;
-			eventPanel.add(duration, s);
+			eventPanel.add(startTime, s);
 			s.gridx = 0;
 			s.gridy = 2;
-			eventPanel.add(descripL, s);
+			eventPanel.add(endTime, s);
 			s.gridx = 0;
 			s.gridy = 3;
-			eventPanel.add(locationL, s);
+			eventPanel.add(descripL, s);
 			s.gridx = 0;
 			s.gridy = 4;
-			eventPanel.add(close, s);
+			eventPanel.add(locationL, s);
 			s.gridx = 0;
 			s.gridy = 5;
+			eventPanel.add(close, s);
+			s.gridx = 0;
+			s.gridy = 6;
 			eventPanel.add(space, s);
 			s.weightx = 1;
 			eventPanel.add(sep, s);
