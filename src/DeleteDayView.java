@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 public class DeleteDayView extends JFrame {
 
 	// Class variables for setting up GUI
-	private JLabel view;
 	private JLabel nameL = new JLabel("Title: ");
 	private JLabel startTime = new JLabel("Start Time: ");
 	private JLabel endTime = new JLabel("End Time: ");
@@ -38,7 +37,6 @@ public class DeleteDayView extends JFrame {
 	private JButton backButton = new JButton("Back");
 	private JFrame thisThing = this;
 	private JScrollPane scroll;
-	private JTextField field = new JTextField("Yaya!");
 	private JPanel masterPane = new JPanel();
 	private GridBagLayout layout;
 	private StoreData sendToDelete;
