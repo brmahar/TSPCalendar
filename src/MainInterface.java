@@ -14,10 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
+/**
+ * 
+ * This class is the main interface from which the user can add, edit, and delete new events.
+ * They can also move to the weekly or monthly view.
+ *
+ */
 @SuppressWarnings("serial")
 public class MainInterface extends JFrame{
-
+	// Class varaibes used for setting up GUI
 	private JLabel title = new JLabel("Main Menu");
 	private JTextField addName = new JTextField(15);
 	private JButton addEvent = new JButton("Add Event");
@@ -29,12 +34,13 @@ public class MainInterface extends JFrame{
 	private JButton monthCal = new JButton("Month View");
 	private JButton weeklyCal = new JButton("Weekly View");
 	private JCheckBox check = new JCheckBox("Repeated");
-
+	// Constructor for the main interface
 	MainInterface(){
-
+		// Adds a listener for adding a new event
 		addEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				// Catches a missing event name
 				if (addName.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "Please enter an event name");
 				}
@@ -43,25 +49,28 @@ public class MainInterface extends JFrame{
 					StoreData storeName = new StoreData();
 					storeName.setName(addName.getText());
 					addName.setText("");
+					// Sends the user to create a recurring event
 					if (check.isSelected()){
 						RepeatingView check = new RepeatingView(storeName, thisFrame);
 						check.setVisible(true);
 					}
+					// Sends the user to create a normal event
 					else{
 						AddEvent add = new AddEvent(storeName, thisFrame);
 						add.setVisible(true);
 					}
 				}
-				
 			}
 		});
-
+		// Adds a listener for editing an event
 		editEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				// Catches a missing event name
 				if (editName.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "Please enter an event name");
 				}
+				// Sends to user off to edit an event by name
 				else{
 					thisFrame.setVisible(false);
 					StoreData storeName = new StoreData();
@@ -75,13 +84,15 @@ public class MainInterface extends JFrame{
 				}
 			}
 		});
-
+		// Adds a listener for deleting an event
 		deleteEvent.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
+				// Catches a missing event name
 				if (deleteName.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "Please enter an event name");
 				}
+				// Sends the user off to delete an event by name
 				else{
 					thisFrame.setVisible(false);
 					StoreData storeName = new StoreData();
@@ -94,7 +105,7 @@ public class MainInterface extends JFrame{
 				}
 			}
 		});
-
+		// Adds a listener that sends the user off to the month view
 		monthCal.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -102,7 +113,7 @@ public class MainInterface extends JFrame{
 				TheCalendar cal = new TheCalendar(thisFrame);
 			}
 		});
-
+		// Adds a listener that sends the user off to the weekly view
 		weeklyCal.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -110,7 +121,7 @@ public class MainInterface extends JFrame{
 				WeekView theView = new WeekView(thisFrame);
 			}
 		});
-
+		// JPanel that uses a GridBagLayout that houses the main interface
 		title.setFont(new Font("Serif", Font.PLAIN, 30));
 		JPanel eventPanel = new JPanel();
 		GridBagLayout layout = new GridBagLayout();
@@ -156,27 +167,39 @@ public class MainInterface extends JFrame{
 		this.setResizable(false);
 
 	}
-
+	/*
+	 * Returns the name of an event to be added
+	 */
 	public String getAddEvent(){
 		return addName.getText();
 	}
-
+	/*
+	 * Returns the name of an event to be edited
+	 */
 	public String getEditEvent(){
 		return editName.getText();
 	}
-
+	/*
+	 * Returns the name of an event to be deleted
+	 */
 	public String getDeleteName(){
 		return deleteName.getText();
 	}
-
+	/*
+	 * Adds a listener for adding an event
+	 */
 	void addAddListener(ActionListener listenForAdd){
 		addEvent.addActionListener(listenForAdd);
 	}
-
+	/*
+	 * Adds a listener for editing an event
+	 */
 	void addEditListener(ActionListener listenForEdit){
 		editEvent.addActionListener(listenForEdit);
 	}
-
+	/*
+	 * Adds a listener for deleting an event
+	 */
 	void addDeleteListener(ActionListener listenForDelete){
 		deleteEvent.addActionListener(listenForDelete);
 	}
