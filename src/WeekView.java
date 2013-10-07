@@ -139,8 +139,6 @@ public class WeekView {
 					selectedData = (String) theCalendar.getValueAt(row, col);
 					selectedMonth = selectedData.substring(6,8);
 					selectedData = selectedData.substring(9, 11);
-					System.out.println(selectedMonth);
-					System.out.println("Month: " + otherMonth);
 					if(otherMonth < 10){
 						data.setDate("0"+selectedMonth+"-"+selectedData+"-"+otherYear);
 					}else{
