@@ -7,9 +7,13 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-
+/**
+ * 
+ * This class allows the user to check a box next to each day of the week that they wish for their event to recur.
+ *
+ */
 public class RepeatingView extends JFrame {
-	
+	// Class variables that create GUI
 	private JCheckBox sunday;
 	private JCheckBox monday; 
 	private JCheckBox tuesday;
@@ -24,10 +28,11 @@ public class RepeatingView extends JFrame {
 	private GridBagLayout grid;
 	private GridBagConstraints s = new GridBagConstraints();
 	private JFrame thisThing = this;
-	private int[] dayArray = {0,0,0,0,0,0,0};
-	
+	private int[] dayArray = {0,0,0,0,0,0,0}; // Array that holds days of the week that an event recurs
+
+	// Constructor that accepts a StoreData and a parent frame
 	RepeatingView(final StoreData data, final JFrame parent){
-		
+		// GridBaglayout with seven checkboxes, one for each day of the week
 		grid = new GridBagLayout();
 		checkPanel = new JPanel();
 		checkPanel.setLayout(grid);
@@ -69,14 +74,15 @@ public class RepeatingView extends JFrame {
 		s.gridx = 0;
 		s.gridy = 8;
 		checkPanel.add(send, s);
-		
+
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(checkPanel);
 		this.setSize(450,400);		
 		this.setVisible(true);
 		this.setResizable(false);
-		
+
+		// Listener for when each box is checked that assigns a one to that day in the day array
 		send.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -107,5 +113,4 @@ public class RepeatingView extends JFrame {
 			}
 		});
 	}
-	
 }

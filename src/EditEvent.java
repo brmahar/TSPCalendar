@@ -1,6 +1,5 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,8 +9,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * GUI for entering changes to an already existent event. Searches by name to reach this window.
+ *
+ */
 public class EditEvent extends JFrame {
 
+	// Class variables for GUI
 	private JLabel startDateL = new JLabel("Start Date (mm-dd-yyyy)");
 	private JTextField startDate = new JTextField(15);
 	private JLabel endDateL = new JLabel("End Date (mm-dd-yyyy)");
@@ -26,19 +31,23 @@ public class EditEvent extends JFrame {
 	private JTextField location = new JTextField(15);
 	private JButton submit = new JButton("Confirm Event");
 	private JFrame thisThing = this;
-	
+
+	// Constructor that accepts a StoreData and a parent frame
 	EditEvent(StoreData data, final JFrame parent){
 		final StoreData storeData = data;
+		// Sets all attributes of the event to be added
 		startDate.setText(storeData.getDate());
 		endDate.setText(storeData.getEndDate());
 		from.setText(storeData.getSTime());
 		to.setText(storeData.getETime());
 		descrip.setText(storeData.getDescription());
 		location.setText(storeData.getLocation());
+
+		// Adds listener for submitting event detail changes
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				
+				// Sets all attributes of event
 				storeData.setLocation(getLoca());
 				storeData.setDate(getDate());
 				storeData.setSTime(getStartTime());
@@ -50,6 +59,7 @@ public class EditEvent extends JFrame {
 				parent.setVisible(true);
 			}
 		});
+		// JPanel with GridBagLayout that sets up UI and accepts input
 		JPanel eventPanel = new JPanel();
 		eventPanel.setLayout(new GridBagLayout());
 		GridBagConstraints s = new GridBagConstraints();
@@ -93,41 +103,55 @@ public class EditEvent extends JFrame {
 		s.gridx = 0;
 		s.gridy = 12;
 		eventPanel.add(submit, s);
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(eventPanel);
 		this.setSize(450,400);
 		this.setVisible(true);
 		this.setResizable(false);
-		
+
 	}
-	
+	/*
+	 * Returns start date
+	 */
 	public String getDate(){
 		return startDate.getText();
 	}
-	
+	/*
+	 * Returns end date
+	 */
 	public String getEndDate(){
 		return endDate.getText();
 	}
-	
+	/*
+	 * Returns start time
+	 */
 	public String getStartTime(){
 		return from.getText();
 	}
-	
+	/*
+	 * Returns end time
+	 */
 	public String getEndTime(){
 		return to.getText();
 	}
-	
+	/*
+	 * Returns description
+	 */
 	public String getDescription(){
 		return descrip.getText();
 	}
-	
+	/*
+	 * Returns location
+	 */
 	public String getLoca(){
 		return location.getText();
 	}
-	
+	/*
+	 * Add listener for confirmation button
+	 */
 	void addConfirmListener(ActionListener listenForConfirm){
 		submit.addActionListener(listenForConfirm);
 	}
-	
+
 }
